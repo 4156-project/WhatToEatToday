@@ -83,6 +83,14 @@ public final class BaseResponse<T> implements Serializable {
         return response;
     }
 
+    public static <T> BaseResponse<T> withSuccess(T data) {
+        BaseResponse<T> response = new BaseResponse<>();
+        response.code = SUCCESS;
+        response.message = SUCCESS.message();
+        response.data = data;
+        return response;
+    }
+
 //    public boolean isSuccess() {
 //        return this.code.equals(SUCCESS);
 //    }

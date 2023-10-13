@@ -6,6 +6,6 @@ import lombok.NonNull;
 @Data
 public class CategoryQueryRequest {
 
-    @NonNull
+//    @NonNull
     public String categoryName;
 }
