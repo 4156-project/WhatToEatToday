@@ -1,9 +1,9 @@
-package com.whattoeattoday.recommendationservice.service.impl;
+package com.whattoeattoday.recommendationservice.demo.service.impl;
 
 import com.whattoeattoday.recommendationservice.common.Status;
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
-import com.whattoeattoday.recommendationservice.request.PrintDetailRequest;
-import com.whattoeattoday.recommendationservice.service.api.DemoService;
+import com.whattoeattoday.recommendationservice.demo.request.PrintDetailRequest;
+import com.whattoeattoday.recommendationservice.demo.service.api.DemoService;
 import org.springframework.stereotype.Service;
 
 @Service

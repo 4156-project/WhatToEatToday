@@ -1,4 +1,4 @@
-package com.whattoeattoday.recommendationservice.request;
+package com.whattoeattoday.recommendationservice.demo.request;
 
 import lombok.Data;
 

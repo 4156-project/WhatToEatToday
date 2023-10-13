@@ -1,7 +1,7 @@
-package com.whattoeattoday.recommendationservice.service.api;
+package com.whattoeattoday.recommendationservice.demo.service.api;
 
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
-import com.whattoeattoday.recommendationservice.request.PrintDetailRequest;
+import com.whattoeattoday.recommendationservice.demo.request.PrintDetailRequest;
 
 public interface DemoService {
     /**

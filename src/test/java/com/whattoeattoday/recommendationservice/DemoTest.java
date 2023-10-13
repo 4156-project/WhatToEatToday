@@ -2,8 +2,8 @@ package com.whattoeattoday.recommendationservice;
 
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
 import com.whattoeattoday.recommendationservice.common.Status;
-import com.whattoeattoday.recommendationservice.request.PrintDetailRequest;
-import com.whattoeattoday.recommendationservice.service.api.DemoService;
+import com.whattoeattoday.recommendationservice.demo.request.PrintDetailRequest;
+import com.whattoeattoday.recommendationservice.demo.service.api.DemoService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
