@@ -83,9 +83,9 @@ public final class BaseResponse<T> implements Serializable {
         return response;
     }
 
-    public boolean isSuccess() {
-        return this.code.equals(SUCCESS);
-    }
+//    public boolean isSuccess() {
+//        return this.code.equals(SUCCESS);
+//    }
 
     @Override
     public String toString() {
