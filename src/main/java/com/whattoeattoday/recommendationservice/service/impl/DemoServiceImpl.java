@@ -3,7 +3,6 @@ package com.whattoeattoday.recommendationservice.service.impl;
 import com.whattoeattoday.recommendationservice.common.Status;
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
 import com.whattoeattoday.recommendationservice.request.PrintDetailRequest;
-import com.whattoeattoday.recommendationservice.response.PrintDetailResponse;
 import com.whattoeattoday.recommendationservice.service.api.DemoService;
 import org.springframework.stereotype.Service;
 

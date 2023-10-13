@@ -2,7 +2,6 @@ package com.whattoeattoday.recommendationservice.controller;
 
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
 import com.whattoeattoday.recommendationservice.request.PrintDetailRequest;
-import com.whattoeattoday.recommendationservice.response.PrintDetailResponse;
 import com.whattoeattoday.recommendationservice.service.api.DemoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

@@ -6,7 +6,7 @@ import java.io.Serializable;
 import static com.whattoeattoday.recommendationservice.common.Status.SUCCESS;
 
 
-public class BaseResponse<T> implements Serializable {
+public final class BaseResponse<T> implements Serializable {
 
     private static final long serialVersionUID = 3886133510113334083L;
 
@@ -14,7 +14,6 @@ public class BaseResponse<T> implements Serializable {
     private String message;
     private T data;
 
-    //无参构造方法中将响应码置为DefaultStatus中的SUCCESS
     public BaseResponse() {
         this.setCode(SUCCESS);
         this.message = SUCCESS.message();
