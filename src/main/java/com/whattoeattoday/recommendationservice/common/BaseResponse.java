@@ -3,6 +3,7 @@ package com.whattoeattoday.recommendationservice.common;
 
 import java.io.Serializable;
 
+import static com.whattoeattoday.recommendationservice.common.Status.FAILURE;
 import static com.whattoeattoday.recommendationservice.common.Status.SUCCESS;
 
 
@@ -15,8 +16,8 @@ public final class BaseResponse<T> implements Serializable {
     private T data;
 
     public BaseResponse() {
-        this.setCode(SUCCESS);
-        this.message = SUCCESS.message();
+        this.setCode(FAILURE);
+        this.message = FAILURE.message();
     }
 
     public BaseResponse(T data) {
