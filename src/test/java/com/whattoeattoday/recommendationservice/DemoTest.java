@@ -30,7 +30,7 @@ public class DemoTest {
         // method 1
         Assert.assertEquals(response.getCode(), Status.SUCCESS);
         // method 2
-//        Assert.assertTrue(response.isSuccess());
+        Assert.assertTrue(response.isSuccess());
         log.info("Response: {}", response);
     }
 
