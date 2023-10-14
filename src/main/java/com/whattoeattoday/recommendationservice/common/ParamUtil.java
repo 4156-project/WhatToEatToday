@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class ParamUtil {
     public boolean isBlank(String param) {
-        return param != null && param.isEmpty();
+        return param == null || param.isEmpty();
     }
 
 }
