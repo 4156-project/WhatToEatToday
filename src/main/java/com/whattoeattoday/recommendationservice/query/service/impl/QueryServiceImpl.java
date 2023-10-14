@@ -15,6 +15,7 @@ import java.util.Map;
  */
 @Service
 public class QueryServiceImpl implements QueryService {
+
     @Override
     public BaseResponse queryByName(QueryByNameRequest request) {
         String categoryName = request.getCategoryName();
