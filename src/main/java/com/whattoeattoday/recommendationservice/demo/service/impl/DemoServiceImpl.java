@@ -17,7 +17,7 @@ public class DemoServiceImpl implements DemoService {
     public BaseResponse printDetail(PrintDetailRequest request) {
         // concrete logic
 
-        // param checking
+        // param validating
         if (request.age == null || request.name == null || request.gender == null) {
             return BaseResponse.with(Status.PARAM_ERROR);
         }
