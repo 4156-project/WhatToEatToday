@@ -1,0 +1,17 @@
+com/whattoeattoday/recommendationservice/demo/request/PrintDetailRequest.class
+com/whattoeattoday/recommendationservice/demo/service/impl/RecipeServiceImpl.class
+com/whattoeattoday/recommendationservice/common/BaseResponse.class
+com/whattoeattoday/recommendationservice/query/service/impl/QueryServiceImpl.class
+com/whattoeattoday/recommendationservice/RecommendationServiceApplication.class
+com/whattoeattoday/recommendationservice/common/StatusCode.class
+com/whattoeattoday/recommendationservice/query/request/QueryByNameRequest.class
+com/whattoeattoday/recommendationservice/demo/controller/DemoController.class
+com/whattoeattoday/recommendationservice/demo/service/impl/DemoServiceImpl.class
+com/whattoeattoday/recommendationservice/demo/service/api/RecipeService.class
+com/whattoeattoday/recommendationservice/query/service/api/QueryService.class
+com/whattoeattoday/recommendationservice/demo/entity/Recipe.class
+com/whattoeattoday/recommendationservice/demo/dao/RecipeMapper.class
+com/whattoeattoday/recommendationservice/demo/service/api/DemoService.class
+com/whattoeattoday/recommendationservice/query/controller/QueryController.class
+com/whattoeattoday/recommendationservice/common/Status.class
+com/whattoeattoday/recommendationservice/demo/controller/RecipeController.class

@@ -7,7 +7,7 @@ import java.util.List;
  * @date 10/13/23
  */
 public class ParamUtil {
-    public boolean isBlank(String param) {
+    public static boolean isBlank(String param) {
         return param == null || param.isEmpty();
     }
 

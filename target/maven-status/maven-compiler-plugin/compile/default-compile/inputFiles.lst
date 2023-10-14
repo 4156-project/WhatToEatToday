@@ -1,0 +1,17 @@
+/Users/jiarongshi/Desktop/Columbia/s3/Advanced SE/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/common/Status.java
+/Users/jiarongshi/Desktop/Columbia/s3/Advanced SE/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/common/BaseResponse.java
+/Users/jiarongshi/Desktop/Columbia/s3/Advanced SE/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/query/service/api/QueryService.java
+/Users/jiarongshi/Desktop/Columbia/s3/Advanced SE/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/RecommendationServiceApplication.java
+/Users/jiarongshi/Desktop/Columbia/s3/Advanced SE/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/demo/entity/Recipe.java
+/Users/jiarongshi/Desktop/Columbia/s3/Advanced SE/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/demo/service/impl/DemoServiceImpl.java
+/Users/jiarongshi/Desktop/Columbia/s3/Advanced SE/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/demo/request/PrintDetailRequest.java
+/Users/jiarongshi/Desktop/Columbia/s3/Advanced SE/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/query/service/impl/QueryServiceImpl.java
+/Users/jiarongshi/Desktop/Columbia/s3/Advanced SE/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/common/StatusCode.java
+/Users/jiarongshi/Desktop/Columbia/s3/Advanced SE/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/query/controller/QueryController.java
+/Users/jiarongshi/Desktop/Columbia/s3/Advanced SE/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/demo/service/api/RecipeService.java
+/Users/jiarongshi/Desktop/Columbia/s3/Advanced SE/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/demo/controller/DemoController.java
+/Users/jiarongshi/Desktop/Columbia/s3/Advanced SE/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/demo/service/api/DemoService.java
+/Users/jiarongshi/Desktop/Columbia/s3/Advanced SE/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/query/request/QueryByNameRequest.java
+/Users/jiarongshi/Desktop/Columbia/s3/Advanced SE/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/demo/service/impl/RecipeServiceImpl.java
+/Users/jiarongshi/Desktop/Columbia/s3/Advanced SE/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/demo/controller/RecipeController.java
+/Users/jiarongshi/Desktop/Columbia/s3/Advanced SE/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/demo/dao/RecipeMapper.java
