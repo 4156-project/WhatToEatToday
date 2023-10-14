@@ -31,14 +31,17 @@ public class QueryController {
         return queryService.queryAllCategory();
     }
 
+    @PostMapping("/query/content/name")
     public BaseResponse queryContentByName(@RequestBody QueryContentByNameRequest request) {
         return queryService.queryContentByName(request);
     }
 
+    @PostMapping("/query/content/multi-condition")
     public BaseResponse queryContentByMultiCondition(@RequestBody QueryContentByMultiConditionRequest request) {
         return queryService.queryContentByMultiCondition(request);
     }
 
+    @PostMapping("/query/content/fuzzy")
     public BaseResponse fuzzySearchContent(@RequestBody FuzzySearchContentRequest request) {
         return queryService.fuzzySearchContent(request);
     }
