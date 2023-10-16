@@ -2,6 +2,8 @@ package com.whattoeattoday.recommendationservice.query.service.impl;
 
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
 import com.whattoeattoday.recommendationservice.common.PageInfo;
+import com.whattoeattoday.recommendationservice.common.ParamUtil;
+import com.whattoeattoday.recommendationservice.common.Status;
 import com.whattoeattoday.recommendationservice.query.request.*;
 import com.whattoeattoday.recommendationservice.query.service.api.QueryService;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,10 @@ public class QueryServiceImpl implements QueryService {
 
     @Override
     public BaseResponse queryCategoryByName(QueryCategoryByNameRequest request) {
+        if (!ParamUtil.isNumeric(request.getPageNo()) || !ParamUtil.isNumeric(request.getPageSize())) {
+            return BaseResponse.with(Status.PARAM_ERROR, "Page Number or Page Size is not Numeric");
+        }
+        // TODO: Validate category name
         String categoryName = request.getCategoryName();
         PageInfo pageInfo = PageInfo.builder()
                 .pageNo(Integer.valueOf(request.getPageNo()))
