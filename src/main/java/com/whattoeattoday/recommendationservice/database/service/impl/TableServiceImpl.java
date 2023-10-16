@@ -81,14 +81,16 @@ public class TableServiceImpl implements TableService {
         String tableName = request.getTableName();
         String fieldName = request.getConditionField();
         String condition = request.getConditionValue();
+        int pageNo = Integer.valueOf(request.getPageNo());
+        int pageSize = Integer.valueOf(request.getPageSize());
         List<String> fieldNames = request.getFieldNames();
         String columnNames = String.join(",", fieldNames);
-        StringBuilder querySql = new StringBuilder(String.format("SELECT %s FROM `%s`", columnNames, tableName));
-        if (fieldName == null && condition == null) {
-            querySql.append(";");
-        } else {
-            querySql.append(String.format(" WHERE %s = '%s';", fieldName, condition));
+        StringBuilder querySql = new StringBuilder(String.format("SELECT %s FROM `%s` ", columnNames, tableName));
+        if (fieldName != null && condition != null) {
+            querySql.append(String.format("WHERE %s = '%s' ", fieldName, condition));
         }
+        int offset = (pageNo - 1) * pageSize;
+        querySql.append(String.format("LIMIT %s offset %s;", pageSize, offset));
         List<Map<String, Object>> res;
         try {
             res = jdbcTemplate.queryForList(querySql.toString());
@@ -96,8 +98,8 @@ public class TableServiceImpl implements TableService {
             return null;
         }
         PageInfo pageInfo = PageInfo.builder()
-                .pageNo(Integer.valueOf(request.getPageNo()))
-                .pageSize(Integer.valueOf(request.getPageSize()))
+                .pageNo(pageNo)
+                .pageSize(pageSize)
                 .pageData(res)
                 .build();
         return pageInfo;
