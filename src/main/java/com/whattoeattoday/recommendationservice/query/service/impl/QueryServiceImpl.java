@@ -4,10 +4,14 @@ import com.whattoeattoday.recommendationservice.common.BaseResponse;
 import com.whattoeattoday.recommendationservice.common.PageInfo;
 import com.whattoeattoday.recommendationservice.common.ParamUtil;
 import com.whattoeattoday.recommendationservice.common.Status;
+import com.whattoeattoday.recommendationservice.database.response.QueryTableNamesResponse;
+import com.whattoeattoday.recommendationservice.database.service.DatabaseService;
 import com.whattoeattoday.recommendationservice.query.request.*;
 import com.whattoeattoday.recommendationservice.query.service.api.QueryService;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,13 +23,22 @@ import java.util.Map;
 @Service
 public class QueryServiceImpl implements QueryService {
 
+    @Resource
+    private DatabaseService databaseService;
+
     @Override
     public BaseResponse queryCategoryByName(QueryCategoryByNameRequest request) {
+        if (ParamUtil.isBlank(request.getCategoryName()) || ParamUtil.isBlank(request.getPageNo()) || ParamUtil.isBlank(request.getPageSize())) {
+            return BaseResponse.with(Status.PARAM_ERROR, "Param is Null");
+        }
         if (!ParamUtil.isNumeric(request.getPageNo()) || !ParamUtil.isNumeric(request.getPageSize())) {
             return BaseResponse.with(Status.PARAM_ERROR, "Page Number or Page Size is not Numeric");
         }
-        // TODO: Validate category name
         String categoryName = request.getCategoryName();
+        if (!databaseService.queryTableNames().tableNames.contains(categoryName)) {
+            return BaseResponse.with(Status.NOT_FOUND, "Category Not Found");
+        }
+
         PageInfo pageInfo = PageInfo.builder()
                 .pageNo(Integer.valueOf(request.getPageNo()))
                 .pageSize(Integer.valueOf(request.getPageSize()))
@@ -36,8 +49,11 @@ public class QueryServiceImpl implements QueryService {
 
     @Override
     public BaseResponse queryAllCategory() {
-        // TODO
-        return null;
+        QueryTableNamesResponse response = databaseService.queryTableNames();
+        if (response.tableNames == null || response.tableNames.isEmpty()) {
+            return BaseResponse.with(Status.SUCCESS, "Database is Empty");
+        }
+        return BaseResponse.with(Status.SUCCESS, response.tableNames);
     }
 
     @Override
