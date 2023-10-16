@@ -1,4 +1,4 @@
-package com.whattoeattoday.recommendationservice.database.service.impl;
+package com.whattoeattoday.recommendationservice;
 
 import com.whattoeattoday.recommendationservice.RecommendationServiceApplication;
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
@@ -80,7 +80,7 @@ public class TableServiceImplTest {
 
     @Test
     public void testQuery() {
-        QueryRowRequest request = new QueryRowRequest();
+        QueryRowRequest request = QueryRowRequest.builder().build();
         request.setTableName("test1016");
         List<String> fieldNames = new ArrayList<String>(){{
             add("name");
@@ -88,10 +88,13 @@ public class TableServiceImplTest {
         }};
         request.setFieldNames(fieldNames);
         request.setPageInfo(PageInfo.builder().pageNo(2).pageSize(1).build());
-//        request.setConditionField("name");
-//        request.setConditionValue("Larry");
         PageInfo pageInfo = tableService.query(request);
-        log.info("RESPONSE: {}", pageInfo);
-        Assert.assertTrue(!pageInfo.getPageData().isEmpty());
+        log.info("RESPONSE1: {}", pageInfo);
+        Assert.assertTrue(pageInfo.getPageData().size() == 1);
+
+        request.setPageInfo(PageInfo.builder().pageNo(1).pageSize(2).build());
+        PageInfo pageInfo2 = tableService.query(request);
+        log.info("RESPONSE2: {}", pageInfo2);
+        Assert.assertTrue(pageInfo2.getPageData().size() == 2);
     }
 }

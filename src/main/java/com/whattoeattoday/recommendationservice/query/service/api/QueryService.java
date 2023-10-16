@@ -1,7 +1,10 @@
 package com.whattoeattoday.recommendationservice.query.service.api;
 
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
+import com.whattoeattoday.recommendationservice.common.PageInfo;
 import com.whattoeattoday.recommendationservice.query.request.*;
+
+import java.util.List;
 
 /**
  * @author Lijie Huang lh3158@columbia.edu
@@ -14,7 +17,7 @@ public interface QueryService {
      * @param request
      * @return
      */
-    BaseResponse queryCategoryByName(QueryCategoryByNameRequest request);
+    BaseResponse<PageInfo> queryCategoryByName(QueryCategoryByNameRequest request);
 
     /**
      * List info about all categories
