@@ -2,11 +2,11 @@ package com.whattoeattoday.recommendationservice.database.service.impl;
 
 import com.whattoeattoday.recommendationservice.RecommendationServiceApplication;
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
+import com.whattoeattoday.recommendationservice.common.PageInfo;
 import com.whattoeattoday.recommendationservice.database.request.row.DeleteRowRequest;
 import com.whattoeattoday.recommendationservice.database.request.row.InsertRowRequest;
 import com.whattoeattoday.recommendationservice.database.request.row.QueryRowRequest;
 import com.whattoeattoday.recommendationservice.database.request.row.UpdateRowRequest;
-import com.whattoeattoday.recommendationservice.database.response.QueryRowResponse;
 import com.whattoeattoday.recommendationservice.database.service.TableService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
@@ -87,9 +87,11 @@ public class TableServiceImplTest {
             add("gender");
         }};
         request.setFieldNames(fieldNames);
+        request.setPageNo("1");
+        request.setPageSize("10");
 //        request.setConditionField("name");
 //        request.setConditionValue("Larry");
-        QueryRowResponse response = tableService.query(request);
-        System.out.println(response);
+        PageInfo pageInfo = tableService.query(request);
+        System.out.println(pageInfo);
     }
 }

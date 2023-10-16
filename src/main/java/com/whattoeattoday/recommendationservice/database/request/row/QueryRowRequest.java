@@ -10,4 +10,6 @@ public class QueryRowRequest {
     public List<String> fieldNames;
     public String conditionField;
     public String conditionValue;
+    public String pageNo;
+    public String pageSize;
 }

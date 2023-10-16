@@ -1,11 +1,11 @@
 package com.whattoeattoday.recommendationservice.database.service;
 
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
+import com.whattoeattoday.recommendationservice.common.PageInfo;
 import com.whattoeattoday.recommendationservice.database.request.row.DeleteRowRequest;
 import com.whattoeattoday.recommendationservice.database.request.row.InsertRowRequest;
 import com.whattoeattoday.recommendationservice.database.request.row.QueryRowRequest;
 import com.whattoeattoday.recommendationservice.database.request.row.UpdateRowRequest;
-import com.whattoeattoday.recommendationservice.database.response.QueryRowResponse;
 
 /**
  * @author Jiarong Shi js6132@columbia.edu
@@ -38,5 +38,5 @@ public interface TableService {
      * @param request if condition is null, return all rows
      * @return
      */
-    QueryRowResponse query(QueryRowRequest request);
+    PageInfo query(QueryRowRequest request);
 }

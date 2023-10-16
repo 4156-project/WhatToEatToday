@@ -1,12 +1,12 @@
 package com.whattoeattoday.recommendationservice.database.service.impl;
 
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
+import com.whattoeattoday.recommendationservice.common.PageInfo;
 import com.whattoeattoday.recommendationservice.common.Status;
 import com.whattoeattoday.recommendationservice.database.request.row.DeleteRowRequest;
 import com.whattoeattoday.recommendationservice.database.request.row.InsertRowRequest;
 import com.whattoeattoday.recommendationservice.database.request.row.QueryRowRequest;
 import com.whattoeattoday.recommendationservice.database.request.row.UpdateRowRequest;
-import com.whattoeattoday.recommendationservice.database.response.QueryRowResponse;
 import com.whattoeattoday.recommendationservice.database.service.TableService;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -77,7 +77,7 @@ public class TableServiceImpl implements TableService {
     }
 
     @Override
-    public QueryRowResponse query(QueryRowRequest request) {
+    public PageInfo query(QueryRowRequest request) {
         String tableName = request.getTableName();
         String fieldName = request.getConditionField();
         String condition = request.getConditionValue();
@@ -95,9 +95,12 @@ public class TableServiceImpl implements TableService {
         } catch (DataAccessException e) {
             return null;
         }
-        QueryRowResponse response = new QueryRowResponse();
-        response.setRows(res);
-        return response;
+        PageInfo pageInfo = PageInfo.builder()
+                .pageNo(Integer.valueOf(request.getPageNo()))
+                .pageSize(Integer.valueOf(request.getPageSize()))
+                .pageData(res)
+                .build();
+        return pageInfo;
     }
 
 
