@@ -14,6 +14,15 @@ public class ParamUtil {
         return param == null || param.isEmpty();
     }
 
+    public static boolean isAllNotBlank(String[] params) {
+        for (String param : params) {
+            if (param == null || param.isEmpty()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static boolean isNumeric(String str) {
         Matcher isNum = numericPattern.matcher(str);
         return isNum.matches();

@@ -28,8 +28,8 @@ public class QueryController {
     }
 
     @PostMapping("/query/content/name")
-    public BaseResponse queryContentByName(@RequestBody QueryContentByNameRequest request) {
-        return queryService.queryContentByName(request);
+    public BaseResponse queryContentBySingleCondition(@RequestBody QueryContentBySingleConditionRequest request) {
+        return queryService.queryContentBySingleCondition(request);
     }
 
     @PostMapping("/query/content/multi-condition")

@@ -11,10 +11,7 @@ import com.whattoeattoday.recommendationservice.query.service.api.QueryService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Lijie Huang lh3158@columbia.edu
@@ -57,9 +54,13 @@ public class QueryServiceImpl implements QueryService {
     }
 
     @Override
-    public BaseResponse queryContentByName(QueryContentByNameRequest request) {
+    public BaseResponse queryContentBySingleCondition(QueryContentBySingleConditionRequest request) {
+        if (!ParamUtil.isAllNotBlank(new String[]{request.getCategoryName(), request.getContentValue(), request.getContentName()})) {
+            return BaseResponse.with(Status.PARAM_ERROR, "Param is Incomplete");
+        }
         String tableName = request.getCategoryName();
-        String fileName = request.getContentName();
+        String fieldName = request.getContentName();
+        String fieldValue = request.getContentValue();
         return null;
     }
 

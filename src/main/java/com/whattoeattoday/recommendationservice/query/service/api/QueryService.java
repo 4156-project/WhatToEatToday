@@ -27,7 +27,7 @@ public interface QueryService {
      * @param request
      * @return
      */
-    BaseResponse queryContentByName(QueryContentByNameRequest request);
+    BaseResponse queryContentBySingleCondition(QueryContentBySingleConditionRequest request);
 
     /**
      * Query Contents in a given table with multiple search conditions

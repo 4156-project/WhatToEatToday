@@ -8,7 +8,8 @@ import lombok.Data;
  */
 
 @Data
-public class QueryContentByNameRequest {
+public class QueryContentBySingleConditionRequest {
     String categoryName;
     String contentName;
+    String contentValue;
 }
