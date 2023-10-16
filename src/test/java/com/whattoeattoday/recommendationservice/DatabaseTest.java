@@ -2,9 +2,13 @@ package com.whattoeattoday.recommendationservice;
 
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
 import com.whattoeattoday.recommendationservice.database.request.BuildTableRequest;
+import com.whattoeattoday.recommendationservice.database.request.DeleteTableRequest;
 import com.whattoeattoday.recommendationservice.database.request.QueryTableRequest;
+import com.whattoeattoday.recommendationservice.database.response.QueryTableNamesResponse;
 import com.whattoeattoday.recommendationservice.database.service.DatabaseService;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,35 +51,45 @@ public class DatabaseTest {
         fieldNameList.add("id");
         fieldNameList.add("name");
         fieldNameList.add("gender");
-        fieldNameList.add("age");
+//        fieldNameList.add("age");
         List<String> fieldTypeList = new ArrayList<>();
         fieldTypeList.add("BIGINT(20)");
         fieldTypeList.add("VARCHAR(20)");
         fieldTypeList.add("VARCHAR(1)");
-        fieldTypeList.add("INT");
+//        fieldTypeList.add("INT");
 
-        request.setTableName("test1015");
+        request.setTableName("test1016");
         request.setFieldNameList(fieldNameList);
         request.setFieldTypeList(fieldTypeList);
         request.setPrimaryKey("id");
 
         BaseResponse response = databaseService.buildTable(request);
-        System.out.println(response);
+        log.info("RESPONSE: {}", response);
+        Assert.assertTrue(response.isSuccess());
     }
 
     @Test
     public void TestDeleteTable() {
-        QueryTableRequest request = new QueryTableRequest();
+        DeleteTableRequest request = new DeleteTableRequest();
         request.setTableName("test1015");
         BaseResponse response = databaseService.deleteTable(request);
-        System.out.println(response);
+        log.info("RESPONSE: {}", response);
+        Assert.assertTrue(response.isSuccess());
     }
 
     @Test
     public void TestQueryTable() {
         QueryTableRequest request = new QueryTableRequest();
-        request.setTableName("test1015");
+        request.setTableName("test1016");
         BaseResponse response = databaseService.queryTable(request);
-        System.out.println(response);
+        log.info("RESPONSE: {}", response);
+        Assert.assertTrue(response.isSuccess());
+    }
+
+    @Test
+    public void TestQueryTableNames() {
+        QueryTableNamesResponse response = databaseService.queryTableNames();
+        log.info("RESPONSE: {}", response);
+        Assert.assertFalse(response.tableNames.isEmpty());
     }
 }

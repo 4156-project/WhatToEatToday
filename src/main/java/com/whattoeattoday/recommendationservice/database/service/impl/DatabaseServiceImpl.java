@@ -1,17 +1,20 @@
-package com.whattoeattoday.recommendationservice.database.service.Impl;
+package com.whattoeattoday.recommendationservice.database.service.impl;
 
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
 import com.whattoeattoday.recommendationservice.common.Status;
 import com.whattoeattoday.recommendationservice.database.request.BuildTableRequest;
+import com.whattoeattoday.recommendationservice.database.request.DeleteTableRequest;
 import com.whattoeattoday.recommendationservice.database.request.QueryTableRequest;
+import com.whattoeattoday.recommendationservice.database.response.QueryTableNamesResponse;
+import com.whattoeattoday.recommendationservice.database.response.QueryTableResponse;
 import com.whattoeattoday.recommendationservice.database.service.DatabaseService;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.List;
-import java.util.Map;
+import java.math.BigInteger;
+import java.util.*;
 
 @Service
 public class DatabaseServiceImpl implements DatabaseService {
@@ -51,7 +54,7 @@ public class DatabaseServiceImpl implements DatabaseService {
     }
 
     @Override
-    public BaseResponse deleteTable(QueryTableRequest request) {
+    public BaseResponse deleteTable(DeleteTableRequest request) {
         String tableName = request.getTableName();
         StringBuilder sqlBuilder = new StringBuilder(String.format("DROP TABLE IF EXISTS `%s`", tableName));
         try {
@@ -80,7 +83,49 @@ public class DatabaseServiceImpl implements DatabaseService {
         } catch (DataAccessException e) {
             return BaseResponse.with(Status.PARAM_ERROR, null, null);
         }
-        return BaseResponse.with(Status.SUCCESS, table);
+
+        QueryTableResponse responseData = new QueryTableResponse();
+        String[] columnNames = null;
+        String[] columnTypes = null;
+        for (String key : table.keySet()) {
+            if ("id".equals(key)) {
+                responseData.setId((BigInteger) table.get(key));
+            } else if ("row_num".equals(key)) {
+                responseData.setRowNum((Long) table.get(key));
+            } else if ("column_names".equals(key)) {
+                columnNames = ((String) table.get(key)).split(",");
+            } else if ("column_types".equals(key)) {
+                columnTypes = ((String) table.get(key)).split(",");
+            } else if ("name".equals(key)) {
+                responseData.setTableName((String) table.get(key));
+            }
+        }
+        Map<String, String> nameTypeMap = new HashMap<>();
+        for (int i = 0; i < columnNames.length; i++) {
+            nameTypeMap.put(columnNames[i], columnTypes[i]);
+        }
+        responseData.setFiledNameTypeMap(nameTypeMap);
+        return BaseResponse.with(Status.SUCCESS, responseData);
+    }
+
+    @Override
+    public QueryTableNamesResponse queryTableNames() {
+        String sql = "SELECT name FROM `table_record`";
+        List<Map<String, Object>> result = null;
+
+        try {
+            result = jdbcTemplate.queryForList(sql);
+        } catch (DataAccessException e) {
+            return null;
+        }
+
+        Set<String> names = new HashSet<>();
+        for (Map<String, Object> map : result) {
+            names.add((String) map.get("name"));
+        }
+        QueryTableNamesResponse response = new QueryTableNamesResponse();
+        response.setTableNames(names);
+        return response;
     }
 
 }
