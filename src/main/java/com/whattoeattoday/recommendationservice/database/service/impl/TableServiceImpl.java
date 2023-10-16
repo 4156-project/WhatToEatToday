@@ -1,12 +1,12 @@
 package com.whattoeattoday.recommendationservice.database.service.impl;
 
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
+import com.whattoeattoday.recommendationservice.common.PageInfo;
 import com.whattoeattoday.recommendationservice.common.Status;
 import com.whattoeattoday.recommendationservice.database.request.row.DeleteRowRequest;
 import com.whattoeattoday.recommendationservice.database.request.row.InsertRowRequest;
 import com.whattoeattoday.recommendationservice.database.request.row.QueryRowRequest;
 import com.whattoeattoday.recommendationservice.database.request.row.UpdateRowRequest;
-import com.whattoeattoday.recommendationservice.database.response.QueryRowResponse;
 import com.whattoeattoday.recommendationservice.database.service.TableService;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -77,27 +77,29 @@ public class TableServiceImpl implements TableService {
     }
 
     @Override
-    public QueryRowResponse query(QueryRowRequest request) {
+    public PageInfo query(QueryRowRequest request) {
         String tableName = request.getTableName();
         String fieldName = request.getConditionField();
         String condition = request.getConditionValue();
+        PageInfo pageInfo = request.getPageInfo();
+        int pageNo = Integer.valueOf(pageInfo.getPageNo());
+        int pageSize = Integer.valueOf(pageInfo.getPageSize());
         List<String> fieldNames = request.getFieldNames();
         String columnNames = String.join(",", fieldNames);
-        StringBuilder querySql = new StringBuilder(String.format("SELECT %s FROM `%s`", columnNames, tableName));
-        if (fieldName == null && condition == null) {
-            querySql.append(";");
-        } else {
-            querySql.append(String.format(" WHERE %s = '%s';", fieldName, condition));
+        StringBuilder querySql = new StringBuilder(String.format("SELECT %s FROM `%s` ", columnNames, tableName));
+        if (fieldName != null && condition != null) {
+            querySql.append(String.format("WHERE %s = '%s' ", fieldName, condition));
         }
+        int offset = (pageNo - 1) * pageSize;
+        querySql.append(String.format("LIMIT %s offset %s;", pageSize, offset));
         List<Map<String, Object>> res;
         try {
             res = jdbcTemplate.queryForList(querySql.toString());
         } catch (DataAccessException e) {
             return null;
         }
-        QueryRowResponse response = new QueryRowResponse();
-        response.setRows(res);
-        return response;
+        pageInfo.setPageData(res);
+        return pageInfo;
     }
 
 
