@@ -81,8 +81,9 @@ public class TableServiceImpl implements TableService {
         String tableName = request.getTableName();
         String fieldName = request.getConditionField();
         String condition = request.getConditionValue();
-        int pageNo = Integer.valueOf(request.getPageNo());
-        int pageSize = Integer.valueOf(request.getPageSize());
+        PageInfo pageInfo = request.getPageInfo();
+        int pageNo = Integer.valueOf(pageInfo.getPageNo());
+        int pageSize = Integer.valueOf(pageInfo.getPageSize());
         List<String> fieldNames = request.getFieldNames();
         String columnNames = String.join(",", fieldNames);
         StringBuilder querySql = new StringBuilder(String.format("SELECT %s FROM `%s` ", columnNames, tableName));
@@ -97,11 +98,7 @@ public class TableServiceImpl implements TableService {
         } catch (DataAccessException e) {
             return null;
         }
-        PageInfo pageInfo = PageInfo.builder()
-                .pageNo(pageNo)
-                .pageSize(pageSize)
-                .pageData(res)
-                .build();
+        pageInfo.setPageData(res);
         return pageInfo;
     }
 

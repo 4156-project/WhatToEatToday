@@ -6,6 +6,7 @@ import com.whattoeattoday.recommendationservice.common.ParamUtil;
 import com.whattoeattoday.recommendationservice.common.Status;
 import com.whattoeattoday.recommendationservice.database.response.QueryTableNamesResponse;
 import com.whattoeattoday.recommendationservice.database.service.DatabaseService;
+import com.whattoeattoday.recommendationservice.database.service.TableService;
 import com.whattoeattoday.recommendationservice.query.request.*;
 import com.whattoeattoday.recommendationservice.query.service.api.QueryService;
 import org.springframework.stereotype.Service;
@@ -40,6 +41,7 @@ public class QueryServiceImpl implements QueryService {
                 .pageNo(Integer.valueOf(request.getPageNo()))
                 .pageSize(Integer.valueOf(request.getPageSize()))
                 .build();
+
         // TODO
         return null;
     }

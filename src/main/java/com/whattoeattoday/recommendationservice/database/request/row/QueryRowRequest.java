@@ -1,5 +1,6 @@
 package com.whattoeattoday.recommendationservice.database.request.row;
 
+import com.whattoeattoday.recommendationservice.common.PageInfo;
 import lombok.Data;
 
 import java.util.List;
@@ -10,6 +11,5 @@ public class QueryRowRequest {
     public List<String> fieldNames;
     public String conditionField;
     public String conditionValue;
-    public String pageNo;
-    public String pageSize;
+    public PageInfo pageInfo;
 }
