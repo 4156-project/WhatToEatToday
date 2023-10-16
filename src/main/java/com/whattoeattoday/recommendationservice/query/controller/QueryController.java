@@ -27,7 +27,7 @@ public class QueryController {
         return queryService.queryAllCategory();
     }
 
-    @PostMapping("/query/content/name")
+    @PostMapping("/query/content/single-condition")
     public BaseResponse queryContentBySingleCondition(@RequestBody QueryContentBySingleConditionRequest request) {
         return queryService.queryContentBySingleCondition(request);
     }
