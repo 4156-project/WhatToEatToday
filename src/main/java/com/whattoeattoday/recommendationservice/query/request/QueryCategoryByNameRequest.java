@@ -10,4 +10,6 @@ import lombok.Data;
 @Data
 public class QueryCategoryByNameRequest {
     String categoryName;
+    String pageNo;
+    String pageSize;
 }

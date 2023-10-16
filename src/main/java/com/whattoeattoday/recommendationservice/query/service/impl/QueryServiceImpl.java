@@ -1,6 +1,7 @@
 package com.whattoeattoday.recommendationservice.query.service.impl;
 
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
+import com.whattoeattoday.recommendationservice.common.PageInfo;
 import com.whattoeattoday.recommendationservice.query.request.*;
 import com.whattoeattoday.recommendationservice.query.service.api.QueryService;
 import org.springframework.stereotype.Service;
@@ -17,16 +18,12 @@ import java.util.Map;
 public class QueryServiceImpl implements QueryService {
 
     @Override
-    public BaseResponse queryByName(QueryByNameRequest request) {
-        String categoryName = request.getCategoryName();
-        // TODO: use other service to query databse and get query result;
-        Map<String, String> result = new HashMap<>();
-        return BaseResponse.withSuccess(result);
-    }
-
-    @Override
     public BaseResponse queryCategoryByName(QueryCategoryByNameRequest request) {
         String categoryName = request.getCategoryName();
+        PageInfo pageInfo = PageInfo.builder()
+                .pageNo(Integer.valueOf(request.getPageNo()))
+                .pageSize(Integer.valueOf(request.getPageSize()))
+                .build();
         // TODO
         return null;
     }

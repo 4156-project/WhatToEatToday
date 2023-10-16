@@ -9,8 +9,6 @@ import com.whattoeattoday.recommendationservice.query.request.*;
  */
 public interface QueryService {
 
-    BaseResponse queryByName(QueryByNameRequest request);
-
     /**
      * Query Info about the given category name
      * @param request

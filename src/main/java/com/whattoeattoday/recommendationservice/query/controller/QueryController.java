@@ -16,10 +16,6 @@ public class QueryController {
 
     @Resource
     public QueryService queryService;
-    @PostMapping("/category/query/name")
-    public BaseResponse queryByName(@RequestBody QueryByNameRequest request) {
-        return queryService.queryByName(request);
-    }
 
     @PostMapping("/query/category/name")
     public BaseResponse queryCategoryByName(@RequestBody QueryCategoryByNameRequest request) {
