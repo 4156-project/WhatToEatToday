@@ -2,9 +2,10 @@ package com.whattoeattoday.recommendationservice.database.service.impl;
 
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
 import com.whattoeattoday.recommendationservice.common.Status;
-import com.whattoeattoday.recommendationservice.database.request.BuildTableRequest;
-import com.whattoeattoday.recommendationservice.database.request.DeleteTableRequest;
-import com.whattoeattoday.recommendationservice.database.request.QueryTableRequest;
+import com.whattoeattoday.recommendationservice.database.request.table.BuildTableRequest;
+import com.whattoeattoday.recommendationservice.database.request.table.DeleteTableRequest;
+import com.whattoeattoday.recommendationservice.database.request.table.QueryTableRequest;
+import com.whattoeattoday.recommendationservice.database.request.table.UpdateTableRequest;
 import com.whattoeattoday.recommendationservice.database.response.QueryTableNamesResponse;
 import com.whattoeattoday.recommendationservice.database.response.QueryTableResponse;
 import com.whattoeattoday.recommendationservice.database.service.DatabaseService;
@@ -38,11 +39,10 @@ public class DatabaseServiceImpl implements DatabaseService {
         } catch (DataAccessException e) {
             return BaseResponse.with(Status.PARAM_ERROR);
         }
-
         // Update table_record
         String columnNames = String.join(",", fieldNameList);
         String columnTypes = String.join(",", fieldTypeList);
-        StringBuilder insertSql = new StringBuilder(String.format("INSERT INTO `table_record` (name, column_names, column_types) VALUES ('%s', '%s', '%s')",
+        StringBuilder insertSql = new StringBuilder(String.format("INSERT IGNORE INTO `table_record` (name, column_names, column_types) VALUES ('%s', '%s', '%s')",
                 tableName, columnNames, columnTypes));
         try {
             jdbcTemplate.execute(insertSql.toString());
@@ -74,14 +74,14 @@ public class DatabaseServiceImpl implements DatabaseService {
     }
 
     @Override
-    public BaseResponse queryTable(QueryTableRequest request) {
+    public QueryTableResponse queryTable(QueryTableRequest request) {
         String tableName = request.getTableName();
         StringBuilder sqlBuilder = new StringBuilder(String.format("SELECT id, name, row_num, column_names, column_types FROM `table_record` WHERE name = '%s'", tableName));
         Map<String, Object> table;
         try {
             table = jdbcTemplate.queryForMap(sqlBuilder.toString());
         } catch (DataAccessException e) {
-            return BaseResponse.with(Status.PARAM_ERROR, null, null);
+            return null;
         }
 
         QueryTableResponse responseData = new QueryTableResponse();
@@ -105,7 +105,7 @@ public class DatabaseServiceImpl implements DatabaseService {
             nameTypeMap.put(columnNames[i], columnTypes[i]);
         }
         responseData.setFiledNameTypeMap(nameTypeMap);
-        return BaseResponse.with(Status.SUCCESS, responseData);
+        return responseData;
     }
 
     @Override
@@ -126,6 +126,32 @@ public class DatabaseServiceImpl implements DatabaseService {
         QueryTableNamesResponse response = new QueryTableNamesResponse();
         response.setTableNames(names);
         return response;
+    }
+
+    @Override
+    public BaseResponse setAutoIncrement(UpdateTableRequest request) {
+        String tableName = request.getTableName();
+        String columnName = request.getColumnName();
+        String sql = "ALTER TABLE " + tableName + " MODIFY COLUMN " + columnName + " INT AUTO_INCREMENT;";
+        try {
+            jdbcTemplate.execute(sql);
+        } catch (DataAccessException e) {
+            return BaseResponse.with(Status.PARAM_ERROR);
+        }
+        return BaseResponse.with(Status.SUCCESS);
+    }
+
+    @Override
+    public BaseResponse setUniqueKey(UpdateTableRequest request) {
+        String tableName = request.getTableName();
+        String columnName = request.getColumnName();
+        String sql = "ALTER TABLE " + tableName + " ADD CONSTRAINT unique_" + columnName + " UNIQUE (" + columnName + ")";
+        try {
+            jdbcTemplate.execute(sql);
+        } catch (DataAccessException e) {
+            return BaseResponse.with(Status.PARAM_ERROR);
+        }
+        return BaseResponse.with(Status.SUCCESS);
     }
 
 }
