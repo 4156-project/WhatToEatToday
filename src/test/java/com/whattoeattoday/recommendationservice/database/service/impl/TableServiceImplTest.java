@@ -87,11 +87,11 @@ public class TableServiceImplTest {
             add("gender");
         }};
         request.setFieldNames(fieldNames);
-        request.setPageNo("1");
-        request.setPageSize("10");
+        request.setPageInfo(PageInfo.builder().pageNo(2).pageSize(1).build());
 //        request.setConditionField("name");
 //        request.setConditionValue("Larry");
         PageInfo pageInfo = tableService.query(request);
-        System.out.println(pageInfo);
+        log.info("RESPONSE: {}", pageInfo);
+        Assert.assertTrue(!pageInfo.getPageData().isEmpty());
     }
 }
