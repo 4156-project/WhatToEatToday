@@ -1,6 +1,7 @@
 package com.whattoeattoday.recommendationservice;
 
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
+import com.whattoeattoday.recommendationservice.database.request.row.QueryRowRequest;
 import com.whattoeattoday.recommendationservice.database.request.table.BuildTableRequest;
 import com.whattoeattoday.recommendationservice.database.request.table.DeleteTableRequest;
 import com.whattoeattoday.recommendationservice.database.request.table.QueryTableRequest;
