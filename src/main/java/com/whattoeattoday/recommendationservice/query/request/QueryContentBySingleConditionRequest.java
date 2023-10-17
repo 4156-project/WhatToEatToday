@@ -2,6 +2,8 @@ package com.whattoeattoday.recommendationservice.query.request;
 
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * @author Lijie Huang lh3158@columbia.edu
  * @date 10/14/23
@@ -9,7 +11,10 @@ import lombok.Data;
 
 @Data
 public class QueryContentBySingleConditionRequest {
-    String categoryName;
-    String contentName;
-    String contentValue;
+    public String categoryName;
+    public List<String> fieldNames;
+    public String conditionField;
+    public String conditionValue;
+    public String pageNo;
+    public String pageSize;
 }

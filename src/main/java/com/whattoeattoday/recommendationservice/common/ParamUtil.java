@@ -27,4 +27,9 @@ public class ParamUtil {
         Matcher isNum = numericPattern.matcher(str);
         return isNum.matches();
     }
+
+    // TODO
+    public static boolean isFiledNames(List<String> filedNames) {
+        return true;
+    }
 }

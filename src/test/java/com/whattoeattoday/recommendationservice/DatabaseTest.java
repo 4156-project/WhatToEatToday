@@ -1,13 +1,15 @@
 package com.whattoeattoday.recommendationservice;
 
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
-import com.whattoeattoday.recommendationservice.database.request.BuildTableRequest;
-import com.whattoeattoday.recommendationservice.database.request.DeleteTableRequest;
-import com.whattoeattoday.recommendationservice.database.request.QueryTableRequest;
+import com.whattoeattoday.recommendationservice.database.request.row.QueryRowRequest;
+import com.whattoeattoday.recommendationservice.database.request.table.BuildTableRequest;
+import com.whattoeattoday.recommendationservice.database.request.table.DeleteTableRequest;
+import com.whattoeattoday.recommendationservice.database.request.table.QueryTableRequest;
+import com.whattoeattoday.recommendationservice.database.request.table.UpdateTableRequest;
 import com.whattoeattoday.recommendationservice.database.response.QueryTableNamesResponse;
+import com.whattoeattoday.recommendationservice.database.response.QueryTableResponse;
 import com.whattoeattoday.recommendationservice.database.service.DatabaseService;
 import lombok.extern.slf4j.Slf4j;
-import lombok.val;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -51,12 +53,12 @@ public class DatabaseTest {
         fieldNameList.add("id");
         fieldNameList.add("name");
         fieldNameList.add("gender");
-//        fieldNameList.add("age");
+        fieldNameList.add("age");
         List<String> fieldTypeList = new ArrayList<>();
         fieldTypeList.add("BIGINT(20)");
         fieldTypeList.add("VARCHAR(20)");
-        fieldTypeList.add("VARCHAR(1)");
-//        fieldTypeList.add("INT");
+        fieldTypeList.add("VARCHAR(20)");
+        fieldTypeList.add("INT");
 
         request.setTableName("test1016");
         request.setFieldNameList(fieldNameList);
@@ -69,9 +71,28 @@ public class DatabaseTest {
     }
 
     @Test
+    public void TestSetAutoIncrement() {
+        UpdateTableRequest request = new UpdateTableRequest();
+        request.setTableName("test1016");
+        request.setColumnName("id");
+        BaseResponse response = databaseService.setAutoIncrement(request);
+        log.info("RESPONSE: {}", response);
+        Assert.assertTrue(response.isSuccess());
+    }
+
+    @Test
+    public void TestSetUniqueKey() {
+        UpdateTableRequest request = new UpdateTableRequest();
+        request.setTableName("test1016");
+        request.setColumnName("name");
+        BaseResponse response = databaseService.setUniqueKey(request);
+        log.info("RESPONSE: {}", response);
+        Assert.assertTrue(response.isSuccess());
+    }
+    @Test
     public void TestDeleteTable() {
         DeleteTableRequest request = new DeleteTableRequest();
-        request.setTableName("test1015");
+        request.setTableName("test1016");
         BaseResponse response = databaseService.deleteTable(request);
         log.info("RESPONSE: {}", response);
         Assert.assertTrue(response.isSuccess());
@@ -81,9 +102,9 @@ public class DatabaseTest {
     public void TestQueryTable() {
         QueryTableRequest request = new QueryTableRequest();
         request.setTableName("test1016");
-        BaseResponse response = databaseService.queryTable(request);
+        QueryTableResponse response = databaseService.queryTable(request);
         log.info("RESPONSE: {}", response);
-        Assert.assertTrue(response.isSuccess());
+        Assert.assertEquals(response.getTableName(), request.getTableName());
     }
 
     @Test
