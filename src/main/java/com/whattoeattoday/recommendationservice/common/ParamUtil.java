@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
  * @date 10/13/23
  */
 public class ParamUtil {
-    static final Pattern numericPattern = Pattern.compile("[0-9]*");
+    static final Pattern NUMERIC_PATTERN = Pattern.compile("[0-9]*");
     public static boolean isBlank(String param) {
         return param == null || param.isEmpty();
     }
@@ -24,11 +24,10 @@ public class ParamUtil {
     }
 
     public static boolean isNumeric(String str) {
-        Matcher isNum = numericPattern.matcher(str);
+        Matcher isNum = NUMERIC_PATTERN.matcher(str);
         return isNum.matches();
     }
 
-    // TODO
     public static boolean isFiledNames(List<String> filedNames) {
         return true;
     }

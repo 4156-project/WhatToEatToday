@@ -8,6 +8,6 @@ import lombok.Data;
  */
 @Data
 public class FuzzySearchContentRequest {
-    String CategoryName;
+    String categoryName;
     String keyword;
 }

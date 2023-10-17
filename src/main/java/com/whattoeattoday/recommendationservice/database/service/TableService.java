@@ -24,14 +24,14 @@ public interface TableService {
      * @param request
      * @return
      */
-    BaseResponse delete(DeleteRowRequest request);
+    BaseResponse<Object> delete(DeleteRowRequest request);
 
     /**
      * update one row by condition
      * @param request
      * @return
      */
-    BaseResponse update(UpdateRowRequest request);
+    BaseResponse<Object> update(UpdateRowRequest request);
 
     /**
      * query rows with or without condition

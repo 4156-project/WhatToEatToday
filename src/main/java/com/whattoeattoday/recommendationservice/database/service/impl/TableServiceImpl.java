@@ -7,12 +7,14 @@ import com.whattoeattoday.recommendationservice.database.request.row.DeleteRowRe
 import com.whattoeattoday.recommendationservice.database.request.row.InsertRowRequest;
 import com.whattoeattoday.recommendationservice.database.request.row.QueryRowRequest;
 import com.whattoeattoday.recommendationservice.database.request.row.UpdateRowRequest;
+import com.whattoeattoday.recommendationservice.database.service.DatabaseService;
 import com.whattoeattoday.recommendationservice.database.service.TableService;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +22,9 @@ import java.util.Map;
 public class TableServiceImpl implements TableService {
     @Resource
     private JdbcTemplate jdbcTemplate;
+
+    @Resource
+    private DatabaseService databaseService;
 
     @Override
     public BaseResponse insert(InsertRowRequest request) {
@@ -36,7 +41,8 @@ public class TableServiceImpl implements TableService {
         } catch (DataAccessException e) {
             return BaseResponse.with(Status.PARAM_ERROR);
         }
-        return BaseResponse.with(Status.SUCCESS);
+        // update table_record
+        return updateRowNum(tableName);
     }
 
     @Override
@@ -50,7 +56,7 @@ public class TableServiceImpl implements TableService {
         } catch (DataAccessException e) {
             return BaseResponse.with(Status.PARAM_ERROR);
         }
-        return BaseResponse.with(Status.SUCCESS);
+        return updateRowNum(tableName);
     }
 
     @Override
@@ -102,5 +108,32 @@ public class TableServiceImpl implements TableService {
         return pageInfo;
     }
 
+    public long queryTableRowsNum(String tableName) {
+        String Sql = "SELECT COUNT(*) AS cnt FROM " + tableName;
+        Map<String, Object> res;
+        try {
+            res = jdbcTemplate.queryForMap(Sql);
+        } catch (DataAccessException e) {
+            return -1;
+        }
+        return (long) res.get("cnt");
+    }
+
+    public BaseResponse updateRowNum(String tableName) {
+        long rowNum = queryTableRowsNum(tableName);
+        UpdateRowRequest updateRowRequest = new UpdateRowRequest();
+        updateRowRequest.setTableName("table_record");
+        List<String> fieldNames = new ArrayList<String>(){{
+            add("row_num");
+        }};
+        List<String> values = new ArrayList<String>(){{
+            add(String.valueOf(rowNum));
+        }};
+        updateRowRequest.setFiledNames(fieldNames);
+        updateRowRequest.setValues(values);
+        updateRowRequest.setConditionField("name");
+        updateRowRequest.setConditionValue(tableName);
+        return update(updateRowRequest);
+    }
 
 }

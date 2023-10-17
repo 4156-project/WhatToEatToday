@@ -1,13 +1,12 @@
 package com.whattoeattoday.recommendationservice;
 
-import com.whattoeattoday.recommendationservice.RecommendationServiceApplication;
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
 import com.whattoeattoday.recommendationservice.common.PageInfo;
 import com.whattoeattoday.recommendationservice.database.request.row.DeleteRowRequest;
 import com.whattoeattoday.recommendationservice.database.request.row.InsertRowRequest;
 import com.whattoeattoday.recommendationservice.database.request.row.QueryRowRequest;
 import com.whattoeattoday.recommendationservice.database.request.row.UpdateRowRequest;
-import com.whattoeattoday.recommendationservice.database.service.TableService;
+import com.whattoeattoday.recommendationservice.database.service.impl.TableServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
@@ -24,7 +23,7 @@ import java.util.List;
 @SpringBootTest(classes = RecommendationServiceApplication.class)
 public class TableServiceImplTest {
     @Autowired
-    private TableService tableService;
+    private TableServiceImpl tableService;
 
     @Test
     public void testInsert() {
@@ -35,7 +34,7 @@ public class TableServiceImplTest {
             add("age");
         }};
         List<String> values = new ArrayList<String>(){{
-            add("Nick");
+            add("Mark");
             add("male");
             add("23");
         }};
@@ -51,7 +50,7 @@ public class TableServiceImplTest {
         DeleteRowRequest request = new DeleteRowRequest();
         request.setTableName("test1016");
         request.setConditionField("name");
-        request.setConditionValue("Nick");
+        request.setConditionValue("Mark");
         BaseResponse response = tableService.delete(request);
         Assert.assertTrue(response.isSuccess());
     }
@@ -96,5 +95,17 @@ public class TableServiceImplTest {
         PageInfo pageInfo2 = tableService.query(request);
         log.info("RESPONSE2: {}", pageInfo2);
         Assert.assertTrue(pageInfo2.getPageData().size() == 2);
+    }
+
+    @Test
+    public void testQueryTableRowsNum() {
+        long res = tableService.queryTableRowsNum("test1016");
+        Assert.assertEquals(res, 4);
+    }
+
+    @Test
+    public void testUpdateRowNum() {
+        BaseResponse response = tableService.updateRowNum("test1016");
+        Assert.assertTrue(response.isSuccess());
     }
 }

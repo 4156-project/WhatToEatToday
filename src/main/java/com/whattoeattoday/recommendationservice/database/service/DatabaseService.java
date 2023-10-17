@@ -18,14 +18,14 @@ public interface DatabaseService {
      * @param request
      * @return
      */
-    BaseResponse buildTable(BuildTableRequest request);
+    BaseResponse<Object> buildTable(BuildTableRequest request);
 
     /**
      * delete one table from DB
      * @param request
      * @return
      */
-    BaseResponse deleteTable(DeleteTableRequest request);
+    BaseResponse<Object> deleteTable(DeleteTableRequest request);
 
     /**
      * Query table from DB by table name
@@ -46,12 +46,12 @@ public interface DatabaseService {
      *
      * @return
      */
-    BaseResponse setAutoIncrement(UpdateTableRequest request);
+    BaseResponse<Object> setAutoIncrement(UpdateTableRequest request);
 
     /**
      * set specified column to be unique
      *
      * @return
      */
-    BaseResponse setUniqueKey(UpdateTableRequest request);
+    BaseResponse<Object> setUniqueKey(UpdateTableRequest request);
 }
