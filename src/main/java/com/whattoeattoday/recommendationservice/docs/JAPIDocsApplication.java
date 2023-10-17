@@ -9,7 +9,7 @@ import io.github.yedaxia.apidocs.plugin.markdown.MarkdownDocPlugin;
  * @author Lijie Huang lh3158@columbia.edu
  * @date 10/17/23
  */
-public class JApiDocsApplication {
+public class JAPIDocsApplication {
     public static void main(String[] args) {
         String projectPath = System.getProperty("user.dir");
 
