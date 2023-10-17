@@ -8,6 +8,7 @@ import java.util.Map;
  */
 @Data
 public class DeleteRequest {
-    String tableName;
-    Map<String, Object>primaryKey;
+    public String tableName;
+    public String conditionField;
+    public String conditionValue;
 }
