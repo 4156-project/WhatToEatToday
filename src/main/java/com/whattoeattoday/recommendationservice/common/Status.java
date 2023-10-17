@@ -1,10 +1,29 @@
 package com.whattoeattoday.recommendationservice.common;
 
+/**
+ * Enum Types of Status Code
+ * @author huanglijie
+ */
 public enum Status implements StatusCode {
 
+    /**
+     * Operation Success
+     */
     SUCCESS(200, "Operation Success"),
+
+    /**
+     * Invalid parameters
+     */
     PARAM_ERROR(400, "Invalid parameters"),
+
+    /**
+     * Resource not found
+     */
     NOT_FOUND(404, "Resource not found"),
+
+    /**
+     * Application internal error
+     */
     FAILURE(500, "Application internal error");
 
     private final int code;

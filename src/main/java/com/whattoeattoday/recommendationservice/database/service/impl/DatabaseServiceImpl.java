@@ -100,7 +100,7 @@ public class DatabaseServiceImpl implements DatabaseService {
                 responseData.setTableName((String) table.get(key));
             }
         }
-        Map<String, String> nameTypeMap = new HashMap<>();
+        Map<String, String> nameTypeMap = new HashMap<>(10);
         for (int i = 0; i < columnNames.length; i++) {
             nameTypeMap.put(columnNames[i], columnTypes[i]);
         }
