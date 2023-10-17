@@ -28,7 +28,7 @@ public interface QueryService {
     BaseResponse<PageInfo> queryCategoryByName(QueryCategoryByNameRequest request);
 
     /**
-     * List info about all categories
+     * List names of all categories
      * @return
      */
     BaseResponse<Set<String>> queryAllCategoryName();
