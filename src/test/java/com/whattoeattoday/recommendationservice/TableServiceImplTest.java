@@ -1,4 +1,4 @@
-package com.whattoeattoday.recommendationservice.database.service.impl;
+package com.whattoeattoday.recommendationservice;
 
 import com.whattoeattoday.recommendationservice.RecommendationServiceApplication;
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
@@ -89,8 +89,8 @@ public class TableServiceImplTest {
         request.setFieldNames(fieldNames);
         request.setPageNo("1");
         request.setPageSize("10");
-//        request.setConditionField("name");
-//        request.setConditionValue("Larry");
+        request.setConditionField("name");
+        request.setConditionValue("Larry");
         PageInfo pageInfo = tableService.query(request);
         System.out.println(pageInfo);
     }
