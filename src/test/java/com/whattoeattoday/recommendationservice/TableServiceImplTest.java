@@ -2,6 +2,7 @@ package com.whattoeattoday.recommendationservice;
 
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
 import com.whattoeattoday.recommendationservice.common.PageInfo;
+import com.whattoeattoday.recommendationservice.common.Status;
 import com.whattoeattoday.recommendationservice.database.request.row.DeleteRowRequest;
 import com.whattoeattoday.recommendationservice.database.request.row.InsertRowRequest;
 import com.whattoeattoday.recommendationservice.database.request.row.QueryRowRequest;
@@ -34,15 +35,17 @@ public class TableServiceImplTest {
             add("age");
         }};
         List<String> values = new ArrayList<String>(){{
-            add("Mark");
+            add("Daniel");
             add("male");
-            add("23");
+            add("25");
         }};
         request.setTableName("test1016");
         request.setFiledNames(fieldNames);
         request.setValues(values);
         BaseResponse response = tableService.insert(request);
+        log.info("RESPONSE: {}", response);
         Assert.assertTrue(response.isSuccess());
+        // Assert.assertEquals(response.getCode(), Status.NOT_FOUND);
     }
 
     @Test
@@ -50,9 +53,11 @@ public class TableServiceImplTest {
         DeleteRowRequest request = new DeleteRowRequest();
         request.setTableName("test1016");
         request.setConditionField("name");
-        request.setConditionValue("Mark");
+        request.setConditionValue("Daniel");
         BaseResponse response = tableService.delete(request);
-        Assert.assertTrue(response.isSuccess());
+        log.info("RESPONSE: {}", response);
+        Assert.assertEquals(response.getCode(), Status.NOT_FOUND);
+        //Assert.assertTrue(response.isSuccess());
     }
 
     @Test
@@ -72,9 +77,11 @@ public class TableServiceImplTest {
         request.setFiledNames(fieldNames);
         request.setValues(values);
         request.setConditionField("name");
-        request.setConditionValue("Larry");
+        request.setConditionValue("Tom");
         BaseResponse response = tableService.update(request);
-        Assert.assertTrue(response.isSuccess());
+        log.info("RESPONSE: {}", response);
+        Assert.assertEquals(response.getCode(), Status.NOT_FOUND);
+        //Assert.assertTrue(response.isSuccess());
     }
 
     @Test

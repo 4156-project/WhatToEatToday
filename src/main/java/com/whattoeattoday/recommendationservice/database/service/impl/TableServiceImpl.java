@@ -7,7 +7,6 @@ import com.whattoeattoday.recommendationservice.database.request.row.DeleteRowRe
 import com.whattoeattoday.recommendationservice.database.request.row.InsertRowRequest;
 import com.whattoeattoday.recommendationservice.database.request.row.QueryRowRequest;
 import com.whattoeattoday.recommendationservice.database.request.row.UpdateRowRequest;
-import com.whattoeattoday.recommendationservice.database.service.DatabaseService;
 import com.whattoeattoday.recommendationservice.database.service.TableService;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -23,9 +22,6 @@ public class TableServiceImpl implements TableService {
     @Resource
     private JdbcTemplate jdbcTemplate;
 
-    @Resource
-    private DatabaseService databaseService;
-
     @Override
     public BaseResponse insert(InsertRowRequest request) {
         String tableName = request.getTableName();
@@ -36,13 +32,7 @@ public class TableServiceImpl implements TableService {
         columnValues = "'" + columnValues + "'";
         StringBuilder insertSql = new StringBuilder(String.format("INSERT IGNORE INTO `%s` (%s) VALUES (%s);", tableName,
                 columnNames, columnValues));
-        try {
-            jdbcTemplate.execute(insertSql.toString());
-        } catch (DataAccessException e) {
-            return BaseResponse.with(Status.PARAM_ERROR);
-        }
-        // update table_record
-        return updateRowNum(tableName);
+        return getBaseResponse(tableName, insertSql.toString());
     }
 
     @Override
@@ -51,12 +41,26 @@ public class TableServiceImpl implements TableService {
         String fieldName = request.getConditionField();
         String condition = request.getConditionValue();
         StringBuilder deleteSql = new StringBuilder(String.format("DELETE FROM `%s` WHERE %s = '%s';", tableName, fieldName, condition));
+        return getBaseResponse(tableName, deleteSql.toString());
+    }
+
+    private BaseResponse getBaseResponse(String tableName, String sql) {
+        int numOfRowsEffected;
         try {
-            jdbcTemplate.execute(deleteSql.toString());
+            numOfRowsEffected = jdbcTemplate.update(sql);
         } catch (DataAccessException e) {
             return BaseResponse.with(Status.PARAM_ERROR);
         }
-        return updateRowNum(tableName);
+        BaseResponse response = updateRowNum(tableName);
+        if (response.getCode().equals(Status.SUCCESS)) {
+            if (numOfRowsEffected > 0) {
+                return BaseResponse.with(Status.SUCCESS, numOfRowsEffected);
+            } else {
+                return BaseResponse.with(Status.NOT_FOUND, numOfRowsEffected);
+            }
+        } else {
+            return BaseResponse.with(Status.PARAM_ERROR);
+        }
     }
 
     @Override
@@ -74,12 +78,17 @@ public class TableServiceImpl implements TableService {
             }
         }
         updateSql.append(String.format(" WHERE %s = '%s';", fieldName, condition));
+        int numOfRowsEffected;
         try {
-            jdbcTemplate.execute(updateSql.toString());
+            numOfRowsEffected = jdbcTemplate.update(updateSql.toString());
         } catch (DataAccessException e) {
             return BaseResponse.with(Status.PARAM_ERROR);
         }
-        return BaseResponse.with(Status.SUCCESS);
+        if (numOfRowsEffected > 0) {
+            return BaseResponse.with(Status.SUCCESS, numOfRowsEffected);
+        } else {
+            return BaseResponse.with(Status.NOT_FOUND, numOfRowsEffected);
+        }
     }
 
     @Override
