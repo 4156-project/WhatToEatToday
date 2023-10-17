@@ -7,6 +7,7 @@ import com.whattoeattoday.recommendationservice.common.Status;
 import com.whattoeattoday.recommendationservice.database.request.row.QueryRowRequest;
 import com.whattoeattoday.recommendationservice.database.request.table.QueryTableRequest;
 import com.whattoeattoday.recommendationservice.database.response.QueryTableNamesResponse;
+import com.whattoeattoday.recommendationservice.database.response.QueryTableResponse;
 import com.whattoeattoday.recommendationservice.database.service.DatabaseService;
 import com.whattoeattoday.recommendationservice.database.service.TableService;
 import com.whattoeattoday.recommendationservice.query.request.*;
@@ -30,6 +31,18 @@ public class QueryServiceImpl implements QueryService {
 
     @Resource
     private TableService tableService;
+
+    @Override
+    public BaseResponse queryCategoryInfo(QueryCategoryInfoRequest request) {
+        String categoryName = request.getCategoryName();
+        if (!databaseService.queryTableNames().tableNames.contains(categoryName)) {
+            return BaseResponse.with(Status.NOT_FOUND, "Category Not Found");
+        }
+        QueryTableRequest queryTableRequest = new QueryTableRequest();
+        queryTableRequest.setTableName(categoryName);
+        QueryTableResponse response = databaseService.queryTable(queryTableRequest);
+        return BaseResponse.with(Status.SUCCESS, response);
+    }
 
     @Override
     public BaseResponse queryCategoryByName(QueryCategoryByNameRequest request) {
@@ -65,7 +78,7 @@ public class QueryServiceImpl implements QueryService {
     }
 
     @Override
-    public BaseResponse queryAllCategory() {
+    public BaseResponse queryAllCategoryName() {
         QueryTableNamesResponse response = databaseService.queryTableNames();
         if (response.tableNames == null || response.tableNames.isEmpty()) {
             return BaseResponse.with(Status.SUCCESS, "Database is Empty");

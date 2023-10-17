@@ -17,14 +17,19 @@ public class QueryController {
     @Resource
     public QueryService queryService;
 
+    @PostMapping("/query/category/list/info")
+    public BaseResponse queryCategoryInfo(QueryCategoryInfoRequest request) {
+        return queryService.queryCategoryInfo(request);
+    }
+
     @PostMapping("/query/category/name")
     public BaseResponse queryCategoryByName(@RequestBody QueryCategoryByNameRequest request) {
         return queryService.queryCategoryByName(request);
     }
 
-    @GetMapping("/query/category/list")
-    public BaseResponse queryAllCategory() {
-        return queryService.queryAllCategory();
+    @GetMapping("/query/category/list/name")
+    public BaseResponse queryAllCategoryName() {
+        return queryService.queryAllCategoryName();
     }
 
     @PostMapping("/query/content/single-condition")
