@@ -1,6 +1,7 @@
 package com.whattoeattoday.recommendationservice.command.request;
 import lombok.Data;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Yufeng Wan yw3921@columbia.edu
@@ -9,8 +10,7 @@ import java.util.List;
 @Data
 public class UpdateRequest {
     public String tableName;
-    public List<String> fieldNames;
-    public List<String> values;
+    public Map<String,Object> fieldNameValues;
     public String conditionField;
-    public String conditionValue;
+    public Object conditionValue;
 }

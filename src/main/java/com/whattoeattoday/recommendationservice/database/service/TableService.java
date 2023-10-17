@@ -17,7 +17,7 @@ public interface TableService {
      * @param request
      * @return
      */
-    BaseResponse insert(InsertRowRequest request);
+    BaseResponse<Object> insert(InsertRowRequest request);
 
     /**
      * delete one row by condition

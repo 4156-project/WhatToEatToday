@@ -10,5 +10,5 @@ import java.util.Map;
 public class DeleteRequest {
     public String tableName;
     public String conditionField;
-    public String conditionValue;
+    public Object conditionValue;
 }

@@ -13,16 +13,16 @@ public class CommandController {
     @Resource
     public CommandService commandService;
 
-    @PostMapping("/table/insert")
+    @PostMapping("/category/insert")
     public BaseResponse Insert(@RequestBody InsertRequest request) {
         return commandService.Insert(request);
     }
-    @PostMapping("/table/delete")
+    @PostMapping("/category/delete")
     public BaseResponse Delete(@RequestBody DeleteRequest request) {
         return commandService.Delete(request);
     }
 
-    @PostMapping("/table/update")
+    @PostMapping("/category/update")
     public BaseResponse Update(@RequestBody UpdateRequest request) {
         return commandService.Update(request);
     }
