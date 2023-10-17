@@ -2,6 +2,7 @@ package com.whattoeattoday.recommendationservice.query.service.api;
 
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
 import com.whattoeattoday.recommendationservice.common.PageInfo;
+import com.whattoeattoday.recommendationservice.database.response.QueryTableResponse;
 import com.whattoeattoday.recommendationservice.query.request.*;
 
 import java.util.Set;
@@ -11,11 +12,13 @@ import java.util.Set;
  * @date 10/13/23
  */
 public interface QueryService {
+
     /**
      * List info about one category, including category name, field name, field type, row nums etc.
+     * @param request
      * @return
      */
-    BaseResponse queryCategoryInfo(QueryCategoryInfoRequest request);
+    BaseResponse<QueryTableResponse> queryCategoryInfo(QueryCategoryInfoRequest request);
 
     /**
      * Query Info about the given category name
