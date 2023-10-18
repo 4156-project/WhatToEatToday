@@ -2,7 +2,10 @@ package com.whattoeattoday.recommendationservice.command.service.impl;
 
 import java.math.BigDecimal;
 
-public class SQLTypeValidator {
+/**
+ * @author Yufeng Wan
+ */
+public class SqlTypeValidator {
 
     public static boolean isValid(Object value, String sqlType) {
 

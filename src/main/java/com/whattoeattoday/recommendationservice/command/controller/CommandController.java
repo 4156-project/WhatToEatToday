@@ -8,6 +8,9 @@ import com.whattoeattoday.recommendationservice.command.service.api.CommandServi
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+/**
+ * @author Yufeng Wan
+ */
 @RestController
 public class CommandController {
     @Resource
@@ -16,14 +19,14 @@ public class CommandController {
      * insert an instance into a table
      */
     @PostMapping("/category/insert")
-    public BaseResponse Insert(@RequestBody InsertRequest request) {
+    public BaseResponse insert(@RequestBody InsertRequest request) {
         return commandService.insert(request);
     }
     /**
      * delete conditional instances from a table
      */
     @PostMapping("/category/delete")
-    public BaseResponse Delete(@RequestBody DeleteRequest request) {
+    public BaseResponse delete(@RequestBody DeleteRequest request) {
         return commandService.delete(request);
     }
 
@@ -31,7 +34,7 @@ public class CommandController {
      * update information in a table
      */
     @PostMapping("/category/update")
-    public BaseResponse Update(@RequestBody UpdateRequest request) {
+    public BaseResponse update(@RequestBody UpdateRequest request) {
         return commandService.update(request);
     }
 

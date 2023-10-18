@@ -1,31 +1,25 @@
 package com.whattoeattoday.recommendationservice.command.service.impl;
 
-import com.whattoeattoday.recommendationservice.common.BaseResponse;
-import com.whattoeattoday.recommendationservice.command.request.*;
+import com.whattoeattoday.recommendationservice.command.request.DeleteRequest;
+import com.whattoeattoday.recommendationservice.command.request.InsertRequest;
+import com.whattoeattoday.recommendationservice.command.request.UpdateRequest;
 import com.whattoeattoday.recommendationservice.command.service.api.CommandService;
-import com.whattoeattoday.recommendationservice.common.PageInfo;
+import com.whattoeattoday.recommendationservice.common.BaseResponse;
 import com.whattoeattoday.recommendationservice.common.Status;
 import com.whattoeattoday.recommendationservice.database.request.row.DeleteRowRequest;
 import com.whattoeattoday.recommendationservice.database.request.row.InsertRowRequest;
-import com.whattoeattoday.recommendationservice.database.request.row.QueryRowRequest;
 import com.whattoeattoday.recommendationservice.database.request.row.UpdateRowRequest;
 import com.whattoeattoday.recommendationservice.database.request.table.QueryTableRequest;
 import com.whattoeattoday.recommendationservice.database.response.QueryTableNamesResponse;
 import com.whattoeattoday.recommendationservice.database.response.QueryTableResponse;
 import com.whattoeattoday.recommendationservice.database.service.DatabaseService;
 import com.whattoeattoday.recommendationservice.database.service.TableService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-
-import com.whattoeattoday.recommendationservice.command.service.impl.SQLTypeValidator;
-
-
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.ArrayList;
 
 /**
  * @author Yufeng Wan yw3921@columbia.edu
@@ -76,7 +70,7 @@ public class CommandServiceImpl implements CommandService{
 
             }
             String sqlType = fieldNameTypeMap.get(key);
-            if (!SQLTypeValidator.isValid(value, sqlType)) {
+            if (!SqlTypeValidator.isValid(value, sqlType)) {
                 return BaseResponse.with(Status.PARAM_ERROR, "Type Error");
             }
             fieldNames.add(entry.getKey());
@@ -159,7 +153,7 @@ public class CommandServiceImpl implements CommandService{
 
             }
             String sqlType = fieldNameTypeMap.get(key);
-            if (!SQLTypeValidator.isValid(value, sqlType)) {
+            if (!SqlTypeValidator.isValid(value, sqlType)) {
                 return BaseResponse.with(Status.PARAM_ERROR, "Type Error");
             }
             fieldNames.add(entry.getKey());
