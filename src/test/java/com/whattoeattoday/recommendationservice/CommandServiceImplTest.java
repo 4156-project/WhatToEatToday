@@ -32,7 +32,7 @@ public class CommandServiceImplTest {
         InsertRequest request = new InsertRequest();
         request.setTableName("test1016");
         Map<String, Object> fieldNameValues = new HashMap<>();
-        fieldNameValues.put("name", "Lee1");
+        fieldNameValues.put("name", "Lee");
         fieldNameValues.put("gender","Male");
         fieldNameValues.put("age", 2);
         request.setFieldNameValues(fieldNameValues);
@@ -45,8 +45,8 @@ public class CommandServiceImplTest {
     public void TestDelete(){
         DeleteRequest request = new DeleteRequest();
         request.setTableName("test1016");
-        request.setConditionField("age");
-        request.setConditionValue(2);
+        request.setConditionField("name");
+        request.setConditionValue("Lee");
         BaseResponse response = commandService.Delete(request);
         log.info("RESPONSE: {}", response);
         Assert.assertEquals(response.getCode(), Status.SUCCESS);
@@ -56,11 +56,11 @@ public class CommandServiceImplTest {
     public void TestUpdate(){
         UpdateRequest request = new UpdateRequest();
         request.setTableName("test1016");
-        request.setConditionField("name");
-        request.setConditionValue("Mark");
+        request.setConditionField("age");
+        request.setConditionValue(4);
         Map<String,Object>map = new HashMap<>();
-        map.put("gender","Female");
-        map.put("age",1000);
+        map.put("gender","Male");
+        map.put("age",5);
         request.setFieldNameValues(map);
         BaseResponse response = commandService.Update(request);
         log.info("RESPONSE: {}", response);

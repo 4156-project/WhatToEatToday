@@ -171,7 +171,6 @@ public class CommandServiceImpl implements CommandService{
         request2.setTableName(tableName);
         request2.setFiledNames(fieldNames);
         request2.setValues(values);
-        BaseResponse response2=tableService.update(request2);
 
         return tableService.update(request2);
     }
