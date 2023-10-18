@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Lijie Huang lh3158@columbia.edu
@@ -32,27 +33,30 @@ public class QueryServiceImpl implements QueryService {
     private TableService tableService;
 
     @Override
-    public BaseResponse queryCategoryInfo(QueryCategoryInfoRequest request) {
+    public BaseResponse<QueryTableResponse> queryCategoryInfo(QueryCategoryInfoRequest request) {
         String categoryName = request.getCategoryName();
-        if (!databaseService.queryTableNames().tableNames.contains(categoryName)) {
+        if (!ParamUtil.isTableName(categoryName)) {
             return BaseResponse.with(Status.NOT_FOUND, "Category Not Found");
         }
         QueryTableRequest queryTableRequest = new QueryTableRequest();
         queryTableRequest.setTableName(categoryName);
         QueryTableResponse response = databaseService.queryTable(queryTableRequest);
+        if (response == null) {
+            return BaseResponse.with(Status.DATABASE_ERROR);
+        }
         return BaseResponse.with(Status.SUCCESS, response);
     }
 
     @Override
-    public BaseResponse queryCategoryByName(QueryCategoryByNameRequest request) {
+    public BaseResponse<PageInfo> queryCategoryByName(QueryCategoryByNameRequest request) {
         if (ParamUtil.isBlank(request.getCategoryName()) || ParamUtil.isBlank(request.getPageNo()) || ParamUtil.isBlank(request.getPageSize())) {
-            return BaseResponse.with(Status.PARAM_ERROR, "Param is Incomplete");
+            return BaseResponse.with(Status.PARAM_ERROR, "Params Incomplete");
         }
-        if (!ParamUtil.isNumeric(request.getPageNo()) || !ParamUtil.isNumeric(request.getPageSize())) {
+        if (!ParamUtil.isPageValid(request.getPageNo(), request.getPageSize())) {
             return BaseResponse.with(Status.PARAM_ERROR, "Page Number or Page Size is not Numeric");
         }
         String categoryName = request.getCategoryName();
-        if (!databaseService.queryTableNames().tableNames.contains(categoryName)) {
+        if (!ParamUtil.isTableName(categoryName)) {
             return BaseResponse.with(Status.NOT_FOUND, "Category Not Found");
         }
 
@@ -71,34 +75,38 @@ public class QueryServiceImpl implements QueryService {
 
         PageInfo queryResult = tableService.query(queryRowRequest);
         if (queryResult == null) {
-            return BaseResponse.with(Status.FAILURE, "Database Execution Error");
+            return BaseResponse.with(Status.DATABASE_ERROR);
         }
         return BaseResponse.with(Status.SUCCESS, queryResult);
     }
 
     @Override
-    public BaseResponse queryAllCategoryName() {
+    public BaseResponse<Set<String>> queryAllCategoryName() {
         QueryTableNamesResponse response = databaseService.queryTableNames();
-        if (response.tableNames == null || response.tableNames.isEmpty()) {
+        if (response == null) {
+            return BaseResponse.with(Status.DATABASE_ERROR);
+        }
+        if (response.tableNames.isEmpty()) {
             return BaseResponse.with(Status.SUCCESS, "Database is Empty");
         }
         return BaseResponse.with(Status.SUCCESS, response.tableNames);
     }
 
     @Override
-    public BaseResponse queryContentBySingleCondition(QueryContentBySingleConditionRequest request) {
+    public BaseResponse<PageInfo> queryContentBySingleCondition(QueryContentBySingleConditionRequest request) {
         if (!ParamUtil.isAllNotBlank(new String[]{request.getCategoryName(), request.getConditionField(),
                 request.getConditionValue(), request.pageNo, request.pageSize})) {
             return BaseResponse.with(Status.PARAM_ERROR, "Param is Incomplete");
         }
-        if (!ParamUtil.isFiledNames(request.getFieldNames())) {
+        boolean isStarSign = request.getFieldNames().size() == 1 && "*".equals(request.getFieldNames().get(0));
+        if (!isStarSign && !ParamUtil.isFieldNames(request.getCategoryName(), request.getFieldNames())) {
             return BaseResponse.with(Status.PARAM_ERROR, "Filed Name Error");
         }
-        if (!ParamUtil.isNumeric(request.getPageNo()) || !ParamUtil.isNumeric(request.getPageSize())) {
+        if (!ParamUtil.isPageValid(request.getPageNo(), request.getPageSize())) {
             return BaseResponse.with(Status.PARAM_ERROR, "Page Number or Page Size is not Numeric");
         }
         String categoryName = request.getCategoryName();
-        if (!databaseService.queryTableNames().tableNames.contains(categoryName)) {
+        if (!ParamUtil.isTableName(categoryName)) {
             return BaseResponse.with(Status.NOT_FOUND, "Category Not Found");
         }
 
@@ -116,8 +124,10 @@ public class QueryServiceImpl implements QueryService {
                 .build();
 
         PageInfo queryResult = tableService.query(queryRowRequest);
+        if (queryResult == null) {
+            return BaseResponse.with(Status.DATABASE_ERROR);
+        }
         return BaseResponse.with(Status.SUCCESS, queryResult);
-
     }
 
     @Override
@@ -134,4 +144,5 @@ public class QueryServiceImpl implements QueryService {
         String keyword = request.getKeyword();
         return null;
     }
+
 }

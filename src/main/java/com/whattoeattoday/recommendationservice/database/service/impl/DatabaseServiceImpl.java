@@ -37,7 +37,21 @@ public class DatabaseServiceImpl implements DatabaseService {
         try {
             jdbcTemplate.execute(sqlBuilder.toString());
         } catch (DataAccessException e) {
-            return BaseResponse.with(Status.PARAM_ERROR);
+            return BaseResponse.with(Status.DATABASE_ERROR);
+        }
+
+        UpdateTableRequest updateTableRequest = new UpdateTableRequest();
+        updateTableRequest.setTableName(tableName);
+        BaseResponse autoIncrResponse = null, uniqueKeyResponse = null;
+        // handle auto_increment
+        if (request.getAutoIncrementField() != null) {
+            updateTableRequest.setColumnName(request.getAutoIncrementField());
+            autoIncrResponse = setAutoIncrement(updateTableRequest);
+        }
+        // handle unique_key
+        if (request.getUniqueKey() != null) {
+            updateTableRequest.setColumnName(request.getUniqueKey());
+            uniqueKeyResponse = setUniqueKey(updateTableRequest);
         }
         // update table_record
         String columnNames = String.join(",", fieldNameList);
@@ -49,7 +63,10 @@ public class DatabaseServiceImpl implements DatabaseService {
         } catch (DataAccessException e) {
             return BaseResponse.with(Status.PARAM_ERROR);
         }
-
+        if ((request.getAutoIncrementField() != null && !autoIncrResponse.isSuccess()) ||
+                (request.getUniqueKey() != null && !uniqueKeyResponse.isSuccess())) {
+            return BaseResponse.with(Status.PARAM_ERROR);
+        }
         return BaseResponse.with(Status.SUCCESS);
     }
 
@@ -60,7 +77,7 @@ public class DatabaseServiceImpl implements DatabaseService {
         try {
             jdbcTemplate.execute(sqlBuilder.toString());
         } catch (DataAccessException e) {
-            return BaseResponse.with(Status.PARAM_ERROR);
+            return BaseResponse.with(Status.DATABASE_ERROR);
         }
 
         // update table_record
@@ -68,7 +85,7 @@ public class DatabaseServiceImpl implements DatabaseService {
         try {
             jdbcTemplate.execute(deleteSql.toString());
         } catch (DataAccessException e) {
-            return BaseResponse.with(Status.PARAM_ERROR);
+            return BaseResponse.with(Status.DATABASE_ERROR);
         }
         return BaseResponse.with(Status.SUCCESS);
     }
@@ -84,28 +101,29 @@ public class DatabaseServiceImpl implements DatabaseService {
             return null;
         }
 
-        QueryTableResponse responseData = new QueryTableResponse();
+        QueryTableResponse queryTableResponse = new QueryTableResponse();
         String[] columnNames = null;
         String[] columnTypes = null;
         for (String key : table.keySet()) {
             if ("id".equals(key)) {
-                responseData.setId((BigInteger) table.get(key));
+                queryTableResponse.setId((BigInteger) table.get(key));
             } else if ("row_num".equals(key)) {
-                responseData.setRowNum((Long) table.get(key));
+                queryTableResponse.setRowNum((Long) table.get(key));
             } else if ("column_names".equals(key)) {
                 columnNames = ((String) table.get(key)).split(",");
             } else if ("column_types".equals(key)) {
                 columnTypes = ((String) table.get(key)).split(",");
             } else if ("name".equals(key)) {
-                responseData.setTableName((String) table.get(key));
+                queryTableResponse.setTableName((String) table.get(key));
             }
         }
         Map<String, String> nameTypeMap = new HashMap<>(10);
-        for (int i = 0; i < columnNames.length; i++) {
+        for (int i = 0; i < Objects.requireNonNull(columnNames).length; i++) {
+            assert columnTypes != null;
             nameTypeMap.put(columnNames[i], columnTypes[i]);
         }
-        responseData.setFiledNameTypeMap(nameTypeMap);
-        return responseData;
+        queryTableResponse.setFiledNameTypeMap(nameTypeMap);
+        return queryTableResponse;
     }
 
     @Override
