@@ -62,4 +62,8 @@ public class ParamUtil {
     public static boolean isPageValid(String pageNo, String pageSize) {
         return isNumeric(pageNo) && isNumeric(pageSize);
     }
+
+    public static boolean isTableName(String tableName) {
+        return databaseService.queryTableNames().getTableNames().contains(tableName);
+    }
 }

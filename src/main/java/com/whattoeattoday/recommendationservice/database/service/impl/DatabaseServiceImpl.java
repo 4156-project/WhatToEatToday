@@ -84,28 +84,29 @@ public class DatabaseServiceImpl implements DatabaseService {
             return null;
         }
 
-        QueryTableResponse responseData = new QueryTableResponse();
+        QueryTableResponse queryTableResponse = new QueryTableResponse();
         String[] columnNames = null;
         String[] columnTypes = null;
         for (String key : table.keySet()) {
             if ("id".equals(key)) {
-                responseData.setId((BigInteger) table.get(key));
+                queryTableResponse.setId((BigInteger) table.get(key));
             } else if ("row_num".equals(key)) {
-                responseData.setRowNum((Long) table.get(key));
+                queryTableResponse.setRowNum((Long) table.get(key));
             } else if ("column_names".equals(key)) {
                 columnNames = ((String) table.get(key)).split(",");
             } else if ("column_types".equals(key)) {
                 columnTypes = ((String) table.get(key)).split(",");
             } else if ("name".equals(key)) {
-                responseData.setTableName((String) table.get(key));
+                queryTableResponse.setTableName((String) table.get(key));
             }
         }
         Map<String, String> nameTypeMap = new HashMap<>(10);
-        for (int i = 0; i < columnNames.length; i++) {
+        for (int i = 0; i < Objects.requireNonNull(columnNames).length; i++) {
+            assert columnTypes != null;
             nameTypeMap.put(columnNames[i], columnTypes[i]);
         }
-        responseData.setFiledNameTypeMap(nameTypeMap);
-        return responseData;
+        queryTableResponse.setFiledNameTypeMap(nameTypeMap);
+        return queryTableResponse;
     }
 
     @Override
