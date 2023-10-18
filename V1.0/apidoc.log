@@ -1,52 +1,62 @@
-Oct 17, 2023 8:27:45 PM io.github.yedaxia.apidocs.LogUtils info
+Oct 18, 2023 7:00:20 PM io.github.yedaxia.apidocs.LogUtils info
 INFO: info: find java src paths:  [/Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/]
-Oct 17, 2023 8:27:45 PM io.github.yedaxia.apidocs.LogUtils info
+Oct 18, 2023 7:00:20 PM io.github.yedaxia.apidocs.LogUtils info
 INFO: info: project type not set, try to figure out...
-Oct 17, 2023 8:27:45 PM io.github.yedaxia.apidocs.LogUtils info
+Oct 18, 2023 7:00:21 PM io.github.yedaxia.apidocs.LogUtils info
 INFO: info: start find controllers in path : /Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/
-Oct 17, 2023 8:27:46 PM io.github.yedaxia.apidocs.LogUtils info
+Oct 18, 2023 7:00:21 PM io.github.yedaxia.apidocs.LogUtils info
+INFO: info: find controller file : InterTableController.java
+Oct 18, 2023 7:00:21 PM io.github.yedaxia.apidocs.LogUtils info
 INFO: info: find controller file : CommandController.java
-Oct 17, 2023 8:27:46 PM io.github.yedaxia.apidocs.LogUtils info
+Oct 18, 2023 7:00:21 PM io.github.yedaxia.apidocs.LogUtils info
 INFO: info: find controller file : QueryController.java
-Oct 17, 2023 8:27:46 PM io.github.yedaxia.apidocs.LogUtils info
+Oct 18, 2023 7:00:21 PM io.github.yedaxia.apidocs.LogUtils info
+INFO: info: start to parse controller file : InterTableController.java
+Oct 18, 2023 7:00:21 PM io.github.yedaxia.apidocs.LogUtils info
+INFO: info: success to parse controller file : InterTableController.java
+Oct 18, 2023 7:00:21 PM io.github.yedaxia.apidocs.LogUtils info
 INFO: info: start to parse controller file : CommandController.java
-Oct 17, 2023 8:27:46 PM io.github.yedaxia.apidocs.LogUtils info
+Oct 18, 2023 7:00:21 PM io.github.yedaxia.apidocs.LogUtils info
 INFO: info: we think T should not be an enum type
-Oct 17, 2023 8:27:46 PM io.github.yedaxia.apidocs.LogUtils warn
+Oct 18, 2023 7:00:21 PM io.github.yedaxia.apidocs.LogUtils warn
 WARNING: warning!! Cannot find java file , in java file : /Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/common/BaseResponse.java, className : T, we cannot found more information of it, you've better to make it a JavaBean
-Oct 17, 2023 8:27:46 PM io.github.yedaxia.apidocs.LogUtils info
+Oct 18, 2023 7:00:21 PM io.github.yedaxia.apidocs.LogUtils info
 INFO: info: we think T should not be an enum type
-Oct 17, 2023 8:27:46 PM io.github.yedaxia.apidocs.LogUtils warn
+Oct 18, 2023 7:00:21 PM io.github.yedaxia.apidocs.LogUtils warn
 WARNING: warning!! Cannot find java file , in java file : /Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/common/BaseResponse.java, className : T, we cannot found more information of it, you've better to make it a JavaBean
-Oct 17, 2023 8:27:46 PM io.github.yedaxia.apidocs.LogUtils info
+Oct 18, 2023 7:00:21 PM io.github.yedaxia.apidocs.LogUtils info
 INFO: info: we think T should not be an enum type
-Oct 17, 2023 8:27:46 PM io.github.yedaxia.apidocs.LogUtils warn
+Oct 18, 2023 7:00:21 PM io.github.yedaxia.apidocs.LogUtils warn
 WARNING: warning!! Cannot find java file , in java file : /Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/common/BaseResponse.java, className : T, we cannot found more information of it, you've better to make it a JavaBean
-Oct 17, 2023 8:27:46 PM io.github.yedaxia.apidocs.LogUtils info
+Oct 18, 2023 7:00:21 PM io.github.yedaxia.apidocs.LogUtils info
 INFO: info: success to parse controller file : CommandController.java
-Oct 17, 2023 8:27:46 PM io.github.yedaxia.apidocs.LogUtils info
+Oct 18, 2023 7:00:21 PM io.github.yedaxia.apidocs.LogUtils info
 INFO: info: start to parse controller file : QueryController.java
-Oct 17, 2023 8:27:46 PM io.github.yedaxia.apidocs.LogUtils warn
+Oct 18, 2023 7:00:21 PM io.github.yedaxia.apidocs.LogUtils warn
 WARNING: warning!! Cannot find java file , in java file : /Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/database/response/QueryTableResponse.java, className : Map, we cannot found more information of it, you've better to make it a JavaBean
-Oct 17, 2023 8:27:46 PM io.github.yedaxia.apidocs.LogUtils warn
+Oct 18, 2023 7:00:21 PM io.github.yedaxia.apidocs.LogUtils warn
 WARNING: warning!! Cannot find java file , in java file : /Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/common/PageInfo.java, className : Map, we cannot found more information of it, you've better to make it a JavaBean
-Oct 17, 2023 8:27:46 PM io.github.yedaxia.apidocs.LogUtils warn
+Oct 18, 2023 7:00:21 PM io.github.yedaxia.apidocs.LogUtils warn
 WARNING: warning!! Cannot find java file , in java file : /Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/common/PageInfo.java, className : Map, we cannot found more information of it, you've better to make it a JavaBean
-Oct 17, 2023 8:27:46 PM io.github.yedaxia.apidocs.LogUtils info
+Oct 18, 2023 7:00:21 PM io.github.yedaxia.apidocs.LogUtils info
 INFO: info: success to parse controller file : QueryController.java
-Oct 17, 2023 8:27:46 PM io.github.yedaxia.apidocs.LogUtils info
+Oct 18, 2023 7:00:21 PM io.github.yedaxia.apidocs.LogUtils info
 INFO: info: generate api docs start...
-Oct 17, 2023 8:27:46 PM io.github.yedaxia.apidocs.LogUtils info
+Oct 18, 2023 7:00:21 PM io.github.yedaxia.apidocs.LogUtils info
+INFO: info: start to generate docs for controller file : /Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/intertable/controller/InterTableController.java
+Oct 18, 2023 7:00:21 PM io.github.yedaxia.apidocs.LogUtils info
+INFO: info: success to generate docs for controller file : /Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/intertable/controller/InterTableController.java
+Oct 18, 2023 7:00:21 PM io.github.yedaxia.apidocs.LogUtils info
 INFO: info: start to generate docs for controller file : /Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/command/controller/CommandController.java
-Oct 17, 2023 8:27:46 PM io.github.yedaxia.apidocs.LogUtils info
+Oct 18, 2023 7:00:21 PM io.github.yedaxia.apidocs.LogUtils info
 INFO: info: success to generate docs for controller file : /Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/command/controller/CommandController.java
-Oct 17, 2023 8:27:46 PM io.github.yedaxia.apidocs.LogUtils info
+Oct 18, 2023 7:00:21 PM io.github.yedaxia.apidocs.LogUtils info
 INFO: info: start to generate docs for controller file : /Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/query/controller/QueryController.java
-Oct 17, 2023 8:27:46 PM io.github.yedaxia.apidocs.LogUtils info
+Oct 18, 2023 7:00:21 PM io.github.yedaxia.apidocs.LogUtils info
 INFO: info: success to generate docs for controller file : /Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/query/controller/QueryController.java
-Oct 17, 2023 8:27:46 PM io.github.yedaxia.apidocs.LogUtils info
+Oct 18, 2023 7:00:21 PM io.github.yedaxia.apidocs.LogUtils info
 INFO: info: generate index start !!!
-Oct 17, 2023 8:27:46 PM io.github.yedaxia.apidocs.LogUtils info
+Oct 18, 2023 7:00:21 PM io.github.yedaxia.apidocs.LogUtils info
 INFO: info: generate index done !!!
-Oct 17, 2023 8:27:46 PM io.github.yedaxia.apidocs.LogUtils info
+Oct 18, 2023 7:00:21 PM io.github.yedaxia.apidocs.LogUtils info
 INFO: info: generate api docs done !!!

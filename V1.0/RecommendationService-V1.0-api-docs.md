@@ -56,6 +56,61 @@
 	"data":"object"
 }
 ```
+# CommandController
+## insert an instance into a table
+
+*author: Yufeng Wan*
+
+**request url**
+
+/category/insert `POST` 
+
+
+**response**
+
+```json
+{
+	"code":{},
+	"message":"string",
+	"data":{}
+}
+```
+## delete conditional instances from a table
+
+*author: Yufeng Wan*
+
+**request url**
+
+/category/delete `POST` 
+
+
+**response**
+
+```json
+{
+	"code":{},
+	"message":"string",
+	"data":{}
+}
+```
+## update information in a table
+
+*author: Yufeng Wan*
+
+**request url**
+
+/category/update `POST` 
+
+
+**response**
+
+```json
+{
+	"code":{},
+	"message":"string",
+	"data":{}
+}
+```
 # QueryController
 ## Query basic information about a category
 
