@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>RecipeController</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/google-code-prettify@1.0.5/bin/prettify.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body onload="PR.prettyPrint()">
+<nav class="navbar">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="index.html">
+                RecommendationService
+            </a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="https://github.com/YeDaxia/JApiDocs" target="_blank">GitHub</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">V1.0<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                            <li><a href="../mvnw.cmd/index.html">mvnw.cmd</a></li>
+                            <li><a href="../target/index.html">target</a></li>
+                            <li><a href="../pom.xml/index.html">pom.xml</a></li>
+                            <li><a href="../HELP.md/index.html">HELP.md</a></li>
+                            <li><a href="../README.md/index.html">README.md</a></li>
+                            <li><a href="../mvnw/index.html">mvnw</a></li>
+                            <li><a href="../src/index.html">src</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="book with-summary">
+    <div class="book-summary">
+<div class="search-box form-group">
+    <input type="text" class="form-control" id="inputSearch" placeholder="search api">
+    <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
+</div>
+<div id="accordion" class="catalog">
+        <div class="panel">
+            <div id="heading0" data-parent="#accordion" class="catalog-title" data-toggle="collapse"
+                 aria-expanded="true" data-target="#collapse0" aria-controls="collapse0">
+                <i class="glyphicon glyphicon-align-justify"></i> DemoController
+            </div>
+            <div id="collapse0" class="collapse in " aria-labelledby="heading0">
+                    <a class="catalog-item" href="com_whattoeattoday_recommendationservice_demo_controller_DemoController.html#demo">
+                        demo
+                    </a>
+                    <a class="catalog-item" href="com_whattoeattoday_recommendationservice_demo_controller_DemoController.html#printDetail">
+                        printDetail
+                    </a>
+            </div>
+        </div>
+        <div class="panel">
+            <div id="heading1" data-parent="#accordion" class="catalog-title" data-toggle="collapse"
+                 aria-expanded="true" data-target="#collapse1" aria-controls="collapse1">
+                <i class="glyphicon glyphicon-align-justify"></i> RecipeController
+            </div>
+            <div id="collapse1" class="collapse in " aria-labelledby="heading1">
+                    <a class="catalog-item" href="com_whattoeattoday_recommendationservice_demo_controller_RecipeController.html#queryById">
+                        queryById
+                    </a>
+            </div>
+        </div>
+        <div class="panel">
+            <div id="heading2" data-parent="#accordion" class="catalog-title" data-toggle="collapse"
+                 aria-expanded="true" data-target="#collapse2" aria-controls="collapse2">
+                <i class="glyphicon glyphicon-align-justify"></i> QueryController
+            </div>
+            <div id="collapse2" class="collapse " aria-labelledby="heading2">
+                    <a class="catalog-item" href="com_whattoeattoday_recommendationservice_query_controller_QueryController.html#queryCategoryInfo">
+                        Query basic information about a category
+                    </a>
+                    <a class="catalog-item" href="com_whattoeattoday_recommendationservice_query_controller_QueryController.html#queryCategoryByName">
+                        queryCategoryByName
+                    </a>
+                    <a class="catalog-item" href="com_whattoeattoday_recommendationservice_query_controller_QueryController.html#queryAllCategoryName">
+                        queryAllCategoryName
+                    </a>
+                    <a class="catalog-item" href="com_whattoeattoday_recommendationservice_query_controller_QueryController.html#queryContentBySingleCondition">
+                        queryContentBySingleCondition
+                    </a>
+                    <a class="catalog-item" href="com_whattoeattoday_recommendationservice_query_controller_QueryController.html#queryContentByMultiCondition">
+                        queryContentByMultiCondition
+                    </a>
+                    <a class="catalog-item" href="com_whattoeattoday_recommendationservice_query_controller_QueryController.html#fuzzySearchContent">
+                        fuzzySearchContent
+                    </a>
+            </div>
+        </div>
+</div>    </div>
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header">
+                <div class="d-flex justify-content-between">
+                    <a class="header-menu toggle-catalog" href="javascript:void(0)"><i
+                            class="glyphicon glyphicon-align-justify"></i> catalog</a>
+                </div>
+            </div>
+            <div class="page-wrapper">
+                <div class="page-inner">
+                    <div class="action-list">
+                        <div class="action-item">
+<h2 id="queryById"><a href="#">queryById </a></h2>
+<p><strong>request url</strong></p>
+<p>
+    <code>/category/recipe/query/id</code>
+        <span class="label label-default">POST</span>
+</p>
+    <p><strong>response</strong></p>
+    <pre class="prettyprint lang-json">{
+	"code":{},
+	"message":"string",
+	"data":{}
+}</pre>
+        <div class="form-group">
+            <a type="button" class="btn btn-sm btn-default" href="javaCodes/com_whattoeattoday_recommendationservice_demo_controller_RecipeController_queryById_BaseResponse.html"><i
+                        class="fa fa-android" aria-hidden="true"></i> Android Model</a>
+            <a type="button" class="btn btn-sm btn-default" href="iosCodes/com_whattoeattoday_recommendationservice_demo_controller_RecipeController_queryById_BaseResponse.html"><i class="fa fa-apple"
+                                                                                                 aria-hidden="true"></i>
+                iOS Model</a>
+        </div>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/google-code-prettify@1.0.5/bin/prettify.min.js"></script>
+<script>
+
+    var search_source_data = [
+            {name: 'DemoController.demo', url: 'com_whattoeattoday_recommendationservice_demo_controller_DemoController.html#demo'},
+            {name: 'DemoController.printDetail', url: 'com_whattoeattoday_recommendationservice_demo_controller_DemoController.html#printDetail'},
+            {name: 'RecipeController.queryById', url: 'com_whattoeattoday_recommendationservice_demo_controller_RecipeController.html#queryById'},
+            {name: 'QueryController.Query basic information about a category', url: 'com_whattoeattoday_recommendationservice_query_controller_QueryController.html#queryCategoryInfo'},
+            {name: 'QueryController.queryCategoryByName', url: 'com_whattoeattoday_recommendationservice_query_controller_QueryController.html#queryCategoryByName'},
+            {name: 'QueryController.queryAllCategoryName', url: 'com_whattoeattoday_recommendationservice_query_controller_QueryController.html#queryAllCategoryName'},
+            {name: 'QueryController.queryContentBySingleCondition', url: 'com_whattoeattoday_recommendationservice_query_controller_QueryController.html#queryContentBySingleCondition'},
+            {name: 'QueryController.queryContentByMultiCondition', url: 'com_whattoeattoday_recommendationservice_query_controller_QueryController.html#queryContentByMultiCondition'},
+            {name: 'QueryController.fuzzySearchContent', url: 'com_whattoeattoday_recommendationservice_query_controller_QueryController.html#fuzzySearchContent'},
+    ];
+
+
+
+    $('.toggle-catalog').click(function () {
+        $('.book').toggleClass('with-summary');
+    });
+
+    $('#inputSearch').autocomplete({hint: false}, [
+        {
+            source: function (query, callback) {
+                var result = [];
+                for(var i = 0; i !== search_source_data.length; i++){
+                    if(search_source_data[i].name.indexOf(query) !== -1){
+                        result.push(search_source_data[i]);
+                    }
+                }
+                callback(result);
+            },
+            displayKey: 'name',
+            templates: {
+                suggestion: function (suggestion) {
+                    return suggestion.name;
+                }
+            }
+        }
+    ]).on('autocomplete:selected', function (event, suggestion, dataset, context) {
+        self.location = suggestion.url;
+    });
+</script>
+</body>
+</html>
