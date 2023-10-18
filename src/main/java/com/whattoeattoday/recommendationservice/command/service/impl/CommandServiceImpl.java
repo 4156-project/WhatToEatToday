@@ -113,6 +113,7 @@ public class CommandServiceImpl implements CommandService{
         request2.setTableName(tableName);
         request2.setConditionField(conditionField);
         request2.setConditionValue(conditionValue.toString());
+
         return tableService.delete(request2);
     }
 
@@ -170,6 +171,7 @@ public class CommandServiceImpl implements CommandService{
         request2.setTableName(tableName);
         request2.setFiledNames(fieldNames);
         request2.setValues(values);
+        BaseResponse response2=tableService.update(request2);
 
         return tableService.update(request2);
     }

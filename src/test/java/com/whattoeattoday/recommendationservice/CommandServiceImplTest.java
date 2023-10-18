@@ -6,7 +6,6 @@ import com.whattoeattoday.recommendationservice.common.Status;
 import com.whattoeattoday.recommendationservice.command.request.*;
 import com.whattoeattoday.recommendationservice.command.service.api.CommandService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.executor.BaseExecutor;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,7 +32,7 @@ public class CommandServiceImplTest {
         InsertRequest request = new InsertRequest();
         request.setTableName("test1016");
         Map<String, Object> fieldNameValues = new HashMap<>();
-        fieldNameValues.put("name", "Lee");
+        fieldNameValues.put("name", "Lee1");
         fieldNameValues.put("gender","Male");
         fieldNameValues.put("age", 2);
         request.setFieldNameValues(fieldNameValues);
@@ -46,8 +45,8 @@ public class CommandServiceImplTest {
     public void TestDelete(){
         DeleteRequest request = new DeleteRequest();
         request.setTableName("test1016");
-        request.setConditionField("name");
-        request.setConditionValue("Lee");
+        request.setConditionField("age");
+        request.setConditionValue(2);
         BaseResponse response = commandService.Delete(request);
         log.info("RESPONSE: {}", response);
         Assert.assertEquals(response.getCode(), Status.SUCCESS);
