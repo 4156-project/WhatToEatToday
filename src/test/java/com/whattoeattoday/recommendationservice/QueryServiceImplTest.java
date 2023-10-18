@@ -34,14 +34,14 @@ public class QueryServiceImplTest {
         QueryCategoryInfoRequest request = new QueryCategoryInfoRequest();
         request.setCategoryName("test1016");
         BaseResponse response = queryService.queryCategoryInfo(request);
-        log.info("RESPONSE: {}", response);
+        log.info(" TestQueryCategoryInfo RESPONSE: {}", response);
         Assert.assertTrue(response.isSuccess());
     }
 
     @Test
     public void TestQueryAllCategoryName() {
         BaseResponse response = queryService.queryAllCategoryName();
-        log.info("RESPONSE: {}", response);
+        log.info("TestQueryAllCategoryName RESPONSE: {}", response);
         Assert.assertEquals(response.getCode(), Status.SUCCESS);
     }
 
@@ -53,14 +53,14 @@ public class QueryServiceImplTest {
         request.setPageNo("1");
         request.setPageSize("2");
         BaseResponse<PageInfo> response = queryService.queryCategoryByName(request);
-        log.info("RESPONSE: {}", response);
+        log.info(" TestQueryCategoryByName RESPONSE1: {}", response);
         Assert.assertTrue(response.isSuccess());
         Assert.assertNotNull(response.getData().getPageData());
 
         request.setPageNo("2");
         request.setPageSize("1");
         response = queryService.queryCategoryByName(request);
-        log.info("RESPONSE: {}", response);
+        log.info("TestQueryCategoryByName RESPONSE2: {}", response);
         Assert.assertTrue(response.isSuccess());
         Assert.assertNotNull(response.getData().getPageData());
     }
@@ -73,9 +73,9 @@ public class QueryServiceImplTest {
         request.setConditionField("gender");
         request.setConditionValue("male");
         request.setPageNo("1");
-        request.setPageSize("1");
+        request.setPageSize("2");
         BaseResponse<PageInfo> response = queryService.queryContentBySingleCondition(request);
-        log.info("RESPONSE: {}", response);
+        log.info("TestQueryContentBySingleCondition RESPONSE: {}", response);
         Assert.assertNotNull(response.getData().getPageData());
     }
 

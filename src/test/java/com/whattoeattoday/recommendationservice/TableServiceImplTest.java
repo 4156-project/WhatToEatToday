@@ -30,22 +30,20 @@ public class TableServiceImplTest {
     public void testInsert() {
         InsertRowRequest request = new InsertRowRequest();
         List<String> fieldNames = new ArrayList<String>(){{
-            add("name");
-            add("gender");
-            add("age");
+            add("title");
+            add("description");
         }};
         List<String> values = new ArrayList<String>(){{
-            add("Daniel");
-            add("male");
-            add("25");
+            add("1984");
+            add("Another great book!");
         }};
-        request.setTableName("test1016");
+        request.setTableName("test1018");
         request.setFiledNames(fieldNames);
         request.setValues(values);
         BaseResponse response = tableService.insert(request);
         log.info("RESPONSE: {}", response);
         Assert.assertTrue(response.isSuccess());
-        // Assert.assertEquals(response.getCode(), Status.NOT_FOUND);
+        //Assert.assertEquals(response.getCode(), Status.NOT_FOUND);
     }
 
     @Test

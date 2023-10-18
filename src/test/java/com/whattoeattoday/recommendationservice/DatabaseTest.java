@@ -1,7 +1,6 @@
 package com.whattoeattoday.recommendationservice;
 
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
-import com.whattoeattoday.recommendationservice.database.request.row.QueryRowRequest;
 import com.whattoeattoday.recommendationservice.database.request.table.BuildTableRequest;
 import com.whattoeattoday.recommendationservice.database.request.table.DeleteTableRequest;
 import com.whattoeattoday.recommendationservice.database.request.table.QueryTableRequest;
@@ -51,19 +50,19 @@ public class DatabaseTest {
 
         List<String> fieldNameList = new ArrayList<>();
         fieldNameList.add("id");
-        fieldNameList.add("name");
-        fieldNameList.add("gender");
-        fieldNameList.add("age");
+        fieldNameList.add("title");
+        fieldNameList.add("description");
         List<String> fieldTypeList = new ArrayList<>();
         fieldTypeList.add("BIGINT(20)");
         fieldTypeList.add("VARCHAR(20)");
-        fieldTypeList.add("VARCHAR(20)");
-        fieldTypeList.add("INT");
+        fieldTypeList.add("TEXT");
 
-        request.setTableName("test1016");
+        request.setTableName("test1017");
         request.setFieldNameList(fieldNameList);
         request.setFieldTypeList(fieldTypeList);
         request.setPrimaryKey("id");
+        request.setUniqueKey("title");
+        request.setAutoIncrementField("id");
 
         BaseResponse response = databaseService.buildTable(request);
         log.info("RESPONSE: {}", response);
@@ -92,7 +91,7 @@ public class DatabaseTest {
     @Test
     public void TestDeleteTable() {
         DeleteTableRequest request = new DeleteTableRequest();
-        request.setTableName("test1016");
+        request.setTableName("test1017");
         BaseResponse response = databaseService.deleteTable(request);
         log.info("RESPONSE: {}", response);
         Assert.assertTrue(response.isSuccess());

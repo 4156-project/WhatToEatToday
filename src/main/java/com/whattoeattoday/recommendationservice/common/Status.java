@@ -24,7 +24,12 @@ public enum Status implements StatusCode {
     /**
      * Application internal error
      */
-    FAILURE(500, "Application internal error");
+    FAILURE(500, "Application internal error"),
+
+    /**
+     * Database SQL execution error
+     */
+    DATABASE_ERROR(500, "Database Execution Error");
 
     private final int code;
     private final String message;

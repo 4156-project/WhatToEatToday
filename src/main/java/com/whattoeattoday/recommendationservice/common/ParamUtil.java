@@ -64,6 +64,7 @@ public class ParamUtil {
     }
 
 
+
     public static boolean isTypeValid(String type) {
         System.out.println(type);
         String baseType = type.split("\\(")[0].toUpperCase();
@@ -145,5 +146,9 @@ public class ParamUtil {
         } catch (NumberFormatException ex) {
             return false;
         }
+    }
+
+    public static boolean isTableName(String tableName) {
+        return databaseService.queryTableNames().getTableNames().contains(tableName);
     }
 }
