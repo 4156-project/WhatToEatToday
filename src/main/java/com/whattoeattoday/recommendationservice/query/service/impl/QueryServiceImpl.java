@@ -99,7 +99,7 @@ public class QueryServiceImpl implements QueryService {
             return BaseResponse.with(Status.PARAM_ERROR, "Param is Incomplete");
         }
         boolean isStarSign = request.getFieldNames().size() == 1 && "*".equals(request.getFieldNames().get(0));
-        if (!isStarSign && !ParamUtil.isFiledNames(request.getCategoryName(), request.getFieldNames())) {
+        if (!isStarSign && !ParamUtil.isFieldNames(request.getCategoryName(), request.getFieldNames())) {
             return BaseResponse.with(Status.PARAM_ERROR, "Filed Name Error");
         }
         if (!ParamUtil.isPageValid(request.getPageNo(), request.getPageSize())) {

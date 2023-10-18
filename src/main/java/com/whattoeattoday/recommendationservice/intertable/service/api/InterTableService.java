@@ -16,14 +16,14 @@ public interface InterTableService {
      * @param request
      * @return
      */
-    BaseResponse createTable(BuildTableRequest request);
+    BaseResponse<Object> createTable(BuildTableRequest request);
 
     /**
      * Delete a table
      * @param request
      * @return
      */
-    BaseResponse deleteTable(DeleteTableRequest request);
+    BaseResponse<Object> deleteTable(DeleteTableRequest request);
 
     /**
      * Set a column to be auto incremented

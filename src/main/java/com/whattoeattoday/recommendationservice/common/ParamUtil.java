@@ -44,7 +44,7 @@ public class ParamUtil {
         return isNum.matches();
     }
 
-    public static boolean isFiledNames(String tableName, List<String> fieldNames) {
+    public static boolean isFieldNames(String tableName, List<String> fieldNames) {
         QueryTableRequest request = new QueryTableRequest();
         request.setTableName(tableName);
         QueryTableResponse response = databaseService.queryTable(request);

@@ -26,7 +26,7 @@ public class InterTableController {
      * @param request
      */
     @PostMapping("/category/create")
-    public BaseResponse createTable(@RequestBody BuildTableRequest request) {
+    public BaseResponse<Object> createTable(@RequestBody BuildTableRequest request) {
         return intertableService.createTable(request);
     }
 
@@ -35,7 +35,7 @@ public class InterTableController {
      * @param request
      */
     @PostMapping("/category/delete")
-    public BaseResponse deleteTable(@RequestBody DeleteTableRequest request) {
+    public BaseResponse<Object> deleteTable(@RequestBody DeleteTableRequest request) {
         return intertableService.deleteTable(request);
     }
 }

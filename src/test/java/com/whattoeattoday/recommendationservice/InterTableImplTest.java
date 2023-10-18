@@ -56,7 +56,7 @@ public class InterTableImplTest {
     public void TestDeleteTable() {
         DeleteTableRequest request = new DeleteTableRequest();
         //Test Exist
-        request.setTableName("book2");
+        request.setTableName("book1");
         BaseResponse response = interTableService.deleteTable(request);
         log.info("RESPONSE: {}", response);
         Assert.assertTrue(response.isSuccess());

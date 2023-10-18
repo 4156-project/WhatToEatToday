@@ -37,7 +37,7 @@ public class DatabaseServiceImpl implements DatabaseService {
         try {
             jdbcTemplate.execute(sqlBuilder.toString());
         } catch (DataAccessException e) {
-            return BaseResponse.with(Status.PARAM_ERROR);
+            return BaseResponse.with(Status.DATABASE_ERROR);
         }
 
         UpdateTableRequest updateTableRequest = new UpdateTableRequest();
@@ -77,7 +77,7 @@ public class DatabaseServiceImpl implements DatabaseService {
         try {
             jdbcTemplate.execute(sqlBuilder.toString());
         } catch (DataAccessException e) {
-            return BaseResponse.with(Status.PARAM_ERROR);
+            return BaseResponse.with(Status.DATABASE_ERROR);
         }
 
         // Update table_record
@@ -85,7 +85,7 @@ public class DatabaseServiceImpl implements DatabaseService {
         try {
             jdbcTemplate.execute(deleteSql.toString());
         } catch (DataAccessException e) {
-            return BaseResponse.with(Status.PARAM_ERROR);
+            return BaseResponse.with(Status.DATABASE_ERROR);
         }
         return BaseResponse.with(Status.SUCCESS);
     }

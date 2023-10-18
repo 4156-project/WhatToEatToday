@@ -17,6 +17,7 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author ruoxuanwang rw2961@columbia.edu
@@ -31,7 +32,7 @@ public class InterTableServiceImpl implements InterTableService {
     private QueryService queryService;
 
     @Override
-    public BaseResponse createTable(BuildTableRequest request) {
+    public BaseResponse<Object> createTable(BuildTableRequest request) {
         String tableName = request.getTableName();
         List<String> fieldNameList = request.getFieldNameList();
         List<String> fieldTypeList = request.getFieldTypeList();
@@ -42,22 +43,20 @@ public class InterTableServiceImpl implements InterTableService {
         if (ParamUtil.isBlank(tableName) || ParamUtil.isBlank(primaryKey)) {
             return BaseResponse.with(Status.PARAM_ERROR, "Param is Incomplete");
         }
-        for (String s : fieldNameList) {
-            if (ParamUtil.isBlank(s)) {
-                return BaseResponse.with(Status.PARAM_ERROR, "FieldNameList is Incomplete");
-            }
+        //check if the name list is empty
+        if (fieldNameList.isEmpty()) {
+            return BaseResponse.with(Status.PARAM_ERROR, "No Field");
+        }
+        if (!ParamUtil.isAllNotBlank(fieldNameList.toArray(new String[0]))) {
+            return BaseResponse.with(Status.PARAM_ERROR, "FieldNameList is Incomplete");
         }
         //check if table name already existed
-        if (databaseService.queryTableNames( ).tableNames.contains(tableName)) {
-            return BaseResponse.with(Status.PARAM_ERROR, "Table " + tableName + " Already Created");
+        if (ParamUtil.isTableName(tableName)) {
+            return BaseResponse.with(Status.PARAM_ERROR, String.format("Table %s Already Created", tableName));
         }
         //check if the lengths of field names and types are equal
         if (fieldTypeList.size() != fieldNameList.size()){
             return BaseResponse.with(Status.PARAM_ERROR, "Unequal Length of Field Name and Field Type");
-        }
-        //check if the name list is empty
-        if (fieldNameList.isEmpty()) {
-            return BaseResponse.with(Status.PARAM_ERROR, "No Field");
         }
         //check if the primary key is in the name list
         if (!fieldNameList.contains(primaryKey)) {
@@ -85,21 +84,21 @@ public class InterTableServiceImpl implements InterTableService {
     }
 
     @Override
-    public BaseResponse deleteTable(DeleteTableRequest request) {
+    public BaseResponse<Object> deleteTable(DeleteTableRequest request) {
         String tableName = request.getTableName();
         //check if there is any blank string
         if (ParamUtil.isBlank(tableName)) {
             return BaseResponse.with(Status.PARAM_ERROR, "Param is Incomplete");
         }
         //check if table exists
-        if (!databaseService.queryTableNames( ).tableNames.contains(tableName)) {
+        if (!ParamUtil.isTableName(tableName)) {
             return BaseResponse.with(Status.PARAM_ERROR, "Table " + tableName + " Does Not Exist");
         }
         return databaseService.deleteTable(request);
     }
 
     @Override
-    public BaseResponse setAutoIncrement(UpdateTableRequest request) {
+    public BaseResponse<Object> setAutoIncrement(UpdateTableRequest request) {
         String tableName = request.getTableName();
         String columnName = request.getColumnName();
         //check if there is any blank string
