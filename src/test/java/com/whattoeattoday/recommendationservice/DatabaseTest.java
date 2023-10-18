@@ -57,7 +57,7 @@ public class DatabaseTest {
         fieldTypeList.add("VARCHAR(20)");
         fieldTypeList.add("TEXT");
 
-        request.setTableName("test1018");
+        request.setTableName("test1017");
         request.setFieldNameList(fieldNameList);
         request.setFieldTypeList(fieldTypeList);
         request.setPrimaryKey("id");
@@ -91,7 +91,7 @@ public class DatabaseTest {
     @Test
     public void TestDeleteTable() {
         DeleteTableRequest request = new DeleteTableRequest();
-        request.setTableName("test1016");
+        request.setTableName("test1017");
         BaseResponse response = databaseService.deleteTable(request);
         log.info("RESPONSE: {}", response);
         Assert.assertTrue(response.isSuccess());

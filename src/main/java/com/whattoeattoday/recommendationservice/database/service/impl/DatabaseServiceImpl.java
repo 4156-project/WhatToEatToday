@@ -39,14 +39,20 @@ public class DatabaseServiceImpl implements DatabaseService {
         } catch (DataAccessException e) {
             return BaseResponse.with(Status.PARAM_ERROR);
         }
-        // handle auto_increment
+
         UpdateTableRequest updateTableRequest = new UpdateTableRequest();
         updateTableRequest.setTableName(tableName);
-        updateTableRequest.setColumnName(request.getAutoIncrementField());
-        BaseResponse autoIncrResponse = setAutoIncrement(updateTableRequest);
+        BaseResponse autoIncrResponse = null, uniqueKeyResponse = null;
+        // handle auto_increment
+        if (request.getAutoIncrementField() != null) {
+            updateTableRequest.setColumnName(request.getAutoIncrementField());
+            autoIncrResponse = setAutoIncrement(updateTableRequest);
+        }
         // handle unique_key
-        updateTableRequest.setColumnName(request.getUniqueKey());
-        BaseResponse uniqueKeyResponse = setUniqueKey(updateTableRequest);
+        if (request.getUniqueKey() != null) {
+            updateTableRequest.setColumnName(request.getUniqueKey());
+            uniqueKeyResponse = setUniqueKey(updateTableRequest);
+        }
         // Update table_record
         String columnNames = String.join(",", fieldNameList);
         String columnTypes = String.join(",", fieldTypeList);
@@ -57,11 +63,11 @@ public class DatabaseServiceImpl implements DatabaseService {
         } catch (DataAccessException e) {
             return BaseResponse.with(Status.PARAM_ERROR);
         }
-        if (autoIncrResponse.isSuccess() && uniqueKeyResponse.isSuccess()) {
-            return BaseResponse.with(Status.SUCCESS);
-        } else {
+        if ((request.getAutoIncrementField() != null && !autoIncrResponse.isSuccess()) ||
+                (request.getUniqueKey() != null && !uniqueKeyResponse.isSuccess())) {
             return BaseResponse.with(Status.PARAM_ERROR);
         }
+        return BaseResponse.with(Status.SUCCESS);
     }
 
     @Override
