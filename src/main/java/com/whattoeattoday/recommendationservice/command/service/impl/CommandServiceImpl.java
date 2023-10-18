@@ -14,6 +14,7 @@ import com.whattoeattoday.recommendationservice.database.response.QueryTableName
 import com.whattoeattoday.recommendationservice.database.response.QueryTableResponse;
 import com.whattoeattoday.recommendationservice.database.service.DatabaseService;
 import com.whattoeattoday.recommendationservice.database.service.TableService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 
@@ -30,6 +31,7 @@ import java.util.ArrayList;
  * @author Yufeng Wan yw3921@columbia.edu
  * @date 10/16/23
  */
+
 @Service
 public class CommandServiceImpl implements CommandService{
 
@@ -42,7 +44,7 @@ public class CommandServiceImpl implements CommandService{
         return response.tableNames.contains(tableName);
     }
     @Override
-    public BaseResponse Insert(InsertRequest request) {
+    public BaseResponse insert(InsertRequest request) {
         //check if the database null
         QueryTableNamesResponse response = databaseService.queryTableNames();
         if (response.tableNames == null || response.tableNames.isEmpty()) {
@@ -89,7 +91,7 @@ public class CommandServiceImpl implements CommandService{
     }
 
     @Override
-    public BaseResponse Delete(DeleteRequest request) {
+    public BaseResponse delete(DeleteRequest request) {
         //check if the database null
         QueryTableNamesResponse response = databaseService.queryTableNames();
         if (response.tableNames == null || response.tableNames.isEmpty()) {
@@ -118,7 +120,7 @@ public class CommandServiceImpl implements CommandService{
     }
 
     @Override
-    public BaseResponse Update(UpdateRequest request) {
+    public BaseResponse update(UpdateRequest request) {
         //check if the database null
         QueryTableNamesResponse response = databaseService.queryTableNames();
         if (response.tableNames == null || response.tableNames.isEmpty()) {
@@ -171,7 +173,6 @@ public class CommandServiceImpl implements CommandService{
         request2.setTableName(tableName);
         request2.setFiledNames(fieldNames);
         request2.setValues(values);
-
         return tableService.update(request2);
     }
 }

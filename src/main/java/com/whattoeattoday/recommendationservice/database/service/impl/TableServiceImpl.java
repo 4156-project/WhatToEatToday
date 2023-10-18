@@ -84,6 +84,7 @@ public class TableServiceImpl implements TableService {
         } catch (DataAccessException e) {
             return BaseResponse.with(Status.PARAM_ERROR);
         }
+
         if (numOfRowsEffected > 0) {
             return BaseResponse.with(Status.SUCCESS, numOfRowsEffected);
         } else {

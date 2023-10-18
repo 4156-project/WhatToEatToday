@@ -10,25 +10,25 @@ import com.whattoeattoday.recommendationservice.command.request.*;
  */
 public interface CommandService {
 
-    BaseResponse Insert(InsertRequest request);
+    BaseResponse insert(InsertRequest request);
 
     /**
-     * Insert an instance into the table
+     * insert an instance into the table
      * @param request
      * @return
      */
-    BaseResponse Delete(DeleteRequest request);
+    BaseResponse delete(DeleteRequest request);
 
     /**
-     * Delete an instance from the table
+     * delete an instance from the table
      * @param request
      * @return
      */
 
-    BaseResponse Update(UpdateRequest request);
+    BaseResponse update(UpdateRequest request);
 
     /**
-     * Update an instance
+     * update an instance
      * @param request
      * @return
      */

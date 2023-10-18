@@ -13,26 +13,26 @@ public class CommandController {
     @Resource
     public CommandService commandService;
     /**
-     * Insert an instance into a table
+     * insert an instance into a table
      */
     @PostMapping("/category/insert")
     public BaseResponse Insert(@RequestBody InsertRequest request) {
-        return commandService.Insert(request);
+        return commandService.insert(request);
     }
     /**
-     * Delete conditional instances from a table
+     * delete conditional instances from a table
      */
     @PostMapping("/category/delete")
     public BaseResponse Delete(@RequestBody DeleteRequest request) {
-        return commandService.Delete(request);
+        return commandService.delete(request);
     }
 
     /**
-     * Update information in a table
+     * update information in a table
      */
     @PostMapping("/category/update")
     public BaseResponse Update(@RequestBody UpdateRequest request) {
-        return commandService.Update(request);
+        return commandService.update(request);
     }
 
 }

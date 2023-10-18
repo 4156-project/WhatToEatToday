@@ -39,7 +39,7 @@ public class DatabaseServiceImpl implements DatabaseService {
         } catch (DataAccessException e) {
             return BaseResponse.with(Status.PARAM_ERROR);
         }
-        // Update table_record
+        // update table_record
         String columnNames = String.join(",", fieldNameList);
         String columnTypes = String.join(",", fieldTypeList);
         StringBuilder insertSql = new StringBuilder(String.format("INSERT IGNORE INTO `table_record` (name, column_names, column_types) VALUES ('%s', '%s', '%s')",
@@ -63,7 +63,7 @@ public class DatabaseServiceImpl implements DatabaseService {
             return BaseResponse.with(Status.PARAM_ERROR);
         }
 
-        // Update table_record
+        // update table_record
         StringBuilder deleteSql = new StringBuilder(String.format("DELETE FROM `table_record` WHERE name = '%s'", tableName));
         try {
             jdbcTemplate.execute(deleteSql.toString());
