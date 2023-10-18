@@ -10,4 +10,6 @@ public class BuildTableRequest {
     public List<String> fieldNameList;
     public List<String> fieldTypeList;
     public String primaryKey;
+    public String uniqueKey;
+    public String autoIncrementField;
 }
