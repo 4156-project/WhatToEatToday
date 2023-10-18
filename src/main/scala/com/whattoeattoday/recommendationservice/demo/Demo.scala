@@ -5,6 +5,7 @@ import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.mllib.feature.{HashingTF, IDF}
 import org.apache.spark.mllib.linalg.Vector
 import org.apache.spark.sql.{DataFrame, Row, SparkSession}
+import org.apache.spark.mllib.feature.{Word2Vec, Word2VecModel}
 
 /**
  * @author Lijie Huang lh3158@columbia.edu
@@ -63,6 +64,14 @@ object Demo {
     println("----------------------------------------")
     tfidf.foreach(vec => println(vec))
     println("----------------------------------------")
+
+    val word2vec = new Word2Vec()
+    val model = word2vec.fit(rddSeq)
+    val synonyms = model.findSynonyms("Beef", 10)
+    for ((synonym, cosineSimilarity) <- synonyms) {
+      println("----------------------------------------")
+      println(s"$synonym $cosineSimilarity")
+    }
 
 //    // spark.mllib IDF implementation provides an option for ignoring terms which occur in less than
 //    // a minimum number of documents. In such cases, the IDF for these terms is set to 0.
