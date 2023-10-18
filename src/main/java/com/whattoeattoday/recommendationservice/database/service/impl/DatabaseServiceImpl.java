@@ -39,6 +39,14 @@ public class DatabaseServiceImpl implements DatabaseService {
         } catch (DataAccessException e) {
             return BaseResponse.with(Status.PARAM_ERROR);
         }
+        // handle auto_increment
+        UpdateTableRequest updateTableRequest = new UpdateTableRequest();
+        updateTableRequest.setTableName(tableName);
+        updateTableRequest.setColumnName(request.getAutoIncrementField());
+        BaseResponse autoIncrResponse = setAutoIncrement(updateTableRequest);
+        // handle unique_key
+        updateTableRequest.setColumnName(request.getUniqueKey());
+        BaseResponse uniqueKeyResponse = setUniqueKey(updateTableRequest);
         // Update table_record
         String columnNames = String.join(",", fieldNameList);
         String columnTypes = String.join(",", fieldTypeList);
@@ -49,8 +57,11 @@ public class DatabaseServiceImpl implements DatabaseService {
         } catch (DataAccessException e) {
             return BaseResponse.with(Status.PARAM_ERROR);
         }
-
-        return BaseResponse.with(Status.SUCCESS);
+        if (autoIncrResponse.isSuccess() && uniqueKeyResponse.isSuccess()) {
+            return BaseResponse.with(Status.SUCCESS);
+        } else {
+            return BaseResponse.with(Status.PARAM_ERROR);
+        }
     }
 
     @Override
