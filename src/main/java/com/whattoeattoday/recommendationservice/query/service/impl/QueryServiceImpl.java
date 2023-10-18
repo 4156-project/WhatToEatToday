@@ -91,10 +91,11 @@ public class QueryServiceImpl implements QueryService {
                 request.getConditionValue(), request.pageNo, request.pageSize})) {
             return BaseResponse.with(Status.PARAM_ERROR, "Param is Incomplete");
         }
-        if (!ParamUtil.isFiledNames(request.getFieldNames())) {
+        boolean isStarSign = request.getFieldNames().size() == 1 && "*".equals(request.getFieldNames().get(0));
+        if (!isStarSign && !ParamUtil.isFiledNames(request.getCategoryName(), request.getFieldNames())) {
             return BaseResponse.with(Status.PARAM_ERROR, "Filed Name Error");
         }
-        if (!ParamUtil.isNumeric(request.getPageNo()) || !ParamUtil.isNumeric(request.getPageSize())) {
+        if (!ParamUtil.isPageValid(request.getPageNo(), request.getPageSize())) {
             return BaseResponse.with(Status.PARAM_ERROR, "Page Number or Page Size is not Numeric");
         }
         String categoryName = request.getCategoryName();
@@ -134,4 +135,5 @@ public class QueryServiceImpl implements QueryService {
         String keyword = request.getKeyword();
         return null;
     }
+
 }
