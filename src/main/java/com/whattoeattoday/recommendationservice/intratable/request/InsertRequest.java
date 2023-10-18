@@ -1,4 +1,4 @@
-package com.whattoeattoday.recommendationservice.command.request;
+package com.whattoeattoday.recommendationservice.intratable.request;
 import lombok.Data;
 import java.util.Map;
 
@@ -7,9 +7,7 @@ import java.util.Map;
  * @date 10/15/23
  */
 @Data
-public class UpdateRequest {
+public class InsertRequest {
     public String tableName;
     public Map<String,Object> fieldNameValues;
-    public String conditionField;
-    public Object conditionValue;
 }

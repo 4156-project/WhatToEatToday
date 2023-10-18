@@ -1,4 +1,4 @@
-package com.whattoeattoday.recommendationservice.command.service.impl;
+package com.whattoeattoday.recommendationservice.intratable.service.impl;
 
 import java.math.BigDecimal;
 

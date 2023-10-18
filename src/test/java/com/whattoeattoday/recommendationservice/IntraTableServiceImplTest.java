@@ -2,8 +2,8 @@ package com.whattoeattoday.recommendationservice;
 
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
 import com.whattoeattoday.recommendationservice.common.Status;
-import com.whattoeattoday.recommendationservice.command.request.*;
-import com.whattoeattoday.recommendationservice.command.service.api.CommandService;
+import com.whattoeattoday.recommendationservice.intratable.request.*;
+import com.whattoeattoday.recommendationservice.intratable.service.api.IntraTableService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
@@ -21,20 +21,20 @@ import java.util.HashMap;
 @Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = RecommendationServiceApplication.class)
-public class CommandServiceImplTest {
+public class IntraTableServiceImplTest {
     @Resource
-    private CommandService commandService;
+    private IntraTableService intraTableService;
 
     @Test
     public void TestInsert(){
         InsertRequest request = new InsertRequest();
         request.setTableName("test1016");
         Map<String, Object> fieldNameValues = new HashMap<>();
-        fieldNameValues.put("name", "Lee");
+        fieldNameValues.put("name", "Le");
         fieldNameValues.put("gender","Male");
         fieldNameValues.put("age", 2);
         request.setFieldNameValues(fieldNameValues);
-        BaseResponse response = commandService.insert(request);
+        BaseResponse response = intraTableService.insert(request);
         log.info("RESPONSE: {}", response);
         Assert.assertEquals(response.getCode(), Status.SUCCESS);
     }
@@ -45,7 +45,7 @@ public class CommandServiceImplTest {
         request.setTableName("test1016");
         request.setConditionField("name");
         request.setConditionValue("Lee");
-        BaseResponse response = commandService.delete(request);
+        BaseResponse response = intraTableService.delete(request);
         log.info("RESPONSE: {}", response);
         Assert.assertEquals(response.getCode(), Status.SUCCESS);
     }
@@ -55,12 +55,12 @@ public class CommandServiceImplTest {
         UpdateRequest request = new UpdateRequest();
         request.setTableName("test1016");
         request.setConditionField("age");
-        request.setConditionValue(5);
+        request.setConditionValue(4);
         Map<String,Object>map = new HashMap<>();
         map.put("gender","Male");
         map.put("age",6);
         request.setFieldNameValues(map);
-        BaseResponse response = commandService.update(request);
+        BaseResponse response = intraTableService.update(request);
         log.info("RESPONSE: {}", response);
         Assert.assertEquals(response.getCode(), Status.SUCCESS);
     }

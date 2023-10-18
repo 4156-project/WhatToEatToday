@@ -1,9 +1,9 @@
-package com.whattoeattoday.recommendationservice.command.service.impl;
+package com.whattoeattoday.recommendationservice.intratable.service.impl;
 
-import com.whattoeattoday.recommendationservice.command.request.DeleteRequest;
-import com.whattoeattoday.recommendationservice.command.request.InsertRequest;
-import com.whattoeattoday.recommendationservice.command.request.UpdateRequest;
-import com.whattoeattoday.recommendationservice.command.service.api.CommandService;
+import com.whattoeattoday.recommendationservice.intratable.request.DeleteRequest;
+import com.whattoeattoday.recommendationservice.intratable.request.InsertRequest;
+import com.whattoeattoday.recommendationservice.intratable.request.UpdateRequest;
+import com.whattoeattoday.recommendationservice.intratable.service.api.IntraTableService;
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
 import com.whattoeattoday.recommendationservice.common.Status;
 import com.whattoeattoday.recommendationservice.database.request.row.DeleteRowRequest;
@@ -27,7 +27,7 @@ import java.util.Map;
  */
 
 @Service
-public class CommandServiceImpl implements CommandService{
+public class IntraTableServiceImpl implements IntraTableService {
 
     @Resource
     private DatabaseService databaseService;
@@ -48,7 +48,7 @@ public class CommandServiceImpl implements CommandService{
         //check if table name in database
         String tableName = request.getTableName();
         if(!isTableValid(tableName)){
-            return BaseResponse.with(Status.NOT_FOUND, "Table not found");
+            return BaseResponse.with(Status.NOT_FOUND, "Table Not Found");
         }
 
         //check if the inserted fieldName and value valid
@@ -66,7 +66,7 @@ public class CommandServiceImpl implements CommandService{
             Object value = entry.getValue();
 
             if (!fieldNameTypeMap.containsKey(key)){
-                return BaseResponse.with(Status.NOT_FOUND, "Column not found");
+                return BaseResponse.with(Status.NOT_FOUND, "Field Not Found");
 
             }
             String sqlType = fieldNameTypeMap.get(key);
@@ -95,14 +95,14 @@ public class CommandServiceImpl implements CommandService{
         //check if table name in database
         String tableName = request.getTableName();
         if(!isTableValid(tableName)){
-            return BaseResponse.with(Status.NOT_FOUND, "Table not found");
+            return BaseResponse.with(Status.NOT_FOUND, "Table Not Found");
         }
         //check if the deleted fieldName null or empty
         String conditionField = request.getConditionField();
         Object conditionValue = request.getConditionValue();
 
         if(conditionField.isEmpty()){
-            return BaseResponse.with(Status.PARAM_ERROR,"FieldName should not be empty");
+            return BaseResponse.with(Status.PARAM_ERROR,"FieldName should not be Empty");
         }
 
         DeleteRowRequest request2 = new DeleteRowRequest();
@@ -124,14 +124,14 @@ public class CommandServiceImpl implements CommandService{
         //check if table name in database
         String tableName = request.getTableName();
         if(!isTableValid(tableName)){
-            return BaseResponse.with(Status.NOT_FOUND, "Table not found");
+            return BaseResponse.with(Status.NOT_FOUND, "Table Not Found");
         }
         //check if the deleted fieldName null or empty
         String conditionField = request.getConditionField();
         Object conditionValue = request.getConditionValue();
 
         if(conditionField.isEmpty()){
-            return BaseResponse.with(Status.PARAM_ERROR,"FieldName should not be empty");
+            return BaseResponse.with(Status.PARAM_ERROR,"FieldName should not be Empty");
         }
 
         //check if the update fieldName and value valid
@@ -149,7 +149,7 @@ public class CommandServiceImpl implements CommandService{
             Object value = entry.getValue();
 
             if (!fieldNameTypeMap.containsKey(key)){
-                return BaseResponse.with(Status.NOT_FOUND, "Column not found");
+                return BaseResponse.with(Status.NOT_FOUND, "Field Not Found");
 
             }
             String sqlType = fieldNameTypeMap.get(key);

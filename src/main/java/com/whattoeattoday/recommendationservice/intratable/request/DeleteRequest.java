@@ -1,6 +1,5 @@
-package com.whattoeattoday.recommendationservice.command.request;
+package com.whattoeattoday.recommendationservice.intratable.request;
 import lombok.Data;
-import java.util.Map;
 
 /**
  * @author Yufeng Wan yw3921@columbia.edu
