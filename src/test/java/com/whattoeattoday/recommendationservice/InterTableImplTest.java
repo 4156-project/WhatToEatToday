@@ -2,6 +2,7 @@ package com.whattoeattoday.recommendationservice;
 
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
 import com.whattoeattoday.recommendationservice.database.request.table.BuildTableRequest;
+import com.whattoeattoday.recommendationservice.database.request.table.DeleteTableRequest;
 import com.whattoeattoday.recommendationservice.intertable.service.api.InterTableService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
@@ -46,5 +47,14 @@ public class InterTableImplTest {
         BaseResponse response = interTableService.createTable(request);
         log.info("RESPONSE: {}", response);
         Assert.assertTrue(response.isSuccess());
+    }
+
+    @Test
+    public void TestDeleteTable() {
+        DeleteTableRequest request = new DeleteTableRequest();
+        request.setTableName("book");
+        BaseResponse response = interTableService.deleteTable(request);
+        log.info("RESPONSE: {}", response);
+        Assert.assertFalse(response.isSuccess());
     }
 }

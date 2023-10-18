@@ -2,6 +2,7 @@ package com.whattoeattoday.recommendationservice.intertable.service.api;
 
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
 import com.whattoeattoday.recommendationservice.database.request.table.BuildTableRequest;
+import com.whattoeattoday.recommendationservice.database.request.table.DeleteTableRequest;
 
 /**
  * @author Ruoxuan wANG rw2961@columbia.edu
@@ -15,4 +16,11 @@ public interface InterTableService {
      * @return
      */
     BaseResponse createTable(BuildTableRequest request);
+
+    /**
+     * Delete a table
+     * @param request
+     * @return
+     */
+    BaseResponse deleteTable(DeleteTableRequest request);
 }

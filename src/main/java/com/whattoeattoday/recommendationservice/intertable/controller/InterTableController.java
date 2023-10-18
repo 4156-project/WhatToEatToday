@@ -3,6 +3,7 @@ package com.whattoeattoday.recommendationservice.intertable.controller;
 
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
 import com.whattoeattoday.recommendationservice.database.request.table.BuildTableRequest;
+import com.whattoeattoday.recommendationservice.database.request.table.DeleteTableRequest;
 import com.whattoeattoday.recommendationservice.intertable.service.api.InterTableService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,5 +28,14 @@ public class InterTableController {
     @PostMapping("/category/create")
     public BaseResponse createTable(@RequestBody BuildTableRequest request) {
         return intertableService.createTable(request);
+    }
+
+    /**
+     * Delete a table
+     * @param request
+     */
+    @PostMapping("/category/delete")
+    public BaseResponse deleteTable(@RequestBody DeleteTableRequest request) {
+        return intertableService.deleteTable(request);
     }
 }

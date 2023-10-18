@@ -4,6 +4,7 @@ import com.whattoeattoday.recommendationservice.common.BaseResponse;
 import com.whattoeattoday.recommendationservice.common.ParamUtil;
 import com.whattoeattoday.recommendationservice.common.Status;
 import com.whattoeattoday.recommendationservice.database.request.table.BuildTableRequest;
+import com.whattoeattoday.recommendationservice.database.request.table.DeleteTableRequest;
 import com.whattoeattoday.recommendationservice.database.service.DatabaseService;
 import com.whattoeattoday.recommendationservice.intertable.service.api.InterTableService;
 import org.springframework.stereotype.Service;
@@ -58,5 +59,19 @@ public class InterTableServiceImpl implements InterTableService {
             }
         }
         return databaseService.buildTable(request);
+    }
+
+    @Override
+    public BaseResponse deleteTable(DeleteTableRequest request) {
+        String tableName = request.getTableName();
+        //check if there is any blank string
+        if (ParamUtil.isBlank(tableName)) {
+            return BaseResponse.with(Status.PARAM_ERROR, "Param is Incomplete");
+        }
+        //check if table exists
+        if (!databaseService.queryTableNames( ).tableNames.contains(tableName)) {
+            return BaseResponse.with(Status.PARAM_ERROR, "Table Does Not Exist");
+        }
+        return databaseService.deleteTable(request);
     }
 }
