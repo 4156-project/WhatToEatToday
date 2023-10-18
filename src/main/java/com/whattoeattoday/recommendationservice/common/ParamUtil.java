@@ -3,11 +3,9 @@ package com.whattoeattoday.recommendationservice.common;
 import com.whattoeattoday.recommendationservice.database.request.table.QueryTableRequest;
 import com.whattoeattoday.recommendationservice.database.response.QueryTableResponse;
 import com.whattoeattoday.recommendationservice.database.service.DatabaseService;
-import com.whattoeattoday.recommendationservice.database.service.impl.DatabaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -66,16 +64,13 @@ public class ParamUtil {
 
 
     public static boolean isTypeValid(String type) {
-        System.out.println(type);
         String baseType = type.split("\\(")[0].toUpperCase();
-        System.out.println(baseType);
         String param = null;
         if (baseType.length() != type.length()) {
             if (type.charAt(type.length() - 1) != ')') {return false;}
             if (type.length() - baseType.length() <= 2) {return false;}
             param = type.substring(baseType.length()+1, type.length()-1);
         }
-        System.out.println(param);
         switch (baseType) {
             case "CHAR":
             case "BINARY":
