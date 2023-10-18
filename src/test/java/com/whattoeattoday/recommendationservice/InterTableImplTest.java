@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  * @author Ruoxuan Wang
- * @Date
+ * @date
  */
 @Slf4j
 @RunWith(SpringRunner.class)
@@ -29,31 +29,40 @@ public class InterTableImplTest {
     @Test
     public void TestCreateTable() {
         BuildTableRequest request = new BuildTableRequest();
-
-        request.setTableName("book");
-
+        //Test 1
+        request.setTableName("book1");
         List<String> fieldNameList = new ArrayList<>();
         fieldNameList.add("id");
         fieldNameList.add("title");
         request.setFieldNameList(fieldNameList);
-
         List<String> fieldTypeList = new ArrayList<>();
         fieldTypeList.add("INT");
         fieldTypeList.add("VARCHAR(20)");
         request.setFieldTypeList(fieldTypeList);
-
         request.setPrimaryKey("id");
-
         BaseResponse response = interTableService.createTable(request);
-        log.info("RESPONSE: {}", response);
+        log.info("TestCreateTable RESPONSE1: {}", response);
+        Assert.assertTrue(response.isSuccess());
+        //Test 2
+        request.setTableName("book2");
+        request.setAutoIncrementField("id");
+        request.setUniqueKey("title");
+        response = interTableService.createTable(request);
+        log.info("TestCreateTable RESPONSE2: {}", response);
         Assert.assertTrue(response.isSuccess());
     }
 
     @Test
     public void TestDeleteTable() {
         DeleteTableRequest request = new DeleteTableRequest();
-        request.setTableName("book");
+        //Test Exist
+        request.setTableName("book2");
         BaseResponse response = interTableService.deleteTable(request);
+        log.info("RESPONSE: {}", response);
+        Assert.assertTrue(response.isSuccess());
+        //Test Not Exist
+        request.setTableName("notExists");
+        response = interTableService.deleteTable(request);
         log.info("RESPONSE: {}", response);
         Assert.assertFalse(response.isSuccess());
     }
