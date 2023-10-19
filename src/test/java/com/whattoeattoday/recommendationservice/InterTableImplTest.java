@@ -34,7 +34,6 @@ public class InterTableImplTest {
     public void Test0CreateTable() {
         BuildTableRequest request = new BuildTableRequest();
         //Test 1
-        BuildTableRequest request = new BuildTableRequest();
         request.setTableName("book1");
         List<String> fieldNameList = new ArrayList<>();
         fieldNameList.add("id");

@@ -8,9 +8,10 @@ import com.whattoeattoday.recommendationservice.intratable.request.UpdateRequest
 import com.whattoeattoday.recommendationservice.intratable.service.api.IntraTableService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
-import org.junit.jupiter.api.Order;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -24,13 +25,13 @@ import java.util.Map;
 @Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = RecommendationServiceApplication.class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class IntraTableServiceImplTest {
     @Resource
     private IntraTableService intraTableService;
 
     @Test
-    @Order(1)
-    public void testInsert(){
+    public void test0Insert(){
         InsertRequest request = new InsertRequest();
         request.setTableName("test1016");
         Map<String, Object> fieldNameValues = new HashMap<>();
@@ -44,8 +45,7 @@ public class IntraTableServiceImplTest {
     }
 
     @Test
-    @Order(3)
-    public void testDelete(){
+    public void test2Delete(){
         DeleteRequest request = new DeleteRequest();
         request.setTableName("test1016");
         request.setConditionField("name");
@@ -56,8 +56,7 @@ public class IntraTableServiceImplTest {
     }
 
     @Test
-    @Order(2)
-    public void testUpdate(){
+    public void test1Update(){
         UpdateRequest request = new UpdateRequest();
         request.setTableName("test1016");
         request.setConditionField("name");
