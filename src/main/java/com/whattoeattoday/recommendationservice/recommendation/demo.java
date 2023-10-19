@@ -22,7 +22,7 @@ import org.apache.spark.sql.types.StructType;
  * @date 10/18/23
  */
 public class demo implements Serializable {
-    private static transient SparkSession spark;
+    private static SparkSession spark;
     public static void tfidf() {
         spark = SparkSession
                 .builder()
