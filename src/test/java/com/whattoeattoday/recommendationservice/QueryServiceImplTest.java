@@ -30,7 +30,7 @@ public class QueryServiceImplTest {
     private QueryService queryService;
 
     @Test
-    public void TestQueryCategoryInfo() {
+    public void testQueryCategoryInfo() {
         QueryCategoryInfoRequest request = new QueryCategoryInfoRequest();
         request.setCategoryName("test1016");
         BaseResponse response = queryService.queryCategoryInfo(request);
@@ -39,14 +39,14 @@ public class QueryServiceImplTest {
     }
 
     @Test
-    public void TestQueryAllCategoryName() {
+    public void testQueryAllCategoryName() {
         BaseResponse response = queryService.queryAllCategoryName();
         log.info("TestQueryAllCategoryName RESPONSE: {}", response);
         Assert.assertEquals(response.getCode(), Status.SUCCESS);
     }
 
     @Test
-    public void TestQueryCategoryByName() {
+    public void testQueryCategoryByName() {
         QueryCategoryByNameRequest request = new QueryCategoryByNameRequest();
         request.setCategoryName("test1016");
         request.setContentName("Larry");
@@ -66,7 +66,7 @@ public class QueryServiceImplTest {
     }
 
     @Test
-    public void TestQueryContentBySingleCondition() {
+    public void testQueryContentBySingleCondition() {
         QueryContentBySingleConditionRequest request = new QueryContentBySingleConditionRequest();
         request.setCategoryName("test1016");
         request.setFieldNames(new ArrayList<String>(){{add("*");}});

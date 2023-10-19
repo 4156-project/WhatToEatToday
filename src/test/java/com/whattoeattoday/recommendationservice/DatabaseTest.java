@@ -35,12 +35,8 @@ public class DatabaseTest {
 
     @Test
     public void contextLoads() throws SQLException {
-        // 查看默认数据源
-        System.out.println(dataSource.getClass());
-        // 获得连接
         Connection connection = dataSource.getConnection();
-        System.out.println(connection);
-        // 关闭连接
+        log.info("Connection: {}", connection);
         connection.close();
     }
 
@@ -70,7 +66,7 @@ public class DatabaseTest {
     }
 
     @Test
-    public void TestSetAutoIncrement() {
+    public void testSetAutoIncrement() {
         UpdateTableRequest request = new UpdateTableRequest();
         request.setTableName("test1016");
         request.setColumnName("id");
@@ -80,7 +76,7 @@ public class DatabaseTest {
     }
 
     @Test
-    public void TestSetUniqueKey() {
+    public void testSetUniqueKey() {
         UpdateTableRequest request = new UpdateTableRequest();
         request.setTableName("test1016");
         request.setColumnName("name");
@@ -89,7 +85,7 @@ public class DatabaseTest {
         Assert.assertTrue(response.isSuccess());
     }
     @Test
-    public void TestDeleteTable() {
+    public void testDeleteTable() {
         DeleteTableRequest request = new DeleteTableRequest();
         request.setTableName("test1017");
         BaseResponse response = databaseService.deleteTable(request);
@@ -98,7 +94,7 @@ public class DatabaseTest {
     }
 
     @Test
-    public void TestQueryTable() {
+    public void testQueryTable() {
         QueryTableRequest request = new QueryTableRequest();
         request.setTableName("test1016");
         QueryTableResponse response = databaseService.queryTable(request);
@@ -107,7 +103,7 @@ public class DatabaseTest {
     }
 
     @Test
-    public void TestQueryTableNames() {
+    public void testQueryTableNames() {
         QueryTableNamesResponse response = databaseService.queryTableNames();
         log.info("RESPONSE: {}", response);
         Assert.assertFalse(response.tableNames.isEmpty());

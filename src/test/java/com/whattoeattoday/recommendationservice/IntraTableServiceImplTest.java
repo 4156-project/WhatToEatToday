@@ -26,7 +26,7 @@ public class IntraTableServiceImplTest {
     private IntraTableService intraTableService;
 
     @Test
-    public void TestInsert(){
+    public void testInsert(){
         InsertRequest request = new InsertRequest();
         request.setTableName("test1016");
         Map<String, Object> fieldNameValues = new HashMap<>();
@@ -40,7 +40,7 @@ public class IntraTableServiceImplTest {
     }
 
     @Test
-    public void TestDelete(){
+    public void testDelete(){
         DeleteRequest request = new DeleteRequest();
         request.setTableName("test1016");
         request.setConditionField("name");
@@ -51,7 +51,7 @@ public class IntraTableServiceImplTest {
     }
 
     @Test
-    public void TestUpdate(){
+    public void testUpdate(){
         UpdateRequest request = new UpdateRequest();
         request.setTableName("test1016");
         request.setConditionField("age");

@@ -27,7 +27,7 @@ public class InterTableImplTest {
     private InterTableService interTableService;
 
     @Test
-    public void TestCreateTable() {
+    public void testCreateTable() {
         BuildTableRequest request = new BuildTableRequest();
         //Test 1
         request.setTableName("book1");
@@ -53,7 +53,7 @@ public class InterTableImplTest {
     }
 
     @Test
-    public void TestDeleteTable() {
+    public void testDeleteTable() {
         DeleteTableRequest request = new DeleteTableRequest();
         //Test Exist
         request.setTableName("book1");

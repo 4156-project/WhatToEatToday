@@ -138,9 +138,9 @@ public class ParamUtil {
         }
     }
 
-    public static boolean isValidSqlType(Object value, String sqlType) {
+    public static boolean isValidSqlType(Object value, String rowSqlType) {
 
-        sqlType = sqlType.toLowerCase();
+        String sqlType = rowSqlType.toLowerCase();
 
         if (value == null) {
             return true;
