@@ -7,6 +7,9 @@ import static com.whattoeattoday.recommendationservice.common.Status.FAILURE;
 import static com.whattoeattoday.recommendationservice.common.Status.SUCCESS;
 
 
+/**
+ * @author huanglijie
+ */
 public final class BaseResponse<T> implements Serializable {
 
     private static final long serialVersionUID = 3886133510113334083L;

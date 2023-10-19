@@ -68,8 +68,10 @@ public class ParamUtil {
         String baseType = type.split("\\(")[0].toUpperCase();
         String param = null;
         if (baseType.length() != type.length()) {
-            if (type.charAt(type.length() - 1) != ')') {return false;}
-            if (type.length() - baseType.length() <= 2) {return false;}
+            char endBracket = ')';
+            int diff = 2;
+            if (type.charAt(type.length() - 1) != endBracket) {return false;}
+            if (type.length() - baseType.length() <= diff) {return false;}
             param = type.substring(baseType.length()+1, type.length()-1);
         }
         switch (baseType) {
@@ -102,9 +104,10 @@ public class ParamUtil {
             case "DEC":
                 if (param == null) {return true;}
                 String[] paramArray2 = param.split(",");
+                int length2 = 2;
                 if (paramArray2.length == 1) {
                     return checkIntRange(paramArray2[0], 1, 65);
-                } else if (paramArray2.length == 2) {
+                } else if (paramArray2.length == length2) {
                     if (paramArray2[0].trim().isEmpty()) {
                         return false;
                     } else {
