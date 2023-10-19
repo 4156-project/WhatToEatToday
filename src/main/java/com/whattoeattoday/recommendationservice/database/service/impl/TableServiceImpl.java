@@ -17,6 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author Jiarong Shi js6132@columbia.edu
+ * @date 10/15/23
+ */
 @Service
 public class TableServiceImpl implements TableService {
     @Resource
@@ -119,10 +123,10 @@ public class TableServiceImpl implements TableService {
     }
 
     public long queryTableRowsNum(String tableName) {
-        String Sql = "SELECT COUNT(*) AS cnt FROM " + tableName;
+        String sql = "SELECT COUNT(*) AS cnt FROM " + tableName;
         Map<String, Object> res;
         try {
-            res = jdbcTemplate.queryForMap(Sql);
+            res = jdbcTemplate.queryForMap(sql);
         } catch (DataAccessException e) {
             return -1;
         }

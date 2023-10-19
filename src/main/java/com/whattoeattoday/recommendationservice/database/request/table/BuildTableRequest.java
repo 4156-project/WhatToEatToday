@@ -4,6 +4,10 @@ import lombok.Data;
 
 import java.util.List;
 
+/**
+ * @author Jiarong Shi js6132@columbia.edu
+ * @date 10/15/23
+ */
 @Data
 public class BuildTableRequest {
     public String tableName;
