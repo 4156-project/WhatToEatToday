@@ -6,6 +6,7 @@ import com.whattoeattoday.recommendationservice.database.service.DatabaseService
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -129,6 +130,43 @@ public class ParamUtil {
             case "DATE":
             case "YEAR":
                 return param == null;
+            default:
+                return false;
+        }
+    }
+
+    public static boolean isValidSqlType(Object value, String sqlType) {
+
+        sqlType = sqlType.toLowerCase();
+
+        if (value == null) {
+            return true;
+        }
+
+
+        String[] typeParts = sqlType.split("\\(|\\)");
+        String type = typeParts[0];
+        String length = typeParts.length > 1 ? typeParts[1] : "";
+
+        switch (type) {
+            case "int":
+            case "integer":
+            case "tinyint":
+            case "smallint":
+            case "mediumint":
+            case "bigint":
+                return value instanceof Integer || value instanceof Long;
+            case "varchar":
+            case "char":
+                if (value instanceof String && !length.isEmpty()) {
+                    int maxLength = Integer.parseInt(length);
+                    return ((String) value).length() <= maxLength;
+                }
+                return value instanceof String;
+            case "float":
+            case "double":
+            case "decimal":
+                return value instanceof Float || value instanceof Double || value instanceof BigDecimal;
             default:
                 return false;
         }

@@ -1,5 +1,6 @@
 package com.whattoeattoday.recommendationservice.intratable.service.impl;
 
+import com.whattoeattoday.recommendationservice.common.ParamUtil;
 import com.whattoeattoday.recommendationservice.intratable.request.DeleteRequest;
 import com.whattoeattoday.recommendationservice.intratable.request.InsertRequest;
 import com.whattoeattoday.recommendationservice.intratable.request.UpdateRequest;
@@ -70,7 +71,7 @@ public class IntraTableServiceImpl implements IntraTableService {
 
             }
             String sqlType = fieldNameTypeMap.get(key);
-            if (!SqlTypeValidator.isValid(value, sqlType)) {
+            if (!ParamUtil.isValidSqlType(value, sqlType)) {
                 return BaseResponse.with(Status.PARAM_ERROR, "Type Error");
             }
             fieldNames.add(entry.getKey());
@@ -153,7 +154,7 @@ public class IntraTableServiceImpl implements IntraTableService {
 
             }
             String sqlType = fieldNameTypeMap.get(key);
-            if (!SqlTypeValidator.isValid(value, sqlType)) {
+            if (!ParamUtil.isValidSqlType(value, sqlType)) {
                 return BaseResponse.with(Status.PARAM_ERROR, "Type Error");
             }
             fieldNames.add(entry.getKey());
