@@ -2,6 +2,7 @@ package com.whattoeattoday.recommendationservice.recommendation;
 
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
 import com.whattoeattoday.recommendationservice.common.Status;
+import com.whattoeattoday.recommendationservice.recommendation.request.GetVectorizedSimilarityRankOnMultiField;
 import com.whattoeattoday.recommendationservice.recommendation.request.GetVectorizedSimilarityRankRequest;
 import org.apache.spark.ml.feature.HashingTF;
 import org.apache.spark.ml.feature.IDF;
@@ -18,6 +19,8 @@ import org.apache.spark.sql.types.Metadata;
 import org.apache.spark.sql.types.StructField;
 import org.apache.spark.sql.types.StructType;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Service;
 
@@ -40,36 +43,27 @@ public class VectorizedSimilarityServiceImpl implements VectorizedSimilarityServ
     @Value("${spring.datasource.password}")
     private String password;
 
-    private static SparkSession spark;
+    private static SparkSession spark = SparkSession
+            .builder()
+            .appName("Get Vectorized Similarity Rank")
+            .config("spark.master", "local")
+            .getOrCreate();
+
     @Override
     public BaseResponse<List<Row>> getVectorizedSimilarityRank(GetVectorizedSimilarityRankRequest request) {
         // TODO Param Validation
         String tableName = request.getCategoryName();
 
-        spark = SparkSession
-                .builder()
-                .appName("Get Vectorized Similarity Rank")
-                .config("spark.master", "local")
-                .getOrCreate();
-
-        Dataset<Row> mysqlData = spark.read()
+        Dataset<Row> sentenceData = spark.read()
                 .format("jdbc")
                 .option("url", jdbcUrl)
                 .option("dbtable", tableName)
                 .option("user", username)
                 .option("password", password)
                 .load()
-                .select("id", request.getFieldName())
                 .where(String.format("%s is not null", request.getFieldName()));
 
-        StructType schema = new StructType(new StructField[]{
-                new StructField("id", DataTypes.IntegerType, false, Metadata.empty()),
-                new StructField("sentence", DataTypes.StringType, false, Metadata.empty())
-        });
-
-        Dataset<Row> sentenceData = spark.createDataFrame(mysqlData.toDF().toJavaRDD(), schema);
-
-        Tokenizer tokenizer = new Tokenizer().setInputCol("sentence").setOutputCol("words");
+        Tokenizer tokenizer = new Tokenizer().setInputCol(request.getFieldName()).setOutputCol("words");
         Dataset<Row> wordsData = tokenizer.transform(sentenceData);
 
         int numFeatures = 100;
@@ -82,7 +76,7 @@ public class VectorizedSimilarityServiceImpl implements VectorizedSimilarityServ
         IDFModel idfModel = idf.fit(featurizedData);
         Dataset<Row> rescaledData = idfModel.transform(featurizedData);
 
-        Dataset<Row> select = rescaledData.select("id", "features", "sentence");
+        Dataset<Row> select = rescaledData.select("id", "features", request.getFieldName());
         select.createOrReplaceTempView("view");
         Dataset<Row> targetData = spark.sql(String.format("SELECT * FROM view WHERE id = %s", request.getTargetId()));
         Vector targetVector = (Vector) targetData.collectAsList().get(0).get(1);
@@ -96,7 +90,7 @@ public class VectorizedSimilarityServiceImpl implements VectorizedSimilarityServ
 
         List<Row> rowsList = select.collectAsList();
         for (Row row : rowsList) {
-            Vector curVector = (Vector) row.get(1);
+            Vector curVector = row.getAs("features");
             double sqdist = Vectors.sqdist(targetVector, curVector);
             Row resultRow = RowFactory.create(row.get(0), sqdist, row.get(2));
             topQueue.add(resultRow);
@@ -110,7 +104,11 @@ public class VectorizedSimilarityServiceImpl implements VectorizedSimilarityServ
             resultList.add(0, topQueue.poll());
         }
 
-        spark.close();
         return BaseResponse.with(Status.SUCCESS, resultList);
+    }
+
+    @Override
+    public BaseResponse<List<Row>> getVectorizedSimilarityRankOnMultiField(GetVectorizedSimilarityRankOnMultiField request) {
+        return null;
     }
 }

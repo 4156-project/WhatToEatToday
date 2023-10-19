@@ -36,7 +36,7 @@ public class RecommendationTest {
         GetVectorizedSimilarityRankRequest request = new GetVectorizedSimilarityRankRequest();
         request.setCategoryName("food");
         request.setFieldName("ingredients");
-        request.setTargetId("6");
+        request.setTargetId("2");
         request.setRankTopSize(15);
         BaseResponse<List<Row>> vectorizedSimilarityRank = vectorizedSimilarityService.getVectorizedSimilarityRank(request);
         log.info("testGetVectorizedSimilarityRank response: {}", vectorizedSimilarityRank.getData());
