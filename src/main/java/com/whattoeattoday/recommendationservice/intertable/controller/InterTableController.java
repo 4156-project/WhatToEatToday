@@ -22,7 +22,7 @@ public class InterTableController {
     public InterTableService intertableService;
 
     /**
-     * Create a new table
+     * Create a new category
      * @param request
      */
     @PostMapping("/category/create")
@@ -31,7 +31,7 @@ public class InterTableController {
     }
 
     /**
-     * Delete a table
+     * Delete a category
      * @param request
      */
     @PostMapping("/category/delete")

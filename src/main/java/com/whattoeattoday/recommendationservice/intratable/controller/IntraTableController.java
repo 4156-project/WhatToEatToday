@@ -16,7 +16,7 @@ public class IntraTableController {
     @Resource
     public IntraTableService intraTableService;
     /**
-     * insert an instance into a table
+     * insert a content into a category
      * @param request
      */
     @PostMapping("/content/insert")
@@ -24,7 +24,7 @@ public class IntraTableController {
         return intraTableService.insert(request);
     }
     /**
-     * delete conditional instances from a table
+     * delete contents from a category by setting conditions
      * @param request
      */
     @PostMapping("/content/delete")
@@ -33,7 +33,7 @@ public class IntraTableController {
     }
 
     /**
-     * update information in a table
+     * Modify contents in a category
      * @param request
      */
     @PostMapping("/content/update")
