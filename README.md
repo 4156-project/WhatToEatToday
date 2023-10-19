@@ -35,7 +35,7 @@ dot (.) — do not miss the dot. It indicates that the Dockerfile is in the curr
 
 ### 2. Run Docker Image
 ```
-docker run -p 8080:8080 recommendation-service-demo:1
+docker run -p 8080:8080 recommendation-service-docker:1
 ```
 
 run — run the docker image
@@ -50,6 +50,6 @@ Now you start the service hosted on your computer with the port 8080. You can te
 [API Documentation](V1.0/RecommendationService-V1.0-api-docs.md) and make sure localhost:8080 is your base url to access
 these APIs.
 
-Let's have a quick test on ListAllCategoryName API which response with names of all categories without requiring a request body.
+Let's have a quick test on ListAllCategoryName API which responds with names of all categories without requiring a request body.
 
 http://localhost:8080/query/category/list/name (make sure you complete step 2)
