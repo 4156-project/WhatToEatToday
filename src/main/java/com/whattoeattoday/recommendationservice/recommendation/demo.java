@@ -29,21 +29,37 @@ public class demo {
                 .config("spark.master", "local")
                 .getOrCreate();
 
-        List<Row> data = Arrays.asList(
-                RowFactory.create(0, "Hi I heard about Spark"),
-                RowFactory.create(1, "I wish Java could use case classes"),
-                RowFactory.create(2, "Logistic regression models are neat"),
-                RowFactory.create(3, "I'm about to hear Spark")
+//        List<Row> data = Arrays.asList(
+//                RowFactory.create(0, "Hi I heard about Spark"),
+//                RowFactory.create(1, "I wish Java could use case classes"),
+//                RowFactory.create(2, "Logistic regression models are neat"),
+//                RowFactory.create(3, "I'm about to hear Spark")
+//        );
 
-        );
-        StructType schema = new StructType(new StructField[]{
-                new StructField("id", DataTypes.IntegerType, false, Metadata.empty()),
-                new StructField("sentence", DataTypes.StringType, false, Metadata.empty())
-        });
-        Dataset<Row> sentenceData = spark.createDataFrame(data, schema);
+        String jdbcUrl = "jdbc:mysql://104.198.225.31/test?useSSL=false";
+        String username = "root";
+        String password = "031805";
+        String tableName = "food";
+
+        // 读取数据
+        Dataset<Row> mysqlData = spark.read()
+                .format("jdbc")
+                .option("url", jdbcUrl)
+                .option("dbtable", tableName)
+                .option("user", username)
+                .option("password", password)
+                .load();
+        Dataset<Row> foodData = mysqlData.select("id", "title");
+
+
+//        StructType schema = new StructType(new StructField[]{
+//                new StructField("id", DataTypes.IntegerType, false, Metadata.empty()),
+//                new StructField("sentence", DataTypes.StringType, false, Metadata.empty())
+//        });
+//        Dataset<Row> sentenceData = spark.createDataFrame(data, schema);
 
         Tokenizer tokenizer = new Tokenizer().setInputCol("sentence").setOutputCol("words");
-        Dataset<Row> wordsData = tokenizer.transform(sentenceData);
+        Dataset<Row> wordsData = tokenizer.transform(foodData);
 
         int numFeatures = 20;
         HashingTF hashingTF = new HashingTF()
