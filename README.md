@@ -8,3 +8,7 @@ API Documentation:
 Static Analysis (PMD):
 
 [report.md](report.md)
+
+Style Checker (Alibaba Java Coding Guidelines):
+
+![avatar](pics/code_style_checker.png)
