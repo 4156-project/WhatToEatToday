@@ -17,7 +17,6 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * @author ruoxuanwang rw2961@columbia.edu
@@ -32,7 +31,7 @@ public class InterTableServiceImpl implements InterTableService {
     private QueryService queryService;
 
     @Override
-    public BaseResponse<Object> createTable(BuildTableRequest request) {
+    public BaseResponse createTable(BuildTableRequest request) {
         String tableName = request.getTableName();
         List<String> fieldNameList = request.getFieldNameList();
         List<String> fieldTypeList = request.getFieldTypeList();
@@ -44,11 +43,18 @@ public class InterTableServiceImpl implements InterTableService {
             return BaseResponse.with(Status.PARAM_ERROR, "Param is Incomplete");
         }
         //check if the name list is empty
-        if (fieldNameList.isEmpty()) {
+        if (fieldNameList==null || fieldNameList.isEmpty()) {
             return BaseResponse.with(Status.PARAM_ERROR, "No Field");
         }
         if (!ParamUtil.isAllNotBlank(fieldNameList.toArray(new String[0]))) {
             return BaseResponse.with(Status.PARAM_ERROR, "FieldNameList is Incomplete");
+        }
+        //check if the type list is empty
+        if (fieldTypeList==null || fieldNameList.isEmpty()) {
+            return BaseResponse.with(Status.PARAM_ERROR, "No Type");
+        }
+        if (!ParamUtil.isAllNotBlank(fieldTypeList.toArray(new String[0]))) {
+            return BaseResponse.with(Status.PARAM_ERROR, "FieldTypeList is Incomplete");
         }
         //check if table name already existed
         if (ParamUtil.isTableName(tableName)) {
@@ -80,11 +86,15 @@ public class InterTableServiceImpl implements InterTableService {
                 return BaseResponse.with(Status.PARAM_ERROR, "Invalid Auto Increment Field " + autoIncrementField);
             }
         }
-        return databaseService.buildTable(request);
+        BaseResponse response = databaseService.buildTable(request);
+        if (response.getCode() == Status.SUCCESS) {
+            response.setMessage("Table " + tableName + " is created");
+        }
+        return response;
     }
 
     @Override
-    public BaseResponse<Object> deleteTable(DeleteTableRequest request) {
+    public BaseResponse deleteTable(DeleteTableRequest request) {
         String tableName = request.getTableName();
         //check if there is any blank string
         if (ParamUtil.isBlank(tableName)) {
@@ -94,7 +104,11 @@ public class InterTableServiceImpl implements InterTableService {
         if (!ParamUtil.isTableName(tableName)) {
             return BaseResponse.with(Status.PARAM_ERROR, "Table " + tableName + " Does Not Exist");
         }
-        return databaseService.deleteTable(request);
+        BaseResponse response = databaseService.deleteTable(request);
+        if (response.getCode() == Status.SUCCESS) {
+            response.setMessage("Table " + tableName + " is deleted");
+        }
+        return response;
     }
 
     @Override
