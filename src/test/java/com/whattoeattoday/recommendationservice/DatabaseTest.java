@@ -26,7 +26,7 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = RecommendationServiceApplication.class)
 public class DatabaseTest {
-    // 自动装配数据源
+
     @Autowired
     private DataSource dataSource;
 

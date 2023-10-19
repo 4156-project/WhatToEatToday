@@ -9,8 +9,10 @@ import com.whattoeattoday.recommendationservice.query.request.QueryContentBySing
 import com.whattoeattoday.recommendationservice.query.service.api.QueryService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -24,13 +26,14 @@ import java.util.ArrayList;
 @Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = RecommendationServiceApplication.class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class QueryServiceImplTest {
 
     @Resource
     private QueryService queryService;
 
     @Test
-    public void testQueryCategoryInfo() {
+    public void test0QueryCategoryInfo() {
         QueryCategoryInfoRequest request = new QueryCategoryInfoRequest();
         request.setCategoryName("test1016");
         BaseResponse response = queryService.queryCategoryInfo(request);
@@ -39,14 +42,14 @@ public class QueryServiceImplTest {
     }
 
     @Test
-    public void testQueryAllCategoryName() {
+    public void test1QueryAllCategoryName() {
         BaseResponse response = queryService.queryAllCategoryName();
         log.info("TestQueryAllCategoryName RESPONSE: {}", response);
         Assert.assertEquals(response.getCode(), Status.SUCCESS);
     }
 
     @Test
-    public void testQueryCategoryByName() {
+    public void test2QueryCategoryByName() {
         QueryCategoryByNameRequest request = new QueryCategoryByNameRequest();
         request.setCategoryName("test1016");
         request.setContentName("Larry");
@@ -66,7 +69,7 @@ public class QueryServiceImplTest {
     }
 
     @Test
-    public void testQueryContentBySingleCondition() {
+    public void test3QueryContentBySingleCondition() {
         QueryContentBySingleConditionRequest request = new QueryContentBySingleConditionRequest();
         request.setCategoryName("test1016");
         request.setFieldNames(new ArrayList<String>(){{add("*");}});
