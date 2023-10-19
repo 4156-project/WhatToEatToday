@@ -17,6 +17,10 @@ import javax.annotation.Resource;
 import java.math.BigInteger;
 import java.util.*;
 
+/**
+ * @author Jiarong Shi js6132@columbia.edu
+ * @date 10/15/23
+ */
 @Service
 public class DatabaseServiceImpl implements DatabaseService {
 
@@ -63,8 +67,9 @@ public class DatabaseServiceImpl implements DatabaseService {
         } catch (DataAccessException e) {
             return BaseResponse.with(Status.PARAM_ERROR);
         }
-        if ((request.getAutoIncrementField() != null && !autoIncrResponse.isSuccess()) ||
-                (request.getUniqueKey() != null && !uniqueKeyResponse.isSuccess())) {
+        boolean isAutoIncrementSuccess = request.getAutoIncrementField() != null && !autoIncrResponse.isSuccess();
+        boolean isSetUniqueKeySuccess = request.getUniqueKey() != null && !uniqueKeyResponse.isSuccess();
+        if (isAutoIncrementSuccess || isSetUniqueKeySuccess) {
             return BaseResponse.with(Status.PARAM_ERROR);
         }
         return BaseResponse.with(Status.SUCCESS);

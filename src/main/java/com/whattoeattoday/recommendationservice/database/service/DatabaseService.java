@@ -43,14 +43,14 @@ public interface DatabaseService {
 
     /**
      * set specified column to auto increment
-     *
+     * @param request
      * @return
      */
     BaseResponse<Object> setAutoIncrement(UpdateTableRequest request);
 
     /**
      * set specified column to be unique
-     *
+     * @param request
      * @return
      */
     BaseResponse<Object> setUniqueKey(UpdateTableRequest request);
