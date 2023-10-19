@@ -138,14 +138,13 @@ public class ParamUtil {
         }
     }
 
-    public static boolean isValidSqlType(Object value, String sqlType) {
+    public static boolean isValidSqlType(Object value, String rowSqlType) {
 
-        sqlType = sqlType.toLowerCase();
+        String sqlType = rowSqlType.toLowerCase();
 
         if (value == null) {
             return true;
         }
-
 
         String[] typeParts = sqlType.split("\\(|\\)");
         String type = typeParts[0];
@@ -158,9 +157,12 @@ public class ParamUtil {
             case "smallint":
             case "mediumint":
             case "bigint":
+            case "bit":
                 return value instanceof Integer || value instanceof Long;
             case "varchar":
             case "char":
+            case "binary":
+            case "varbinary":
                 if (value instanceof String && !length.isEmpty()) {
                     int maxLength = Integer.parseInt(length);
                     return ((String) value).length() <= maxLength;
@@ -169,11 +171,34 @@ public class ParamUtil {
             case "float":
             case "double":
             case "decimal":
+            case "double precision":
                 return value instanceof Float || value instanceof Double || value instanceof BigDecimal;
+            case "enum":
+            case "set":
+                return value instanceof String;
+            case "datetime":
+            case "timestamp":
+            case "time":
+            case "date":
+            case "year":
+                return value instanceof Date;
+            case "tinyblob":
+            case "tinytext":
+            case "text":
+            case "blob":
+            case "mediumtext":
+            case "mediumblob":
+            case "longtext":
+            case "longblob":
+                return value instanceof byte[] || value instanceof String;
+            case "bool":
+            case "boolean":
+                return value instanceof Boolean;
             default:
                 return false;
         }
     }
+
 
     private static boolean checkIntRange(String value, int min, int max) {
         try {

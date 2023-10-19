@@ -32,6 +32,7 @@ public class InterTableImplTest {
 
     @Test
     public void Test0CreateTable() {
+        BuildTableRequest request = new BuildTableRequest();
         //Test 1
         BuildTableRequest request = new BuildTableRequest();
         request.setTableName("book1");
