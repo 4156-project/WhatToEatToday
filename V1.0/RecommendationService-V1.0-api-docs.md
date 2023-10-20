@@ -182,38 +182,7 @@ The return value of all APIs contains 3 parameters: code, message, and data.
 	}
 }
 ```
-## Query contents in a category
 
-*author: Lijie Huang lh3158@columbia.edu*
-
-**request url**
-
-/query/category/name `POST` 
-
-**request body**
-
-```json
-{
-	"categoryName":"string",
-	"contentName":"string",
-	"pageNo":"string",
-	"pageSize":"string"
-}
-```
-
-**response**
-
-```json
-{
-	"code":{},
-	"message":"string",
-	"data":{
-		"pageNo":"int",
-		"pageSize":"int",
-		"pageData":[]
-	}
-}
-```
 ## Query names of all categories
 
 *author: Lijie Huang lh3158@columbia.edu*
