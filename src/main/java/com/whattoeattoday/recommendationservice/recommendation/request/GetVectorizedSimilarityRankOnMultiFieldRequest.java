@@ -9,7 +9,7 @@ import java.util.List;
  * @date 10/19/23
  */
 @Data
-public class GetVectorizedSimilarityRankOnMultiField {
+public class GetVectorizedSimilarityRankOnMultiFieldRequest {
     public String categoryName;
     public List<String> fieldNameList;
     public String targetId;

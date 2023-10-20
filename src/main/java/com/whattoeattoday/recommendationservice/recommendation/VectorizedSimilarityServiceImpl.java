@@ -2,7 +2,7 @@ package com.whattoeattoday.recommendationservice.recommendation;
 
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
 import com.whattoeattoday.recommendationservice.common.Status;
-import com.whattoeattoday.recommendationservice.recommendation.request.GetVectorizedSimilarityRankOnMultiField;
+import com.whattoeattoday.recommendationservice.recommendation.request.GetVectorizedSimilarityRankOnMultiFieldRequest;
 import com.whattoeattoday.recommendationservice.recommendation.request.GetVectorizedSimilarityRankRequest;
 import org.apache.spark.ml.feature.HashingTF;
 import org.apache.spark.ml.feature.IDF;
@@ -14,13 +14,7 @@ import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.RowFactory;
 import org.apache.spark.sql.SparkSession;
-import org.apache.spark.sql.types.DataTypes;
-import org.apache.spark.sql.types.Metadata;
-import org.apache.spark.sql.types.StructField;
-import org.apache.spark.sql.types.StructType;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
-import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Service;
 
@@ -108,7 +102,85 @@ public class VectorizedSimilarityServiceImpl implements VectorizedSimilarityServ
     }
 
     @Override
-    public BaseResponse<List<Row>> getVectorizedSimilarityRankOnMultiField(GetVectorizedSimilarityRankOnMultiField request) {
-        return null;
+    public BaseResponse<List<Row>> getVectorizedSimilarityRankOnMultiField(GetVectorizedSimilarityRankOnMultiFieldRequest request) {
+        // TODO Param Check
+        // TODO Double Type Unsupported
+        String tableName = request.getCategoryName();
+        String[] fieldNameArr = request.getFieldNameList().toArray(new String[]{});
+        String[] sqls = new String[fieldNameArr.length];
+        for (int i = 0; i < fieldNameArr.length; i++) {
+            sqls[i] = String.format("%s is not null", fieldNameArr[i]);
+        }
+        String fieldNames = String.join(" AND ", sqls);
+        Dataset<Row> sentenceData = spark.read()
+                .format("jdbc")
+                .option("url", jdbcUrl)
+                .option("dbtable", tableName)
+                .option("user", username)
+                .option("password", password)
+                .load()
+                .where(fieldNames);
+
+        Tokenizer tokenizer = null;
+        Dataset<Row> wordsData = null;
+        Dataset<Row> featurizedData = null;
+        int numFeatures = 100;
+        HashingTF hashingTF = null;
+        IDF idf = null;
+        IDFModel idfModel = null;
+//        Dataset<Row> rescaledData = null;
+        for (int i = 0; i < fieldNameArr.length; i++) {
+            String fieldName = fieldNameArr[i];
+            tokenizer = new Tokenizer().setInputCol(fieldName).setOutputCol("words"+i);
+            wordsData = tokenizer.transform(sentenceData);
+            hashingTF = new HashingTF()
+                    .setInputCol("words"+i)
+                    .setOutputCol("rawFeatures"+i)
+                    .setNumFeatures(numFeatures);
+            featurizedData = hashingTF.transform(wordsData);
+            idf = new IDF().setInputCol("rawFeatures"+i).setOutputCol("features"+i);
+            idfModel = idf.fit(featurizedData);
+            sentenceData = idfModel.transform(featurizedData);
+        }
+        sentenceData.show();
+        Vector[] targetVectors = new Vector[fieldNameArr.length];
+        for (int i = 0; i < fieldNameArr.length; i++) {
+            targetVectors[i] = sentenceData
+                    .where(String.format("id = %s", request.targetId))
+                    .collectAsList()
+                    .get(0)
+                    .getAs("features"+i);
+        }
+        PriorityQueue<Row> topQueue = new PriorityQueue<>(new Comparator<Row>() {
+            @Override
+            public int compare(Row o1, Row o2) {
+                return (int)((double) o2.get(1) - (double) o1.get(1));
+            }
+        });
+
+        List<Row> rowsList = sentenceData.collectAsList();
+        for (Row row : rowsList) {
+            Vector[] curVectors = new Vector[fieldNameArr.length];
+            double sqdist = 0;
+            for (int i = 0; i < fieldNameArr.length; i++) {
+                curVectors[i] = row.getAs("features"+i);
+                sqdist += Vectors.sqdist(targetVectors[i], curVectors[i]);
+            }
+
+            Row resultRow = RowFactory.create(row.getAs("id"), sqdist);
+            topQueue.add(resultRow);
+            if (topQueue.size() > request.getRankTopSize()) {
+                topQueue.poll();
+            }
+        }
+
+
+        List<Row> resultList = new ArrayList<>();
+        while (!topQueue.isEmpty()) {
+            resultList.add(0, topQueue.poll());
+        }
+
+        return BaseResponse.with(Status.SUCCESS, resultList);
+
     }
 }
