@@ -13,6 +13,9 @@
 
 ![avatar](pics/code_style_checker.png)
 
+### Postman Test Report
+
+[RecommendationService.postman_test_run.json](RecommendationService.postman_test_run.json)
 
 ## Build Run Test Guide
 We use docker to build a docker image and run the service application. Please make sure you have docker installed on your computer first.
