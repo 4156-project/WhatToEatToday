@@ -1,0 +1,11 @@
+{
+  "groups": [
+    {
+      "name": "spring",
+      "type": "com.whattoeattoday.recommendationservice.recommendation.VectorizedSimilarityServiceImpl",
+      "sourceType": "com.whattoeattoday.recommendationservice.recommendation.VectorizedSimilarityServiceImpl"
+    }
+  ],
+  "properties": [],
+  "hints": []
+}
