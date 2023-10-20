@@ -35,6 +35,9 @@ public class QueryServiceImpl implements QueryService {
     @Override
     public BaseResponse<QueryTableResponse> queryCategoryInfo(QueryCategoryInfoRequest request) {
         String categoryName = request.getCategoryName();
+        if (categoryName == null) {
+            return BaseResponse.with(Status.PARAM_ERROR, "Param Incomplete");
+        }
         if (!ParamUtil.isTableName(categoryName)) {
             return BaseResponse.with(Status.NOT_FOUND, "Category Not Found");
         }
@@ -98,16 +101,16 @@ public class QueryServiceImpl implements QueryService {
                 request.getConditionValue(), request.pageNo, request.pageSize})) {
             return BaseResponse.with(Status.PARAM_ERROR, "Param is Incomplete");
         }
+        String categoryName = request.getCategoryName();
+        if (!ParamUtil.isTableName(categoryName)) {
+            return BaseResponse.with(Status.NOT_FOUND, "Category Not Found");
+        }
         boolean isStarSign = request.getFieldNames().size() == 1 && "*".equals(request.getFieldNames().get(0));
         if (!isStarSign && !ParamUtil.isFieldNames(request.getCategoryName(), request.getFieldNames())) {
             return BaseResponse.with(Status.PARAM_ERROR, "Filed Name Error");
         }
         if (!ParamUtil.isPageValid(request.getPageNo(), request.getPageSize())) {
             return BaseResponse.with(Status.PARAM_ERROR, "Page Number or Page Size is not Numeric");
-        }
-        String categoryName = request.getCategoryName();
-        if (!ParamUtil.isTableName(categoryName)) {
-            return BaseResponse.with(Status.NOT_FOUND, "Category Not Found");
         }
 
         PageInfo pageInfo = PageInfo.builder()
