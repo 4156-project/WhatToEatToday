@@ -1,5 +1,6 @@
 package com.whattoeattoday.recommendationservice.recommendation;
 
+import com.alibaba.fastjson.JSON;
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
 import com.whattoeattoday.recommendationservice.common.Status;
 import com.whattoeattoday.recommendationservice.recommendation.request.GetVectorizedSimilarityRankOnMultiFieldRequest;
@@ -102,7 +103,7 @@ public class VectorizedSimilarityServiceImpl implements VectorizedSimilarityServ
     }
 
     @Override
-    public BaseResponse<List<Row>> getVectorizedSimilarityRankOnMultiField(GetVectorizedSimilarityRankOnMultiFieldRequest request) {
+    public BaseResponse<List<Integer>> getVectorizedSimilarityRankOnMultiField(GetVectorizedSimilarityRankOnMultiFieldRequest request) {
         // TODO Param Check
         // TODO Double Type Unsupported
         String tableName = request.getCategoryName();
@@ -169,18 +170,26 @@ public class VectorizedSimilarityServiceImpl implements VectorizedSimilarityServ
 
             Row resultRow = RowFactory.create(row.getAs("id"), sqdist);
             topQueue.add(resultRow);
-            if (topQueue.size() > request.getRankTopSize()) {
+            if (topQueue.size() > request.getRankTopSize()+1) {
                 topQueue.poll();
             }
         }
 
-
-        List<Row> resultList = new ArrayList<>();
+        topQueue.poll();
+        List<Integer> resultList = new ArrayList<>();
         while (!topQueue.isEmpty()) {
-            resultList.add(0, topQueue.poll());
+            resultList.add(0, (Integer) topQueue.poll().get(0));
         }
 
         return BaseResponse.with(Status.SUCCESS, resultList);
 
+    }
+
+    private static Map<String, Object> convertRowToMap(Row row) {
+
+        Map<String, Object> map = row.getJavaMap(0);
+//        JSON.toJSON()
+
+        return map;
     }
 }

@@ -65,11 +65,11 @@ public class RecommendationTest {
         request.setFieldNameList(new ArrayList<String>(){{add("genre");add("rating");add("star");}});
         request.setTargetId("1");
         request.setRankTopSize(15);
-        BaseResponse<List<Row>> vectorizedSimilarityRankOnMultiFieldResponse = vectorizedSimilarityService.getVectorizedSimilarityRankOnMultiField(request);
-        List<Row> resultRows = vectorizedSimilarityRankOnMultiFieldResponse.getData();
-        log.info("Target Content id: {}", resultRows.get(0).get(0));
-        for (Row resultRow : resultRows) {
-            String id = String.valueOf(resultRow.getInt(0));
+        BaseResponse<List<Integer>> vectorizedSimilarityRankOnMultiFieldResponse = vectorizedSimilarityService.getVectorizedSimilarityRankOnMultiField(request);
+        List<Integer> resultRows = vectorizedSimilarityRankOnMultiFieldResponse.getData();
+        log.info("Target Content id: {}", resultRows.get(0));
+        for (Integer resultRow : resultRows) {
+            String id = String.valueOf(resultRow);
             QueryContentBySingleConditionRequest request1 = new QueryContentBySingleConditionRequest();
             request1.setCategoryName("movies");
             request1.setConditionField("id");

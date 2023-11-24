@@ -6,6 +6,7 @@ import com.whattoeattoday.recommendationservice.recommendation.request.GetVector
 import org.apache.spark.sql.Row;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Lijie Huang lh3158@columbia.edu
@@ -24,5 +25,5 @@ public interface VectorizedSimilarityService {
      * @param request
      * @return
      */
-    BaseResponse<List<Row>> getVectorizedSimilarityRankOnMultiField(GetVectorizedSimilarityRankOnMultiFieldRequest request);
+    BaseResponse<List<Integer>> getVectorizedSimilarityRankOnMultiField(GetVectorizedSimilarityRankOnMultiFieldRequest request);
 }

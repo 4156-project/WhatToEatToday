@@ -1,7 +1,9 @@
 /Users/huanglijie/Documents/Columbia_University/3rd_semester/COMS4156/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/common/StatusCode.java
 /Users/huanglijie/Documents/Columbia_University/3rd_semester/COMS4156/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/database/request/table/DeleteTableRequest.java
 /Users/huanglijie/Documents/Columbia_University/3rd_semester/COMS4156/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/query/request/QueryContentBySingleConditionRequest.java
+/Users/huanglijie/Documents/Columbia_University/3rd_semester/COMS4156/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/recommendation/VectorizedSimilarityService.java
 /Users/huanglijie/Documents/Columbia_University/3rd_semester/COMS4156/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/query/request/QueryByNameRequest.java
+/Users/huanglijie/Documents/Columbia_University/3rd_semester/COMS4156/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/recommendation/request/GetVectorizedSimilarityRankRequest.java
 /Users/huanglijie/Documents/Columbia_University/3rd_semester/COMS4156/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/intratable/request/DeleteRequest.java
 /Users/huanglijie/Documents/Columbia_University/3rd_semester/COMS4156/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/common/ParamUtil.java
 /Users/huanglijie/Documents/Columbia_University/3rd_semester/COMS4156/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/RecommendationServiceApplication.java
@@ -11,6 +13,7 @@
 /Users/huanglijie/Documents/Columbia_University/3rd_semester/COMS4156/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/database/service/impl/DatabaseServiceImpl.java
 /Users/huanglijie/Documents/Columbia_University/3rd_semester/COMS4156/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/intratable/request/InsertRequest.java
 /Users/huanglijie/Documents/Columbia_University/3rd_semester/COMS4156/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/query/service/impl/QueryServiceImpl.java
+/Users/huanglijie/Documents/Columbia_University/3rd_semester/COMS4156/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/recommendation/request/GetVectorizedSimilarityRankOnMultiFieldRequest.java
 /Users/huanglijie/Documents/Columbia_University/3rd_semester/COMS4156/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/database/response/QueryTableNamesResponse.java
 /Users/huanglijie/Documents/Columbia_University/3rd_semester/COMS4156/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/intertable/service/api/InterTableService.java
 /Users/huanglijie/Documents/Columbia_University/3rd_semester/COMS4156/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/database/response/QueryTableResponse.java
@@ -29,6 +32,8 @@
 /Users/huanglijie/Documents/Columbia_University/3rd_semester/COMS4156/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/common/BaseResponse.java
 /Users/huanglijie/Documents/Columbia_University/3rd_semester/COMS4156/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/database/service/DatabaseService.java
 /Users/huanglijie/Documents/Columbia_University/3rd_semester/COMS4156/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/docs/JAPIDocsApplication.java
+/Users/huanglijie/Documents/Columbia_University/3rd_semester/COMS4156/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/recommendation/demo.java
+/Users/huanglijie/Documents/Columbia_University/3rd_semester/COMS4156/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/recommendation/controller/RecommendationController.java
 /Users/huanglijie/Documents/Columbia_University/3rd_semester/COMS4156/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/database/request/row/QueryRowRequest.java
 /Users/huanglijie/Documents/Columbia_University/3rd_semester/COMS4156/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/database/service/TableService.java
 /Users/huanglijie/Documents/Columbia_University/3rd_semester/COMS4156/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/database/request/table/QueryTableRequest.java
@@ -37,4 +42,5 @@
 /Users/huanglijie/Documents/Columbia_University/3rd_semester/COMS4156/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/database/request/row/DeleteRowRequest.java
 /Users/huanglijie/Documents/Columbia_University/3rd_semester/COMS4156/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/database/response/QueryRowResponse.java
 /Users/huanglijie/Documents/Columbia_University/3rd_semester/COMS4156/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/common/Status.java
+/Users/huanglijie/Documents/Columbia_University/3rd_semester/COMS4156/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/recommendation/VectorizedSimilarityServiceImpl.java
 /Users/huanglijie/Documents/Columbia_University/3rd_semester/COMS4156/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/query/service/api/QueryService.java
