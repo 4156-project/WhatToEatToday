@@ -2,8 +2,6 @@ package com.whattoeattoday.recommendationservice.query.request;
 
 import lombok.Data;
 
-import java.util.List;
-
 /**
  * @author Lijie Huang lh3158@columbia.edu
  * @date 11/21/23

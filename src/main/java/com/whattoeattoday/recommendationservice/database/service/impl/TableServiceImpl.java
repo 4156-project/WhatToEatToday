@@ -5,11 +5,9 @@ import com.whattoeattoday.recommendationservice.common.PageInfo;
 import com.whattoeattoday.recommendationservice.common.Status;
 import com.whattoeattoday.recommendationservice.database.request.row.*;
 import com.whattoeattoday.recommendationservice.database.service.TableService;
-import com.whattoeattoday.recommendationservice.query.request.QueryContentRequest;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
-import sun.jvm.hotspot.debugger.Page;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
