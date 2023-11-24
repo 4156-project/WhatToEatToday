@@ -57,6 +57,11 @@
             <artifactId>japidocs</artifactId>
             <version>1.4.4</version>
         </dependency>
+        <!-- md5依赖 -->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

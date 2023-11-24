@@ -17,6 +17,11 @@ public enum Status implements StatusCode {
     PARAM_ERROR(400, "Invalid parameters"),
 
     /**
+     * Data duplicate error
+     */
+    DUPLICATE_ERROR(400, "Data Duplicate Error"),
+
+    /**
      * Resource not found
      */
     NOT_FOUND(404, "Resource not found"),
