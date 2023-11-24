@@ -49,6 +49,16 @@ public class QueryController {
     }
 
     /**
+     * Query content in a given category
+     * @param request
+     * @return
+     */
+    @GetMapping("/query/content/")
+    public BaseResponse<PageInfo> queryContent(@RequestBody QueryContentRequest request) {
+        return queryService.queryContent(request);
+    }
+
+    /**
      * Query contents in a category with a single selection condition
      * @param request
      * @return
