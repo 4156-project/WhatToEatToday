@@ -2,9 +2,9 @@ name: Java CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main ,yf1125]
   pull_request:
-    branches: [ main ]
+    branches: [ main ,yf1125]
 
 jobs:
   build-and-test:
