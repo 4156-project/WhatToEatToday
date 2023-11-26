@@ -50,18 +50,16 @@ public class DatabaseTest {
 
         List<String> fieldNameList = new ArrayList<>();
         fieldNameList.add("id");
-        fieldNameList.add("username");
-        fieldNameList.add("password");
-        fieldNameList.add("email");
-        fieldNameList.add("collection");
+        fieldNameList.add("user_id");
+        fieldNameList.add("table_id");
+        fieldNameList.add("item_id");
         List<String> fieldTypeList = new ArrayList<>();
         fieldTypeList.add("BIGINT(20)");
-        fieldTypeList.add("VARCHAR(50)");
-        fieldTypeList.add("VARCHAR(50)");
-        fieldTypeList.add("VARCHAR(50)");
-        fieldTypeList.add("Text");
+        fieldTypeList.add("BIGINT(20)");
+        fieldTypeList.add("BIGINT(20)");
+        fieldTypeList.add("BIGINT(20)");
 
-        request.setTableName("user");
+        request.setTableName("collection");
         request.setFieldNameList(fieldNameList);
         request.setFieldTypeList(fieldTypeList);
         request.setPrimaryKey("id");
@@ -95,7 +93,7 @@ public class DatabaseTest {
     @Test
     public void test5DeleteTable() {
         DeleteTableRequest request = new DeleteTableRequest();
-        request.setTableName("user");
+        request.setTableName("test1015");
         BaseResponse response = databaseService.deleteTable(request);
         log.info("RESPONSE: {}", response);
         Assert.assertTrue(response.isSuccess());
