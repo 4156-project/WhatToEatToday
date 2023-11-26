@@ -33,7 +33,7 @@ jobs:
         run: find ./src/test/java -name "*Test.java"
 
       - name: Run Specific Test
-        run: mvn -B test -Dtest=IntraTableServiceImplTest
+        run: mvn -e -B test -Dtest=IntraTableServiceImplTest
 
       - name: Run Tests with Coverage
         run: mvn test jacoco:report
