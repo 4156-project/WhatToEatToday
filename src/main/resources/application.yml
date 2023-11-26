@@ -14,3 +14,8 @@ spring:
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
+
+dataproc:
+  project-id: whattoeattoday-401920
+  region: us-central1
+  cluster-name: cluster-9428

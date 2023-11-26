@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * @author Lijie Huang lh3158@columbia.edu
@@ -24,7 +26,7 @@ public class RecommendationController {
      * @param request
      */
     @PostMapping("/recommend/item")
-    public BaseResponse<List<Integer>> recommendOnItem(@RequestBody GetVectorizedSimilarityRankOnMultiFieldRequest request) {
+    public BaseResponse<List<String>> recommendOnItem(@RequestBody GetVectorizedSimilarityRankOnMultiFieldRequest request) throws IOException, ExecutionException, InterruptedException {
         return vectorizedSimilarityService.getVectorizedSimilarityRankOnMultiField(request);
     }
 }

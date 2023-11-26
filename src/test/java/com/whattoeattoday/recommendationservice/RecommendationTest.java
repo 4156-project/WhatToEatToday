@@ -15,8 +15,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * @author Lijie Huang lh3158@columbia.edu
@@ -59,16 +61,16 @@ public class RecommendationTest {
     }
 
     @Test
-    public void test() {
+    public void test() throws IOException, ExecutionException, InterruptedException {
         GetVectorizedSimilarityRankOnMultiFieldRequest request = new GetVectorizedSimilarityRankOnMultiFieldRequest();
         request.setCategoryName("movies");
         request.setFieldNameList(new ArrayList<String>(){{add("genre");add("rating");add("star");}});
         request.setTargetId("1");
         request.setRankTopSize(15);
-        BaseResponse<List<Integer>> vectorizedSimilarityRankOnMultiFieldResponse = vectorizedSimilarityService.getVectorizedSimilarityRankOnMultiField(request);
-        List<Integer> resultRows = vectorizedSimilarityRankOnMultiFieldResponse.getData();
+        BaseResponse<List<String>> vectorizedSimilarityRankOnMultiFieldResponse = vectorizedSimilarityService.getVectorizedSimilarityRankOnMultiField(request);
+        List<String> resultRows = vectorizedSimilarityRankOnMultiFieldResponse.getData();
         log.info("Target Content id: {}", resultRows.get(0));
-        for (Integer resultRow : resultRows) {
+        for (String resultRow : resultRows) {
             String id = String.valueOf(resultRow);
             QueryContentBySingleConditionRequest request1 = new QueryContentBySingleConditionRequest();
             request1.setCategoryName("movies");

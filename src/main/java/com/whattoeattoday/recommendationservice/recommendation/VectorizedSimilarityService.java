@@ -5,8 +5,9 @@ import com.whattoeattoday.recommendationservice.recommendation.request.GetVector
 import com.whattoeattoday.recommendationservice.recommendation.request.GetVectorizedSimilarityRankRequest;
 import org.apache.spark.sql.Row;
 
+import java.io.IOException;
 import java.util.List;
-import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 /**
  * @author Lijie Huang lh3158@columbia.edu
@@ -25,5 +26,5 @@ public interface VectorizedSimilarityService {
      * @param request
      * @return
      */
-    BaseResponse<List<Integer>> getVectorizedSimilarityRankOnMultiField(GetVectorizedSimilarityRankOnMultiFieldRequest request);
+    BaseResponse<List<String>> getVectorizedSimilarityRankOnMultiField(GetVectorizedSimilarityRankOnMultiFieldRequest request) throws IOException, ExecutionException, InterruptedException;
 }
