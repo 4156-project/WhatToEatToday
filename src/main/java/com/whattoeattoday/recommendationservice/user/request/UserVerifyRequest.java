@@ -4,12 +4,11 @@ import lombok.Data;
 
 /**
  * @author Jiarong Shi js6132@columbia.edu
- * @Date 11/24/2023
+ * @Date 11/26/2023
  */
 @Data
-public class UserRegisterRequest {
+public class UserVerifyRequest {
     String username;
     String password;
-    String email;
     String category;
 }
