@@ -27,13 +27,13 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Build with Maven
-        run: mvn -B package
+        run: mvn -X -B package
 
       - name: List tests
         run: find ./src/test/java -name "*Test.java"
 
       - name: Run Tests with Coverage
-        run: mvn test jacoco:report
+        run: mvn -X test jacoco:report
 
       - name: Analyze code quality
         run: mvn checkstyle:checkstyle pmd:pmd
