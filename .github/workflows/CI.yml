@@ -35,7 +35,26 @@ jobs:
       - name: Analyze code quality
         run: mvn checkstyle:checkstyle pmd:pmd
 
-      - name: Build and Test Docker Image
+      - name: Set up Node.js for Newman
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14'
+
+      - name: Install Newman
+        run: npm install -g newman
+
+      - name: Run Postman tests
+        run: newman run ./RecommendationService.postman_test_run.json
+
+      - name: Generate and upload test report
         run: |
-          docker build -t my-application .
-          docker run --rm my-application
+          newman run ./RecommendationService.postman_test_run.json --reporters cli,junit --reporter-junit-export results.xml
+        if: always()
+
+      - name: Upload Test Report
+        uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: postman-test-reports
+          path: results.xml
+
