@@ -43,6 +43,11 @@ jobs:
       - name: Install Newman
         run: npm install -g newman
 
+      - name: Start service
+        run: mvn spring-boot:run &
+      - name: Wait for service to start
+        run: sleep 10
+
       - name: Run Postman tests
         run: newman run ./RecommendationService.postman_test_run.json
 
