@@ -1,0 +1,1152 @@
+{
+	"info": {
+		"_postman_id": "70c36dbf-5662-4703-b4bd-c925c08aa68e",
+		"name": "RecommendationService",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30507411",
+		"_collection_link": "https://lunar-spaceship-376652.postman.co/workspace/WhatToEatTody~d3fa6b55-6f1f-42e7-922b-fb93f0f83b12/collection/30475459-70c36dbf-5662-4703-b4bd-c925c08aa68e?action=share&source=collection_link&creator=30507411"
+	},
+	"item": [
+		{
+			"name": "query",
+			"item": [
+				{
+					"name": "QueryCategoryInfo",
+					"item": [
+						{
+							"name": "queryCategoryInfo 200",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"query category info\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"categoryName\": \"test1016\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/query/category/list/info",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"query",
+										"category",
+										"list",
+										"info"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "queryCategoryInfo 400",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"query category info\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/query/category/list/info",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"query",
+										"category",
+										"list",
+										"info"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "queryCategoryInfo 404",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"query category info\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"categoryName\": \"nonexistCategory\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/query/category/list/info",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"query",
+										"category",
+										"list",
+										"info"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "QueryAllCategoryName",
+					"item": [
+						{
+							"name": "queryAllCategoryName 200",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/query/category/list/name",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"query",
+										"category",
+										"list",
+										"name"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "QueryContentBySingleCondition",
+					"item": [
+						{
+							"name": "queryContentBySingleCondition 200",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"categoryName\": \"movies\",\n    \"fieldNames\": [\"id\", \"name\", \"rating\"],\n    \"conditionField\": \"genre\",\n    \"conditionValue\": \"Drama\",\n    \"pageNo\": 1,\n    \"pageSize\": 5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/query/content/single-condition",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"query",
+										"content",
+										"single-condition"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "queryContentBySingleCondition 404",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"categoryName\": \"nonexist\",\n    \"fieldNames\": [\"id\", \"name\", \"rating\"],\n    \"conditionField\": \"genre\",\n    \"conditionValue\": \"Darma\",\n    \"pageNo\": 2,\n    \"pageSize\": 5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/query/content/single-condition",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"query",
+										"content",
+										"single-condition"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "queryContentBySingleCondition 400",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"categoryName\": \"movies\",\n    \"fieldNames\": [\"nonexist\"],\n    \"conditionField\": \"genre\",\n    \"conditionValue\": \"Darma\",\n    \"pageNo\": 2,\n    \"pageSize\": 5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/query/content/single-condition",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"query",
+										"content",
+										"single-condition"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "intra-table",
+			"item": [
+				{
+					"name": "insertContent",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tableName\": \"test1016\",\n    \"fieldNameValues\": {\n        \"name\":\"Zoe\",\n        \"age\":4,\n        \"gender\":\"Female\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/content/insert",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"content",
+								"insert"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "insertContent400",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"tableName\": \"test1016\",\n    \"fieldNameValues\": {\n        \"name\":\"Zoe\",\n        \"age\":\"abdc\",\n        \"gender\":\"Female\"\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/content/insert",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"content",
+										"insert"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Oct 2023 23:53:29 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 400,\n    \"message\": \"Type Error\",\n    \"data\": null,\n    \"success\": false\n}"
+						},
+						{
+							"name": "insertContent404",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"tableName\": \"testTableNotExist\",\n    \"fieldNameValues\": {\n        \"name\":\"Zoe\",\n        \"age\":4,\n        \"gender\":\"Female\"\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/content/insert",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"content",
+										"insert"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Oct 2023 23:53:53 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 404,\n    \"message\": \"Table Not Found\",\n    \"data\": null,\n    \"success\": false\n}"
+						},
+						{
+							"name": "insertContent200",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"tableName\": \"test1016\",\n    \"fieldNameValues\": {\n        \"name\":\"Zoe\",\n        \"age\":4,\n        \"gender\":\"Female\"\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/content/insert",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"content",
+										"insert"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Oct 2023 23:56:18 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 200,\n    \"message\": \"Operation Success\",\n    \"data\": 1,\n    \"success\": true\n}"
+						}
+					]
+				},
+				{
+					"name": "updateContent",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tableName\": \"test1016\",\n    \"conditionField\":\"name\",\n    \"conditionValue\":\"Zoe\",\n    \"fieldNameValues\": {\n        \"age\":4,\n        \"gender\":\"Male\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/content/update",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"content",
+								"update"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "updateContent400",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"tableName\": \"test1016\",\n    \"conditionField\":\"age\",\n    \"conditionValue\":6,\n    \"fieldNameValues\": {\n        \"age\":\"dfsafsdadf\",\n        \"gender\":\"Male\"\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/content/update",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"content",
+										"update"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Oct 2023 23:52:18 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 400,\n    \"message\": \"Type Error\",\n    \"data\": null,\n    \"success\": false\n}"
+						},
+						{
+							"name": "updateContent404",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"tableName\": \"test10\",\n    \"conditionField\":\"age\",\n    \"conditionValue\":6,\n    \"fieldNameValues\": {\n        \"age\":4,\n        \"gender\":\"Male\"\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/content/update",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"content",
+										"update"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Oct 2023 23:53:05 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 404,\n    \"message\": \"Table Not Found\",\n    \"data\": null,\n    \"success\": false\n}"
+						},
+						{
+							"name": "updateContent200",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"tableName\": \"test1016\",\n    \"conditionField\":\"name\",\n    \"conditionValue\":\"Zoe\",\n    \"fieldNameValues\": {\n        \"age\":6,\n        \"gender\":\"Male\"\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/content/update",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"content",
+										"update"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Oct 2023 23:57:26 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 200,\n    \"message\": \"Operation Success\",\n    \"data\": 2,\n    \"success\": true\n}"
+						}
+					]
+				},
+				{
+					"name": "deleteContent",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \n    \"tableName\": \"test1016\",\n    \"conditionField\":\"name\",\n    \"conditionValue\":\"Zoe\"\n    \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/content/delete",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"content",
+								"delete"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "deleteContent400",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \n    \"tableName\": \"test1016\",\n    \"conditionField\":\"\",\n    \"conditionValue\":\"Zoe\"\n    \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/content/delete",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"content",
+										"delete"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Oct 2023 23:54:24 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 400,\n    \"message\": \"FieldName should not be Empty\",\n    \"data\": null,\n    \"success\": false\n}"
+						},
+						{
+							"name": "deleteContent404",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \n    \"tableName\": \"test101\",\n    \"conditionField\":\"name\",\n    \"conditionValue\":\"Zoe\"\n    \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/content/delete",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"content",
+										"delete"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Oct 2023 23:54:46 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 404,\n    \"message\": \"Table Not Found\",\n    \"data\": null,\n    \"success\": false\n}"
+						},
+						{
+							"name": "deleteContent200",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \n    \"tableName\": \"test1016\",\n    \"conditionField\":\"name\",\n    \"conditionValue\":\"Zoe\"\n    \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/content/delete",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"content",
+										"delete"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 19 Oct 2023 23:56:43 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 200,\n    \"message\": \"Operation Success\",\n    \"data\": 1,\n    \"success\": true\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "InterTable",
+			"item": [
+				{
+					"name": "createTable200",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"tableName\":\"test1\",\n\t\"fieldNameList\": [\"id\",\"name\"],\n\t\"fieldTypeList\": [\"INT\",\"VARCHAR(20)\"],\n\t\"primaryKey\":\"id\",\n\t\"uniqueKey\":\"name\",\n\t\"autoIncrementField\":\"id\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/category/create",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"category",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteTable200",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"tableName\":\"test1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/category/delete",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"category",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createTable400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"tableName\":\"test2\",\n\t\"fieldNameList\": [],\n\t\"fieldTypeList\": [\"INT\",\"VARCHAR(20)\"],\n\t\"primaryKey\":\"id\",\n\t\"uniqueKey\":\"name\",\n\t\"autoIncrementField\":\"id\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/category/create",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"category",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteTable400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"tableName\":\"nonExist\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/category/delete",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"category",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "recommend",
+			"item": [
+				{
+					"name": "based-on-item",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"categoryName\": \"movies\",\n    \"fieldNameList\": [\"genre\", \"rating\", \"star\"],\n    \"targetId\": \"1\",\n    \"rankTopSize\": 10\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/recommend/item",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"recommend",
+								"item"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "base_url",
+			"value": "localhost:8080",
+			"type": "string",
+			"disabled": true
+		}
+	]
+}

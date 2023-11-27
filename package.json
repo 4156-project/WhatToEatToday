@@ -1,0 +1,15 @@
+{
+  "name": "whattoeattoday",
+  "version": "1.0.0",
+  "description": "4156 project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "newman": "^6.0.0"
+  }
+}
