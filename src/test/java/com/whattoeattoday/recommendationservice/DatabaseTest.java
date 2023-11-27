@@ -53,15 +53,15 @@ public class DatabaseTest {
         fieldNameList.add("username");
         fieldNameList.add("password");
         fieldNameList.add("email");
-        fieldNameList.add("collection");
+        fieldNameList.add("category");
         List<String> fieldTypeList = new ArrayList<>();
         fieldTypeList.add("BIGINT(20)");
         fieldTypeList.add("VARCHAR(50)");
         fieldTypeList.add("VARCHAR(50)");
         fieldTypeList.add("VARCHAR(50)");
-        fieldTypeList.add("Text");
+        fieldTypeList.add("VARCHAR(50)");
 
-        request.setTableName("user");
+        request.setTableName("test1126");
         request.setFieldNameList(fieldNameList);
         request.setFieldTypeList(fieldTypeList);
         request.setPrimaryKey("id");
@@ -76,7 +76,7 @@ public class DatabaseTest {
     @Test
     public void test1SetAutoIncrement() {
         UpdateTableRequest request = new UpdateTableRequest();
-        request.setTableName("test1016");
+        request.setTableName("test1126");
         request.setColumnName("id");
         BaseResponse response = databaseService.setAutoIncrement(request);
         log.info("RESPONSE: {}", response);
@@ -86,7 +86,7 @@ public class DatabaseTest {
     @Test
     public void test2SetUniqueKey() {
         UpdateTableRequest request = new UpdateTableRequest();
-        request.setTableName("test1016");
+        request.setTableName("test1126");
         request.setColumnName("name");
         BaseResponse response = databaseService.setUniqueKey(request);
         log.info("RESPONSE: {}", response);
@@ -95,7 +95,7 @@ public class DatabaseTest {
     @Test
     public void test5DeleteTable() {
         DeleteTableRequest request = new DeleteTableRequest();
-        request.setTableName("user");
+        request.setTableName("test1126");
         BaseResponse response = databaseService.deleteTable(request);
         log.info("RESPONSE: {}", response);
         Assert.assertTrue(response.isSuccess());
@@ -104,7 +104,7 @@ public class DatabaseTest {
     @Test
     public void test3QueryTable() {
         QueryTableRequest request = new QueryTableRequest();
-        request.setTableName("test1016");
+        request.setTableName("test1126");
         QueryTableResponse response = databaseService.queryTable(request);
         log.info("RESPONSE: {}", response);
         Assert.assertEquals(response.getTableName(), request.getTableName());

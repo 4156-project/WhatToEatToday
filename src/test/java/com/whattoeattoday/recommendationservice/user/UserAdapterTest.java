@@ -26,7 +26,7 @@ public class UserAdapterTest {
         String password = "12345";
         data.put("password", MD5Util.formPassToDBPass(password, "1a2b3c"));
         data.put("email", "js6132@columbia.edu");
-        data.put("collection", "1,5,22");
+        data.put("category", "food");
         User user = UserAdapter.adaptQueryData(data);
         System.out.println(user);
         Assert.assertEquals(user.getUsername(), "Larry");

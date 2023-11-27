@@ -5,6 +5,7 @@ import com.whattoeattoday.recommendationservice.common.BaseResponse;
 import com.whattoeattoday.recommendationservice.common.Status;
 import com.whattoeattoday.recommendationservice.user.request.UserLoginRequest;
 import com.whattoeattoday.recommendationservice.user.request.UserRegisterRequest;
+import com.whattoeattoday.recommendationservice.user.request.UserVerifyRequest;
 import com.whattoeattoday.recommendationservice.user.service.impl.UserServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
@@ -29,6 +30,7 @@ public class UserServiceImplTest {
         request.setUsername("Larry");
         request.setPassword("12345");
         request.setEmail("js6132@columbia.edu");
+        request.setCategory("food");
         BaseResponse response = userService.userRegister(request);
         System.out.println(response);
         Assert.assertEquals(response.getCode(), Status.DUPLICATE_ERROR);
@@ -37,9 +39,20 @@ public class UserServiceImplTest {
     @Test
     public void userLoginTest() {
         UserLoginRequest request = new UserLoginRequest();
-        request.setUsername("Wendy");
+        request.setUsername("Larry");
         request.setPassword("1234");
         BaseResponse response = userService.userLogin(request);
+        System.out.println(response);
+        Assert.assertEquals(response.getCode(), Status.PARAM_ERROR);
+    }
+
+    @Test
+    public void userVerifyTest() {
+        UserVerifyRequest request = new UserVerifyRequest();
+        request.setUsername("Larry");
+        request.setPassword("12345");
+        request.setCategory("movies");
+        BaseResponse response = userService.userVerify(request);
         System.out.println(response);
         Assert.assertEquals(response.getCode(), Status.PARAM_ERROR);
     }

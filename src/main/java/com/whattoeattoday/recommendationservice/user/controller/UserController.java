@@ -3,6 +3,7 @@ package com.whattoeattoday.recommendationservice.user.controller;
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
 import com.whattoeattoday.recommendationservice.user.request.UserLoginRequest;
 import com.whattoeattoday.recommendationservice.user.request.UserRegisterRequest;
+import com.whattoeattoday.recommendationservice.user.request.UserVerifyRequest;
 import com.whattoeattoday.recommendationservice.user.service.api.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,5 +37,14 @@ public class UserController {
     @PostMapping("/user/login")
     public BaseResponse userLogin(@RequestBody UserLoginRequest request) {
         return userService.userLogin(request);
+    }
+
+    /**
+     * check whether the user has the authority of certain category
+     * @param request
+     */
+    @PostMapping("/user/verify")
+    public BaseResponse userVerify(@RequestBody UserVerifyRequest request) {
+        return userService.userVerify(request);
     }
 }

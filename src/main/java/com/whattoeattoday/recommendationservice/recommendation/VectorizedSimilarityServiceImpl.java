@@ -1,195 +1,124 @@
 package com.whattoeattoday.recommendationservice.recommendation;
 
-import com.alibaba.fastjson.JSON;
+import com.google.api.gax.longrunning.OperationFuture;
+import com.google.cloud.dataproc.v1.*;
+import com.google.cloud.storage.Blob;
+import com.google.cloud.storage.Storage;
+import com.google.cloud.storage.StorageOptions;
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
 import com.whattoeattoday.recommendationservice.common.Status;
 import com.whattoeattoday.recommendationservice.recommendation.request.GetVectorizedSimilarityRankOnMultiFieldRequest;
 import com.whattoeattoday.recommendationservice.recommendation.request.GetVectorizedSimilarityRankRequest;
-import org.apache.spark.ml.feature.HashingTF;
-import org.apache.spark.ml.feature.IDF;
-import org.apache.spark.ml.feature.IDFModel;
-import org.apache.spark.ml.feature.Tokenizer;
-import org.apache.spark.ml.linalg.Vector;
-import org.apache.spark.ml.linalg.Vectors;
-import org.apache.spark.sql.Dataset;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.spark.sql.Row;
-import org.apache.spark.sql.RowFactory;
-import org.apache.spark.sql.SparkSession;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author Lijie Huang lh3158@columbia.edu
  * @date 10/19/23
  */
-@ConfigurationProperties(prefix = "spring")
+@Slf4j
+@ConfigurationProperties(prefix = "dataproc")
 @Service
 public class VectorizedSimilarityServiceImpl implements VectorizedSimilarityService{
 
-    @Value("${spring.datasource.url}")
-    private String jdbcUrl;
+    @Value("${dataproc.project-id}")
+    private String projectId;
 
-    @Value("${spring.datasource.username}")
-    private String username;
+    @Value("${dataproc.region}")
+    private String region;
 
-    @Value("${spring.datasource.password}")
-    private String password;
-
-    private static SparkSession spark = SparkSession
-            .builder()
-            .appName("Get Vectorized Similarity Rank")
-            .config("spark.master", "local")
-            .getOrCreate();
+    @Value("${dataproc.cluster-name}")
+    private String clusterName;
 
     @Override
     public BaseResponse<List<Row>> getVectorizedSimilarityRank(GetVectorizedSimilarityRankRequest request) {
         // TODO Param Validation
-        String tableName = request.getCategoryName();
-
-        Dataset<Row> sentenceData = spark.read()
-                .format("jdbc")
-                .option("url", jdbcUrl)
-                .option("dbtable", tableName)
-                .option("user", username)
-                .option("password", password)
-                .load()
-                .where(String.format("%s is not null", request.getFieldName()));
-
-        Tokenizer tokenizer = new Tokenizer().setInputCol(request.getFieldName()).setOutputCol("words");
-        Dataset<Row> wordsData = tokenizer.transform(sentenceData);
-
-        int numFeatures = 100;
-        HashingTF hashingTF = new HashingTF()
-                .setInputCol("words")
-                .setOutputCol("rawFeatures")
-                .setNumFeatures(numFeatures);
-        Dataset<Row> featurizedData = hashingTF.transform(wordsData);
-        IDF idf = new IDF().setInputCol("rawFeatures").setOutputCol("features");
-        IDFModel idfModel = idf.fit(featurizedData);
-        Dataset<Row> rescaledData = idfModel.transform(featurizedData);
-
-        Dataset<Row> select = rescaledData.select("id", "features", request.getFieldName());
-        select.createOrReplaceTempView("view");
-        Dataset<Row> targetData = spark.sql(String.format("SELECT * FROM view WHERE id = %s", request.getTargetId()));
-        Vector targetVector = (Vector) targetData.collectAsList().get(0).get(1);
-
-        PriorityQueue<Row> topQueue = new PriorityQueue<>(new Comparator<Row>() {
-            @Override
-            public int compare(Row o1, Row o2) {
-                return (int)((double) o2.get(1) - (double) o1.get(1));
-            }
-        });
-
-        List<Row> rowsList = select.collectAsList();
-        for (Row row : rowsList) {
-            Vector curVector = row.getAs("features");
-            double sqdist = Vectors.sqdist(targetVector, curVector);
-            Row resultRow = RowFactory.create(row.get(0), sqdist, row.get(2));
-            topQueue.add(resultRow);
-            if (topQueue.size() > request.getRankTopSize()) {
-                topQueue.poll();
-            }
-        }
-
-        List<Row> resultList = new ArrayList<>();
-        while (!topQueue.isEmpty()) {
-            resultList.add(0, topQueue.poll());
-        }
-
-        return BaseResponse.with(Status.SUCCESS, resultList);
+        return null;
     }
 
     @Override
-    public BaseResponse<List<Integer>> getVectorizedSimilarityRankOnMultiField(GetVectorizedSimilarityRankOnMultiFieldRequest request) {
+    public BaseResponse<List<String>> getVectorizedSimilarityRankOnMultiField(GetVectorizedSimilarityRankOnMultiFieldRequest request) throws IOException, ExecutionException, InterruptedException {
         // TODO Param Check
         // TODO Double Type Unsupported
+        String mainClass = "com.whattoeattoday.RecommendOnItem";
+        String jarFileUris = "gs://4156-recommend-job/Recommend-1.0-SNAPSHOT.jar";
+
         String tableName = request.getCategoryName();
-        String[] fieldNameArr = request.getFieldNameList().toArray(new String[]{});
-        String[] sqls = new String[fieldNameArr.length];
-        for (int i = 0; i < fieldNameArr.length; i++) {
-            sqls[i] = String.format("%s is not null", fieldNameArr[i]);
+        List<String> fieldNameArr = request.getFieldNameList();
+        StringBuilder fieldNameSb = new StringBuilder();
+        for (String fieldName : fieldNameArr) {
+            fieldNameSb.append(fieldName);
+            fieldNameSb.append(",");
         }
-        String fieldNames = String.join(" AND ", sqls);
-        Dataset<Row> sentenceData = spark.read()
-                .format("jdbc")
-                .option("url", jdbcUrl)
-                .option("dbtable", tableName)
-                .option("user", username)
-                .option("password", password)
-                .load()
-                .where(fieldNames);
+        fieldNameSb.deleteCharAt(fieldNameSb.length()-1);
 
-        Tokenizer tokenizer = null;
-        Dataset<Row> wordsData = null;
-        Dataset<Row> featurizedData = null;
-        int numFeatures = 100;
-        HashingTF hashingTF = null;
-        IDF idf = null;
-        IDFModel idfModel = null;
-//        Dataset<Row> rescaledData = null;
-        for (int i = 0; i < fieldNameArr.length; i++) {
-            String fieldName = fieldNameArr[i];
-            tokenizer = new Tokenizer().setInputCol(fieldName).setOutputCol("words"+i);
-            wordsData = tokenizer.transform(sentenceData);
-            hashingTF = new HashingTF()
-                    .setInputCol("words"+i)
-                    .setOutputCol("rawFeatures"+i)
-                    .setNumFeatures(numFeatures);
-            featurizedData = hashingTF.transform(wordsData);
-            idf = new IDF().setInputCol("rawFeatures"+i).setOutputCol("features"+i);
-            idfModel = idf.fit(featurizedData);
-            sentenceData = idfModel.transform(featurizedData);
-        }
-        sentenceData.show();
-        Vector[] targetVectors = new Vector[fieldNameArr.length];
-        for (int i = 0; i < fieldNameArr.length; i++) {
-            targetVectors[i] = sentenceData
-                    .where(String.format("id = %s", request.targetId))
-                    .collectAsList()
-                    .get(0)
-                    .getAs("features"+i);
-        }
-        PriorityQueue<Row> topQueue = new PriorityQueue<>(new Comparator<Row>() {
-            @Override
-            public int compare(Row o1, Row o2) {
-                return (int)((double) o2.get(1) - (double) o1.get(1));
-            }
-        });
+        String myEndpoint = String.format("%s-dataproc.googleapis.com:443", region);
 
-        List<Row> rowsList = sentenceData.collectAsList();
-        for (Row row : rowsList) {
-            Vector[] curVectors = new Vector[fieldNameArr.length];
-            double sqdist = 0;
-            for (int i = 0; i < fieldNameArr.length; i++) {
-                curVectors[i] = row.getAs("features"+i);
-                sqdist += Vectors.sqdist(targetVectors[i], curVectors[i]);
-            }
+        // Configure the settings for the job controller client.
+        JobControllerSettings jobControllerSettings =
+                JobControllerSettings.newBuilder().setEndpoint(myEndpoint).build();
 
-            Row resultRow = RowFactory.create(row.getAs("id"), sqdist);
-            topQueue.add(resultRow);
-            if (topQueue.size() > request.getRankTopSize()+1) {
-                topQueue.poll();
-            }
-        }
+        List<String> resultList = null;
 
-        topQueue.poll();
-        List<Integer> resultList = new ArrayList<>();
-        while (!topQueue.isEmpty()) {
-            resultList.add(0, (Integer) topQueue.poll().get(0));
-        }
+        // Create a job controller client with the configured settings. Using a try-with-resources
+        // closes the client,
+        // but this can also be done manually with the .close() method.
+        try (JobControllerClient jobControllerClient =
+                     JobControllerClient.create(jobControllerSettings)) {
 
-        return BaseResponse.with(Status.SUCCESS, resultList);
+            // Configure cluster placement for the job.
+            JobPlacement jobPlacement = JobPlacement.newBuilder().setClusterName(clusterName).build();
 
-    }
+            String[] argsArr = new String[]{
+                    tableName,
+                    fieldNameSb.toString(),
+                    request.getTargetId(),
+                    String.valueOf(request.getRankTopSize())};
+            List<String> args = Arrays.asList(argsArr);
+            // Configure Spark job settings.
+            SparkJob sparkJob =
+                    SparkJob.newBuilder()
+                            .setMainClass(mainClass)
+                            .addJarFileUris(jarFileUris)
+                            .addAllArgs(args)
+                            .build();
 
-    private static Map<String, Object> convertRowToMap(Row row) {
+            Job job = Job.newBuilder().setPlacement(jobPlacement).setSparkJob(sparkJob).build();
 
-        Map<String, Object> map = row.getJavaMap(0);
-//        JSON.toJSON()
+            // Submit an asynchronous request to execute the job.
+            OperationFuture<Job, JobMetadata> submitJobAsOperationAsyncRequest =
+                    jobControllerClient.submitJobAsOperationAsync(projectId, region, job);
 
-        return map;
+            Job response = submitJobAsOperationAsyncRequest.get();
+
+            // Print output from Google Cloud Storage.
+            Matcher matches =
+                    Pattern.compile("gs://(.*?)/(.*)").matcher(response.getDriverOutputResourceUri());
+            matches.matches();
+
+            Storage storage = StorageOptions.getDefaultInstance().getService();
+            Blob blob = storage.get(matches.group(1), String.format("%s.000000000", matches.group(2)));
+
+            String dataprocLog = new String(blob.getContent());
+            log.info("Dataproc job finished successfully: {}", dataprocLog);
+
+            String[] dataprocLogLines = dataprocLog.split("\\r?\\n");
+            String resultStr = dataprocLogLines[dataprocLogLines.length-1];
+            String[] resultArr = resultStr.split(",");
+            resultList = Arrays.asList(resultArr);
+            return BaseResponse.with(Status.SUCCESS, resultList);
+        } catch (Exception ignored) {}
+
+        return BaseResponse.with(Status.FAILURE, "Dataproc Error");
     }
 }

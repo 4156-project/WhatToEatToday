@@ -3,6 +3,7 @@ package com.whattoeattoday.recommendationservice.user.service.api;
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
 import com.whattoeattoday.recommendationservice.user.request.UserLoginRequest;
 import com.whattoeattoday.recommendationservice.user.request.UserRegisterRequest;
+import com.whattoeattoday.recommendationservice.user.request.UserVerifyRequest;
 
 /**
  * @author Jiarong Shi js6132@columbia.edu
@@ -12,4 +13,6 @@ public interface UserService {
     BaseResponse userRegister(UserRegisterRequest request);
 
     BaseResponse userLogin(UserLoginRequest request);
+
+    BaseResponse userVerify(UserVerifyRequest request);
 }
