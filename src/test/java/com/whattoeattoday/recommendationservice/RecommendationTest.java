@@ -35,32 +35,6 @@ public class RecommendationTest {
     private QueryService queryService;
 
     @Test
-    public void testGetVectorizedSimilarityRank() {
-        GetVectorizedSimilarityRankRequest request = new GetVectorizedSimilarityRankRequest();
-        request.setCategoryName("food");
-        request.setFieldName("ingredients");
-        request.setTargetId("2");
-        request.setRankTopSize(15);
-        BaseResponse<List<Row>> vectorizedSimilarityRank = vectorizedSimilarityService.getVectorizedSimilarityRank(request);
-        log.info("testGetVectorizedSimilarityRank response: {}", vectorizedSimilarityRank.getData());
-
-        List<Row> resultRows = vectorizedSimilarityRank.getData();
-        log.info("Target Content id: {}", resultRows.get(0).get(0));
-        for (Row resultRow : resultRows) {
-            String id = String.valueOf(resultRow.getInt(0));
-            QueryContentBySingleConditionRequest request1 = new QueryContentBySingleConditionRequest();
-            request1.setCategoryName("food");
-            request1.setConditionField("id");
-            request1.setConditionValue(id);
-            request1.setFieldNames(new ArrayList<String>(){{add("*");}});
-            request1.setPageNo("1");
-            request1.setPageSize("1");
-            BaseResponse<PageInfo> pageInfoBaseResponse = queryService.queryContentBySingleCondition(request1);
-            log.info("{}, {}", id, pageInfoBaseResponse.getData().getPageData().get(0).get("title"));
-        }
-    }
-
-    @Test
     public void test() throws IOException, ExecutionException, InterruptedException {
         GetVectorizedSimilarityRankOnMultiFieldRequest request = new GetVectorizedSimilarityRankOnMultiFieldRequest();
         request.setCategoryName("movies");
