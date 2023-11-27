@@ -1,8 +1,8 @@
-/Users/huanglijie/Documents/Columbia_University/3rd_semester/COMS4156/WhatToEatToday/src/test/java/com/whattoeattoday/recommendationservice/IntraTableServiceImplTest.java
-/Users/huanglijie/Documents/Columbia_University/3rd_semester/COMS4156/WhatToEatToday/src/test/java/com/whattoeattoday/recommendationservice/QueryServiceImplTest.java
-/Users/huanglijie/Documents/Columbia_University/3rd_semester/COMS4156/WhatToEatToday/src/test/java/com/whattoeattoday/recommendationservice/TableServiceImplTest.java
-/Users/huanglijie/Documents/Columbia_University/3rd_semester/COMS4156/WhatToEatToday/src/test/java/com/whattoeattoday/recommendationservice/user/UserServiceImplTest.java
-/Users/huanglijie/Documents/Columbia_University/3rd_semester/COMS4156/WhatToEatToday/src/test/java/com/whattoeattoday/recommendationservice/user/UserAdapterTest.java
-/Users/huanglijie/Documents/Columbia_University/3rd_semester/COMS4156/WhatToEatToday/src/test/java/com/whattoeattoday/recommendationservice/DatabaseTest.java
-/Users/huanglijie/Documents/Columbia_University/3rd_semester/COMS4156/WhatToEatToday/src/test/java/com/whattoeattoday/recommendationservice/InterTableImplTest.java
-/Users/huanglijie/Documents/Columbia_University/3rd_semester/COMS4156/WhatToEatToday/src/test/java/com/whattoeattoday/recommendationservice/RecommendationTest.java
+/Users/jiarongshi/Desktop/Columbia/s3/Advanced SE/WhatToEatToday/src/test/java/com/whattoeattoday/recommendationservice/RecommendationTest.java
+/Users/jiarongshi/Desktop/Columbia/s3/Advanced SE/WhatToEatToday/src/test/java/com/whattoeattoday/recommendationservice/InterTableImplTest.java
+/Users/jiarongshi/Desktop/Columbia/s3/Advanced SE/WhatToEatToday/src/test/java/com/whattoeattoday/recommendationservice/TableServiceImplTest.java
+/Users/jiarongshi/Desktop/Columbia/s3/Advanced SE/WhatToEatToday/src/test/java/com/whattoeattoday/recommendationservice/QueryServiceImplTest.java
+/Users/jiarongshi/Desktop/Columbia/s3/Advanced SE/WhatToEatToday/src/test/java/com/whattoeattoday/recommendationservice/user/UserAdapterTest.java
+/Users/jiarongshi/Desktop/Columbia/s3/Advanced SE/WhatToEatToday/src/test/java/com/whattoeattoday/recommendationservice/user/UserServiceImplTest.java
+/Users/jiarongshi/Desktop/Columbia/s3/Advanced SE/WhatToEatToday/src/test/java/com/whattoeattoday/recommendationservice/DatabaseTest.java
+/Users/jiarongshi/Desktop/Columbia/s3/Advanced SE/WhatToEatToday/src/test/java/com/whattoeattoday/recommendationservice/IntraTableServiceImplTest.java

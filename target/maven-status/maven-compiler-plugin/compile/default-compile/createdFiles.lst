@@ -2,10 +2,8 @@ com/whattoeattoday/recommendationservice/intratable/request/DeleteRequest.class
 com/whattoeattoday/recommendationservice/user/request/UserLoginRequest.class
 com/whattoeattoday/recommendationservice/database/request/row/UpdateRowRequest.class
 com/whattoeattoday/recommendationservice/intertable/service/api/InterTableService.class
-com/whattoeattoday/recommendationservice/recommendation/demo.class
 com/whattoeattoday/recommendationservice/database/service/DatabaseService.class
 com/whattoeattoday/recommendationservice/user/utils/MD5Util.class
-com/whattoeattoday/recommendationservice/recommendation/VectorizedSimilarityServiceImpl$1.class
 com/whattoeattoday/recommendationservice/database/service/impl/DatabaseServiceImpl.class
 com/whattoeattoday/recommendationservice/query/request/QueryContentByMultiConditionRequest.class
 com/whattoeattoday/recommendationservice/user/service/api/UserService.class
@@ -19,7 +17,6 @@ com/whattoeattoday/recommendationservice/RecommendationServiceApplication.class
 com/whattoeattoday/recommendationservice/database/request/row/QueryRowRequest$QueryRowRequestBuilder.class
 com/whattoeattoday/recommendationservice/database/request/row/DeleteRowRequest.class
 com/whattoeattoday/recommendationservice/common/StatusCode.class
-com/whattoeattoday/recommendationservice/recommendation/demo$1.class
 com/whattoeattoday/recommendationservice/recommendation/request/GetVectorizedSimilarityRankOnMultiFieldRequest.class
 com/whattoeattoday/recommendationservice/docs/JAPIDocsApplication.class
 com/whattoeattoday/recommendationservice/database/service/impl/TableServiceImpl$2.class
@@ -29,7 +26,6 @@ com/whattoeattoday/recommendationservice/query/request/QueryCategoryInfoRequest.
 com/whattoeattoday/recommendationservice/recommendation/controller/RecommendationController.class
 com/whattoeattoday/recommendationservice/database/request/table/BuildTableRequest.class
 com/whattoeattoday/recommendationservice/database/response/QueryTableNamesResponse.class
-com/whattoeattoday/recommendationservice/recommendation/VectorizedSimilarityServiceImpl$2.class
 com/whattoeattoday/recommendationservice/database/request/table/UpdateTableRequest.class
 com/whattoeattoday/recommendationservice/intratable/service/api/IntraTableService.class
 com/whattoeattoday/recommendationservice/recommendation/request/GetVectorizedSimilarityRankRequest.class
