@@ -1,7 +1,7 @@
 {
   "groups": [
     {
-      "name": "spring",
+      "name": "dataproc",
       "type": "com.whattoeattoday.recommendationservice.recommendation.VectorizedSimilarityServiceImpl",
       "sourceType": "com.whattoeattoday.recommendationservice.recommendation.VectorizedSimilarityServiceImpl"
     }
