@@ -55,11 +55,11 @@ jobs:
         run: sleep 10
 
       - name: Run Postman tests
-        run: newman run ./RecommendationService.postman_test_run.json
+        run: newman run ./RecommendationService.postman_collection.json
 
       - name: Generate and upload test report
         run: |
-          newman run ./RecommendationService.postman_test_run.json --reporters cli,junit --reporter-junit-export results.xml
+          newman run ./RecommendationService.postman_collection.json --reporters cli,junit --reporter-junit-export results.xml
         if: always()
 
       - name: Upload Test Report
