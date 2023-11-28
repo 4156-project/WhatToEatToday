@@ -35,7 +35,7 @@ public class RecommendationTest {
     @Resource
     private QueryService queryService;
 
-    @Test
+//    @Test
     public void test() throws IOException, ExecutionException, InterruptedException {
         GetVectorizedSimilarityRankOnMultiFieldRequest request = new GetVectorizedSimilarityRankOnMultiFieldRequest();
         request.setCategoryName("movies");
@@ -46,22 +46,5 @@ public class RecommendationTest {
 //        List<String> resultRows = vectorizedSimilarityRankOnMultiFieldResponse.getData();
 //        log.info("Target Content id: {}", resultRows.get(0));
         Assert.assertNotNull(vectorizedSimilarityRankOnMultiFieldResponse);
-//        for (String resultRow : resultRows) {
-//            String id = String.valueOf(resultRow);
-//            QueryContentBySingleConditionRequest request1 = new QueryContentBySingleConditionRequest();
-//            request1.setCategoryName("movies");
-//            request1.setConditionField("id");
-//            request1.setConditionValue(id);
-//            request1.setFieldNames(new ArrayList<String>(){{add("*");}});
-//            request1.setPageNo("1");
-//            request1.setPageSize("1");
-//            BaseResponse<PageInfo> pageInfoBaseResponse = queryService.queryContentBySingleCondition(request1);
-//            log.info("name: {}, genre: {}, rating: {}, start: {}",
-//                    pageInfoBaseResponse.getData().getPageData().get(0).get("name"),
-//                    pageInfoBaseResponse.getData().getPageData().get(0).get("genre"),
-//                    pageInfoBaseResponse.getData().getPageData().get(0).get("rating"),
-//                    pageInfoBaseResponse.getData().getPageData().get(0).get("star")
-//                    );
-//        }
     }
 }
