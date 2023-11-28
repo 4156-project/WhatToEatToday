@@ -1,8 +1,8 @@
 package com.whattoeattoday.recommendationservice.recommendation;
 
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
+import com.whattoeattoday.recommendationservice.recommendation.request.GetRecommendationOnUserRequest;
 import com.whattoeattoday.recommendationservice.recommendation.request.GetVectorizedSimilarityRankOnMultiFieldRequest;
-import com.whattoeattoday.recommendationservice.recommendation.request.GetVectorizedSimilarityRankRequest;
 import org.apache.spark.sql.Row;
 
 import java.io.IOException;
@@ -15,11 +15,11 @@ import java.util.concurrent.ExecutionException;
  */
 public interface VectorizedSimilarityService {
     /**
-     * Generate top-k Similar items to the given id, based on the given filed name
+     * Generate top-k Similar items to the given id, based on the given user
      * @param request
      * @return
      */
-    BaseResponse<List<Row>> getVectorizedSimilarityRank(GetVectorizedSimilarityRankRequest request);
+    BaseResponse<List<String>> getRecommendationOnUser(GetRecommendationOnUserRequest request) throws IOException;
 
     /**
      * Generate top-k Similar items to the given id, based on the given filed names

@@ -122,6 +122,8 @@ public class TableServiceImpl implements TableService {
         return pageInfo;
     }
 
+
+
     public long queryTableRowsNum(String tableName) {
         String sql = "SELECT COUNT(*) AS cnt FROM " + tableName;
         Map<String, Object> res;

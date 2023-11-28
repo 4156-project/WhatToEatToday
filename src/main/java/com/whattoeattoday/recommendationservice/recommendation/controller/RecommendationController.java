@@ -2,6 +2,7 @@ package com.whattoeattoday.recommendationservice.recommendation.controller;
 
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
 import com.whattoeattoday.recommendationservice.recommendation.VectorizedSimilarityService;
+import com.whattoeattoday.recommendationservice.recommendation.request.GetRecommendationOnUserRequest;
 import com.whattoeattoday.recommendationservice.recommendation.request.GetVectorizedSimilarityRankOnMultiFieldRequest;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,5 +29,10 @@ public class RecommendationController {
     @PostMapping("/recommend/item")
     public BaseResponse<List<String>> recommendOnItem(@RequestBody GetVectorizedSimilarityRankOnMultiFieldRequest request) throws IOException, ExecutionException, InterruptedException {
         return vectorizedSimilarityService.getVectorizedSimilarityRankOnMultiField(request);
+    }
+
+    @PostMapping("/recommend/user")
+    public BaseResponse<List<String>> recommendOnUser(@RequestBody GetRecommendationOnUserRequest request) throws IOException {
+        return vectorizedSimilarityService.getRecommendationOnUser(request);
     }
 }
