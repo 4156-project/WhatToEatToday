@@ -2,14 +2,16 @@ package com.whattoeattoday.recommendationservice.recommendation.request;
 
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * @author Lijie Huang lh3158@columbia.edu
  * @date 10/19/23
  */
 @Data
-public class GetVectorizedSimilarityRankRequest {
+public class GetRecommendationOnItemRequest {
     public String categoryName;
-    public String fieldName;
+    public List<String> fieldNameList;
     public String targetId;
     public Integer rankTopSize;
 }

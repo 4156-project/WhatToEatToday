@@ -1,9 +1,9 @@
 package com.whattoeattoday.recommendationservice.recommendation.controller;
 
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
-import com.whattoeattoday.recommendationservice.recommendation.VectorizedSimilarityService;
+import com.whattoeattoday.recommendationservice.recommendation.service.GetRecommendationService;
 import com.whattoeattoday.recommendationservice.recommendation.request.GetRecommendationOnUserRequest;
-import com.whattoeattoday.recommendationservice.recommendation.request.GetVectorizedSimilarityRankOnMultiFieldRequest;
+import com.whattoeattoday.recommendationservice.recommendation.request.GetRecommendationOnItemRequest;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,19 +20,24 @@ import java.util.concurrent.ExecutionException;
 @RestController
 public class RecommendationController {
     @Resource
-    public VectorizedSimilarityService vectorizedSimilarityService;
+    public GetRecommendationService getRecommendationService;
 
     /**
-     * Generate top-k Similar items to the given id, based on the given filed names
+     * Generate top-k Similar items to the given item id, based on the given field names
      * @param request
      */
     @PostMapping("/recommend/item")
-    public BaseResponse<List<String>> recommendOnItem(@RequestBody GetVectorizedSimilarityRankOnMultiFieldRequest request) throws IOException, ExecutionException, InterruptedException {
-        return vectorizedSimilarityService.getVectorizedSimilarityRankOnMultiField(request);
+    public BaseResponse<List<String>> recommendOnItem(@RequestBody GetRecommendationOnItemRequest request) throws IOException, ExecutionException, InterruptedException {
+        return getRecommendationService.getRecommendationOnItem(request);
     }
 
+    /**
+     * Generate top-k similar items to the given user, based on whose collection
+     * @param request
+     * @return
+     */
     @PostMapping("/recommend/user")
     public BaseResponse<List<String>> recommendOnUser(@RequestBody GetRecommendationOnUserRequest request){
-        return vectorizedSimilarityService.getRecommendationOnUser(request);
+        return getRecommendationService.getRecommendationOnUser(request);
     }
 }
