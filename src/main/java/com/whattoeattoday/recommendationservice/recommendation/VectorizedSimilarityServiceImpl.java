@@ -61,8 +61,8 @@ public class VectorizedSimilarityServiceImpl implements VectorizedSimilarityServ
                 .pageSize(100)
                 .build();
 
-        StringBuilder querySql = new StringBuilder(String.format("SELECT item_id FROM `%s` ", request.getCategoryName()));
-        querySql.append(String.format("WHERE user_id = '%s' AND category_name = %s", request.getUserId(), request.getCategoryName()));
+        StringBuilder querySql = new StringBuilder(String.format("SELECT item_id FROM collection "));
+        querySql.append(String.format("WHERE user_id = '%s' AND category_name = '%s' ", request.getUserId(), request.getCategoryName()));
         int offset = (pageInfo.getPageNo() - 1) * pageInfo.getPageSize();
         querySql.append(String.format("LIMIT %s offset %s;", pageInfo.getPageSize(), offset));
         List<Map<String, Object>> res;
@@ -73,7 +73,7 @@ public class VectorizedSimilarityServiceImpl implements VectorizedSimilarityServ
         }
         StringBuilder itemIds = new StringBuilder();
         for (Map<String, Object> map : res) {
-            itemIds.append((String) map.get("item_id"));
+            itemIds.append(String.valueOf(map.get("item_id")));
             itemIds.append(",");
         }
         itemIds.deleteCharAt(itemIds.length()-1);
