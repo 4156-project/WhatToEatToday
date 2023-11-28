@@ -32,7 +32,7 @@ public class RecommendationController {
     }
 
     @PostMapping("/recommend/user")
-    public BaseResponse<List<String>> recommendOnUser(@RequestBody GetRecommendationOnUserRequest request) throws IOException {
+    public BaseResponse<List<String>> recommendOnUser(@RequestBody GetRecommendationOnUserRequest request){
         return vectorizedSimilarityService.getRecommendationOnUser(request);
     }
 }

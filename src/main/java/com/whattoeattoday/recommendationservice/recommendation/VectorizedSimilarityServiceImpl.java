@@ -51,7 +51,7 @@ public class VectorizedSimilarityServiceImpl implements VectorizedSimilarityServ
     private JdbcTemplate jdbcTemplate;
 
     @Override
-    public BaseResponse<List<String>> getRecommendationOnUser(GetRecommendationOnUserRequest request) throws IOException {
+    public BaseResponse<List<String>> getRecommendationOnUser(GetRecommendationOnUserRequest request) {
         // TODO Param Validation
         String mainClass = "com.whattoeattoday.RecommendOnUser";
         String jarFileUris = "gs://4156-recommend-job/Recommend-1.0-SNAPSHOT.jar";
@@ -73,7 +73,7 @@ public class VectorizedSimilarityServiceImpl implements VectorizedSimilarityServ
         }
         StringBuilder itemIds = new StringBuilder();
         for (Map<String, Object> map : res) {
-            itemIds.append((String) map.get("category_name"));
+            itemIds.append((String) map.get("item_id"));
             itemIds.append(",");
         }
         itemIds.deleteCharAt(itemIds.length()-1);
@@ -92,8 +92,12 @@ public class VectorizedSimilarityServiceImpl implements VectorizedSimilarityServ
         String myEndpoint = String.format("%s-dataproc.googleapis.com:443", region);
 
         // Configure the settings for the job controller client.
-        JobControllerSettings jobControllerSettings =
-                JobControllerSettings.newBuilder().setEndpoint(myEndpoint).build();
+        JobControllerSettings jobControllerSettings = null;
+        try {
+            jobControllerSettings = JobControllerSettings.newBuilder().setEndpoint(myEndpoint).build();
+        } catch (IOException e) {
+            return BaseResponse.with(Status.FAILURE, "Job Controller Client Error");
+        }
 
         List<String> resultList = null;
 
@@ -144,9 +148,9 @@ public class VectorizedSimilarityServiceImpl implements VectorizedSimilarityServ
             String[] resultArr = resultStr.split(",");
             resultList = Arrays.asList(resultArr);
             return BaseResponse.with(Status.SUCCESS, resultList);
-        } catch (Exception ignored) {}
-
-        return BaseResponse.with(Status.FAILURE, "Dataproc Error");
+        } catch (Exception ignored) {
+            return BaseResponse.with(Status.FAILURE, "Dataproc Error");
+        }
     }
 
     @Override

@@ -19,7 +19,7 @@ public interface VectorizedSimilarityService {
      * @param request
      * @return
      */
-    BaseResponse<List<String>> getRecommendationOnUser(GetRecommendationOnUserRequest request) throws IOException;
+    BaseResponse<List<String>> getRecommendationOnUser(GetRecommendationOnUserRequest request);
 
     /**
      * Generate top-k Similar items to the given id, based on the given filed names
