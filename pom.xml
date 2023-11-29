@@ -30,13 +30,6 @@
     </dependencyManagement>
 
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-inline</artifactId>
-            <version>3.4.6</version>
-            <scope>test</scope>
-        </dependency>
         <dependency>
             <groupId>com.google.cloud</groupId>
             <artifactId>google-cloud-dataproc</artifactId>
@@ -129,6 +122,38 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.7</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <excludes>
+                        <exclude>**/query/request/*</exclude>
+                        <exclude>**/database/request/**</exclude>
+                        <exclude>**/database/response/*</exclude>
+                        <exclude>**/intratable/request/*</exclude>
+                        <exclude>**/recommendation/request/*</exclude>
+                        <exclude>**/user/request/*</exclude>
+                        <exclude>**/user/model/*</exclude>
+                        <exclude>**/common/**</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+
+            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
@@ -149,5 +174,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

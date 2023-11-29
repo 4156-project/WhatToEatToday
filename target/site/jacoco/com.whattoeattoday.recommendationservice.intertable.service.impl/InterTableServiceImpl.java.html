@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>InterTableServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">RecommendationService</a> &gt; <a href="index.source.html" class="el_package">com.whattoeattoday.recommendationservice.intertable.service.impl</a> &gt; <span class="el_source">InterTableServiceImpl.java</span></div><h1>InterTableServiceImpl.java</h1><pre class="source lang-java linenums">package com.whattoeattoday.recommendationservice.intertable.service.impl;
+
+import com.whattoeattoday.recommendationservice.common.BaseResponse;
+import com.whattoeattoday.recommendationservice.common.ParamUtil;
+import com.whattoeattoday.recommendationservice.common.Status;
+import com.whattoeattoday.recommendationservice.database.request.table.BuildTableRequest;
+import com.whattoeattoday.recommendationservice.database.request.table.DeleteTableRequest;
+import com.whattoeattoday.recommendationservice.database.request.table.UpdateTableRequest;
+import com.whattoeattoday.recommendationservice.database.response.QueryTableResponse;
+import com.whattoeattoday.recommendationservice.database.service.DatabaseService;
+import com.whattoeattoday.recommendationservice.intertable.service.api.InterTableService;
+import com.whattoeattoday.recommendationservice.query.request.QueryCategoryInfoRequest;
+import com.whattoeattoday.recommendationservice.query.service.api.QueryService;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * @author ruoxuanwang rw2961@columbia.edu
+ * @date 10/17/2023
+ */
+@Service
+<span class="fc" id="L26">public class InterTableServiceImpl implements InterTableService {</span>
+    @Resource
+    private DatabaseService databaseService;
+
+    @Resource
+    private QueryService queryService;
+
+    @Override
+    public BaseResponse createTable(BuildTableRequest request) {
+<span class="fc" id="L35">        String tableName = request.getTableName();</span>
+<span class="fc" id="L36">        List&lt;String&gt; fieldNameList = request.getFieldNameList();</span>
+<span class="fc" id="L37">        List&lt;String&gt; fieldTypeList = request.getFieldTypeList();</span>
+<span class="fc" id="L38">        String primaryKey = request.getPrimaryKey();</span>
+<span class="fc" id="L39">        String uniqueKey = request.getUniqueKey();</span>
+<span class="fc" id="L40">        String autoIncrementField = request.getAutoIncrementField();</span>
+        //check if there is any blank string
+<span class="pc bpc" id="L42" title="1 of 4 branches missed.">        if (ParamUtil.isBlank(tableName) || ParamUtil.isBlank(primaryKey)) {</span>
+<span class="fc" id="L43">            return BaseResponse.with(Status.PARAM_ERROR, &quot;Param is Incomplete&quot;);</span>
+        }
+        //check if the name list is empty
+<span class="pc bpc" id="L46" title="1 of 4 branches missed.">        if (fieldNameList==null || fieldNameList.isEmpty()) {</span>
+<span class="fc" id="L47">            return BaseResponse.with(Status.PARAM_ERROR, &quot;No Field&quot;);</span>
+        }
+<span class="fc bfc" id="L49" title="All 2 branches covered.">        if (!ParamUtil.isAllNotBlank(fieldNameList.toArray(new String[0]))) {</span>
+<span class="fc" id="L50">            return BaseResponse.with(Status.PARAM_ERROR, &quot;FieldNameList is Incomplete&quot;);</span>
+        }
+        //check if the type list is empty
+<span class="pc bpc" id="L53" title="1 of 4 branches missed.">        if (fieldTypeList==null || fieldNameList.isEmpty()) {</span>
+<span class="fc" id="L54">            return BaseResponse.with(Status.PARAM_ERROR, &quot;No Type&quot;);</span>
+        }
+<span class="fc bfc" id="L56" title="All 2 branches covered.">        if (!ParamUtil.isAllNotBlank(fieldTypeList.toArray(new String[0]))) {</span>
+<span class="fc" id="L57">            return BaseResponse.with(Status.PARAM_ERROR, &quot;FieldTypeList is Incomplete&quot;);</span>
+        }
+        //check if table name already existed
+<span class="fc bfc" id="L60" title="All 2 branches covered.">        if (ParamUtil.isTableName(tableName)) {</span>
+<span class="fc" id="L61">            return BaseResponse.with(Status.PARAM_ERROR, String.format(&quot;Table %s Already Created&quot;, tableName));</span>
+        }
+        //check if the lengths of field names and types are equal
+<span class="fc bfc" id="L64" title="All 2 branches covered.">        if (fieldTypeList.size() != fieldNameList.size()){</span>
+<span class="fc" id="L65">            return BaseResponse.with(Status.PARAM_ERROR, &quot;Unequal Length of Field Name and Field Type&quot;);</span>
+        }
+        //check if the primary key is in the name list
+<span class="fc bfc" id="L68" title="All 2 branches covered.">        if (!fieldNameList.contains(primaryKey)) {</span>
+<span class="fc" id="L69">            return BaseResponse.with(Status.PARAM_ERROR, &quot;Invalid Primary Key &quot; + primaryKey);</span>
+        }
+        //check if the field types are valid
+<span class="fc bfc" id="L72" title="All 2 branches covered.">        for (String t : fieldTypeList) {</span>
+<span class="fc bfc" id="L73" title="All 2 branches covered.">            if (!ParamUtil.isTypeValid(t)) {</span>
+<span class="fc" id="L74">                return BaseResponse.with(Status.PARAM_ERROR, &quot;Invalid Field Type: &quot;+t);</span>
+            }
+<span class="fc" id="L76">        }</span>
+        //check if uniqueKey field is valid
+<span class="fc bfc" id="L78" title="All 2 branches covered.">        if (uniqueKey != null) {</span>
+<span class="fc bfc" id="L79" title="All 2 branches covered.">            if (!fieldNameList.contains(uniqueKey)) {</span>
+<span class="fc" id="L80">                return BaseResponse.with(Status.PARAM_ERROR, &quot;Invalid Unique Key &quot; + uniqueKey);</span>
+            }
+        }
+        // check if autoincrement field is valid
+<span class="fc bfc" id="L84" title="All 2 branches covered.">        if (autoIncrementField != null) {</span>
+<span class="fc bfc" id="L85" title="All 2 branches covered.">            if (!fieldNameList.contains(autoIncrementField)) {</span>
+<span class="fc" id="L86">                return BaseResponse.with(Status.PARAM_ERROR, &quot;Invalid Auto Increment Field &quot; + autoIncrementField);</span>
+            }
+        }
+<span class="fc" id="L89">        BaseResponse response = databaseService.buildTable(request);</span>
+<span class="pc bpc" id="L90" title="1 of 2 branches missed.">        if (response.getCode() == Status.SUCCESS) {</span>
+<span class="fc" id="L91">            response.setMessage(&quot;Table &quot; + tableName + &quot; is created&quot;);</span>
+        }
+<span class="fc" id="L93">        return response;</span>
+    }
+
+    @Override
+    public BaseResponse deleteTable(DeleteTableRequest request) {
+<span class="fc" id="L98">        String tableName = request.getTableName();</span>
+        //check if there is any blank string
+<span class="pc bpc" id="L100" title="1 of 2 branches missed.">        if (ParamUtil.isBlank(tableName)) {</span>
+<span class="nc" id="L101">            return BaseResponse.with(Status.PARAM_ERROR, &quot;Param is Incomplete&quot;);</span>
+        }
+        //check if table exists
+<span class="fc bfc" id="L104" title="All 2 branches covered.">        if (!ParamUtil.isTableName(tableName)) {</span>
+<span class="fc" id="L105">            return BaseResponse.with(Status.PARAM_ERROR, &quot;Table &quot; + tableName + &quot; Does Not Exist&quot;);</span>
+        }
+<span class="fc" id="L107">        BaseResponse response = databaseService.deleteTable(request);</span>
+<span class="pc bpc" id="L108" title="1 of 2 branches missed.">        if (response.getCode() == Status.SUCCESS) {</span>
+<span class="fc" id="L109">            response.setMessage(&quot;Table &quot; + tableName + &quot; is deleted&quot;);</span>
+        }
+<span class="fc" id="L111">        return response;</span>
+    }
+
+    @Override
+    public BaseResponse&lt;Object&gt; setAutoIncrement(UpdateTableRequest request) {
+<span class="nc" id="L116">        String tableName = request.getTableName();</span>
+<span class="nc" id="L117">        String columnName = request.getColumnName();</span>
+        //check if there is any blank string
+<span class="nc bnc" id="L119" title="All 4 branches missed.">        if (ParamUtil.isBlank(tableName) || ParamUtil.isBlank(columnName)) {</span>
+<span class="nc" id="L120">            return BaseResponse.with(Status.PARAM_ERROR, &quot;Param is Incomplete&quot;);</span>
+        }
+        //check if table exists
+<span class="nc bnc" id="L123" title="All 2 branches missed.">        if (!databaseService.queryTableNames( ).tableNames.contains(tableName)) {</span>
+<span class="nc" id="L124">            return BaseResponse.with(Status.PARAM_ERROR, &quot;Table Does Not Exist&quot;);</span>
+        }
+        //check if column exists
+<span class="nc" id="L127">        QueryCategoryInfoRequest fieldRequest = new QueryCategoryInfoRequest();</span>
+<span class="nc" id="L128">        fieldRequest.setCategoryName(tableName);</span>
+<span class="nc" id="L129">        QueryTableResponse fieldResponse = queryService.queryCategoryInfo(fieldRequest).getData();</span>
+<span class="nc" id="L130">        Map&lt;String, String&gt; filedNameTypeMap = fieldResponse.getFiledNameTypeMap();</span>
+<span class="nc" id="L131">        List&lt;String&gt; filedNameList = new ArrayList&lt;&gt;(filedNameTypeMap.keySet());</span>
+<span class="nc bnc" id="L132" title="All 2 branches missed.">        if (!filedNameList.contains(columnName)) {</span>
+<span class="nc" id="L133">            return BaseResponse.with(Status.PARAM_ERROR, &quot;Field Does Not Exist&quot;);</span>
+        }
+<span class="nc" id="L135">        return databaseService.setAutoIncrement(request);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

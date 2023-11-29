@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MD5Util.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">RecommendationService</a> &gt; <a href="index.source.html" class="el_package">com.whattoeattoday.recommendationservice.user.utils</a> &gt; <span class="el_source">MD5Util.java</span></div><h1>MD5Util.java</h1><pre class="source lang-java linenums">package com.whattoeattoday.recommendationservice.user.utils;
+
+import org.apache.commons.codec.digest.DigestUtils;
+import org.springframework.stereotype.Component;
+
+
+/**
+ * MD5工具类
+ *
+ * @author: Jiarong Shi js6132@columbia.edu
+ * @date 11/24/2023
+ */
+@Component
+<span class="fc" id="L14">public class MD5Util {</span>
+
+    public static String md5(String str) {
+<span class="fc" id="L17">        return DigestUtils.md5Hex(str);</span>
+    }
+
+    private static final String salt = &quot;1a2b3c4d&quot;;
+
+    /**
+     * 第一次加密
+     *
+     * @param inputPass
+     * @return java.lang.String
+     * @author: Jiarong Shi js6132@columbia.edu
+     * @date 11/24/2023
+     **/
+    public static String inputPassToFromPass(String inputPass) {
+<span class="nc" id="L31">        String str = &quot;&quot; + salt.charAt(0) + salt.charAt(2) + inputPass + salt.charAt(5) + salt.charAt(4);</span>
+<span class="nc" id="L32">        return md5(str);</span>
+    }
+
+    /**
+     * 第二次加密
+     * @author: Jiarong Shi js6132@columbia.edu
+     * @date 11/24/2023
+     * @param formPass
+     * @param salt
+     * @return java.lang.String
+     **/
+    public static String formPassToDBPass(String formPass, String salt) {
+<span class="fc" id="L44">        String str = &quot;&quot; + salt.charAt(0) + salt.charAt(2) + formPass + salt.charAt(5) + salt.charAt(4);</span>
+<span class="fc" id="L45">        return md5(str);</span>
+    }
+
+    public static String inputPassToDBPass(String inputPass, String salt) {
+<span class="nc" id="L49">        String fromPass = inputPassToFromPass(inputPass);</span>
+<span class="nc" id="L50">        String dbPass = formPassToDBPass(fromPass, salt);</span>
+<span class="nc" id="L51">        return dbPass;</span>
+    }
+
+    public static void main(String[] args) {
+<span class="nc" id="L55">        System.out.println(inputPassToFromPass(&quot;123456&quot;));</span>
+<span class="nc" id="L56">        System.out.println(formPassToDBPass(&quot;d3b1294a61a07da9b49b6e22b2cbd7f9&quot;, &quot;1a2b3c4d&quot;));</span>
+<span class="nc" id="L57">        System.out.println(inputPassToDBPass(&quot;123456&quot;, &quot;1a2b3c4d&quot;));</span>
+<span class="nc" id="L58">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
