@@ -65,12 +65,17 @@ public class DatabaseTest {
         request.setFieldNameList(fieldNameList);
         request.setFieldTypeList(fieldTypeList);
         request.setPrimaryKey("id");
-        //request.setUniqueKey("title");
         request.setAutoIncrementField("id");
-
+        request.setUniqueKey("username");
+        // test build success
         BaseResponse response = databaseService.buildTable(request);
         log.info("RESPONSE: {}", response);
         Assert.assertTrue(response.isSuccess());
+
+        request.setUniqueKey("title");
+        response = databaseService.buildTable(request);
+        log.info("RESPONSE: {}", response);
+        Assert.assertEquals(response.getCode(), Status.PARAM_ERROR);
     }
 
     @Test
@@ -96,6 +101,7 @@ public class DatabaseTest {
     public void test5DeleteTable() {
         DeleteTableRequest request = new DeleteTableRequest();
         request.setTableName("test1126");
+        // test success
         BaseResponse response = databaseService.deleteTable(request);
         log.info("RESPONSE: {}", response);
         Assert.assertTrue(response.isSuccess());
