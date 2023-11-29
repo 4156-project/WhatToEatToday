@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.whattoeattoday.recommendationservice.DatabaseTest" time="0.921" tests="7" errors="0" skipped="0" failures="0">
+<testsuite name="com.whattoeattoday.recommendationservice.DatabaseTest" time="1.083" tests="7" errors="0" skipped="0" failures="0">
   <properties>
-    <property name="idea.version" value="2023.2.2"/>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="sun.boot.library.path" value="/Users/chrisone/Library/Java/JavaVirtualMachines/corretto-1.8.0_382/Contents/Home/jre/lib"/>
     <property name="java.vm.version" value="25.382-b05"/>
@@ -26,16 +25,15 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="os.name" value="Mac OS X"/>
-    <property name="maven.ext.class.path" value="/Applications/IntelliJ IDEA.app/Contents/plugins/maven/lib/maven-event-listener.jar"/>
     <property name="classworlds.conf" value="/Users/chrisone/Downloads/apache-maven-3.8.3/bin/m2.conf"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
     <property name="java.library.path" value="/Users/chrisone/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
-    <property name="jansi.passthrough" value="true"/>
     <property name="maven.conf" value="/Users/chrisone/Downloads/apache-maven-3.8.3/conf"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.class.version" value="52.0"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="os.version" value="13.4"/>
+    <property name="library.jansi.path" value="/Users/chrisone/Downloads/apache-maven-3.8.3/lib/jansi-native"/>
     <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="user.home" value="/Users/chrisone"/>
     <property name="user.timezone" value="America/New_York"/>
@@ -43,11 +41,11 @@
     <property name="java.specification.version" value="1.8"/>
     <property name="file.encoding" value="UTF-8"/>
     <property name="user.name" value="chrisone"/>
-    <property name="java.class.path" value="/Users/chrisone/Downloads/apache-maven-3.8.3/boot/plexus-classworlds.license:/Users/chrisone/Downloads/apache-maven-3.8.3/boot/plexus-classworlds-2.6.0.jar:/Applications/IntelliJ IDEA.app/Contents/lib/idea_rt.jar"/>
+    <property name="java.class.path" value="/Users/chrisone/Downloads/apache-maven-3.8.3/boot/plexus-classworlds-2.6.0.jar"/>
     <property name="java.vm.specification.version" value="1.8"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.home" value="/Users/chrisone/Library/Java/JavaVirtualMachines/corretto-1.8.0_382/Contents/Home/jre"/>
-    <property name="sun.java.command" value="org.codehaus.classworlds.Launcher -Didea.version=2023.2.2 test"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher clean test"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
     <property name="user.language" value="en"/>
     <property name="awt.toolkit" value="sun.lwawt.macosx.LWCToolkit"/>
@@ -67,10 +65,10 @@
     <property name="sun.cpu.isalist" value=""/>
   </properties>
   <testcase name="contextLoads" classname="com.whattoeattoday.recommendationservice.DatabaseTest" time="0.001"/>
-  <testcase name="test0BuildTable" classname="com.whattoeattoday.recommendationservice.DatabaseTest" time="0.345"/>
-  <testcase name="test1SetAutoIncrement" classname="com.whattoeattoday.recommendationservice.DatabaseTest" time="0.093"/>
-  <testcase name="test2SetUniqueKey" classname="com.whattoeattoday.recommendationservice.DatabaseTest" time="0.177"/>
-  <testcase name="test3QueryTable" classname="com.whattoeattoday.recommendationservice.DatabaseTest" time="0.047"/>
-  <testcase name="test4QueryTableNames" classname="com.whattoeattoday.recommendationservice.DatabaseTest" time="0.038"/>
-  <testcase name="test5DeleteTable" classname="com.whattoeattoday.recommendationservice.DatabaseTest" time="0.22"/>
+  <testcase name="test0BuildTable" classname="com.whattoeattoday.recommendationservice.DatabaseTest" time="0.446"/>
+  <testcase name="test1SetAutoIncrement" classname="com.whattoeattoday.recommendationservice.DatabaseTest" time="0.116"/>
+  <testcase name="test2SetUniqueKey" classname="com.whattoeattoday.recommendationservice.DatabaseTest" time="0.198"/>
+  <testcase name="test3QueryTable" classname="com.whattoeattoday.recommendationservice.DatabaseTest" time="0.058"/>
+  <testcase name="test4QueryTableNames" classname="com.whattoeattoday.recommendationservice.DatabaseTest" time="0.049"/>
+  <testcase name="test5DeleteTable" classname="com.whattoeattoday.recommendationservice.DatabaseTest" time="0.215"/>
 </testsuite>

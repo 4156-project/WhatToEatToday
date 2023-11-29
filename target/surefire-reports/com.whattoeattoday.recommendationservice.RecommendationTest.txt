@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.whattoeattoday.recommendationservice.RecommendationTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.382 sec
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.72 sec

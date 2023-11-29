@@ -38,6 +38,12 @@ jobs:
       - name: Run Tests with Coverage
         run: mvn test jacoco:report
 
+      - name: Upload JaCoCo Report
+        uses: actions/upload-artifact@v2
+        with:
+          name: jacoco-report
+          path: target/site/jacoco/
+
       - name: Analyze code quality
         run: mvn checkstyle:checkstyle pmd:pmd
 

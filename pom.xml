@@ -139,7 +139,20 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <excludes>
+                        <exclude>**/query/request/*</exclude>
+                        <exclude>**/database/request/**</exclude>
+                        <exclude>**/database/response/*</exclude>
+                        <exclude>**/intratable/request/*</exclude>
+                        <exclude>**/recommendation/request/*</exclude>
+                        <exclude>**/user/request/*</exclude>
+                        <exclude>**/user/model/*</exclude>
+                        <exclude>**/common/**</exclude>
+                    </excludes>
+                </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

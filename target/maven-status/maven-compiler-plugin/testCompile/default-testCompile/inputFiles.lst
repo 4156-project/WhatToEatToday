@@ -1,8 +1,8 @@
-/Users/jiarongshi/Desktop/Columbia/s3/Advanced SE/WhatToEatToday/src/test/java/com/whattoeattoday/recommendationservice/RecommendationTest.java
-/Users/jiarongshi/Desktop/Columbia/s3/Advanced SE/WhatToEatToday/src/test/java/com/whattoeattoday/recommendationservice/InterTableImplTest.java
-/Users/jiarongshi/Desktop/Columbia/s3/Advanced SE/WhatToEatToday/src/test/java/com/whattoeattoday/recommendationservice/TableServiceImplTest.java
-/Users/jiarongshi/Desktop/Columbia/s3/Advanced SE/WhatToEatToday/src/test/java/com/whattoeattoday/recommendationservice/QueryServiceImplTest.java
-/Users/jiarongshi/Desktop/Columbia/s3/Advanced SE/WhatToEatToday/src/test/java/com/whattoeattoday/recommendationservice/user/UserAdapterTest.java
-/Users/jiarongshi/Desktop/Columbia/s3/Advanced SE/WhatToEatToday/src/test/java/com/whattoeattoday/recommendationservice/user/UserServiceImplTest.java
-/Users/jiarongshi/Desktop/Columbia/s3/Advanced SE/WhatToEatToday/src/test/java/com/whattoeattoday/recommendationservice/DatabaseTest.java
-/Users/jiarongshi/Desktop/Columbia/s3/Advanced SE/WhatToEatToday/src/test/java/com/whattoeattoday/recommendationservice/IntraTableServiceImplTest.java
+/Users/chrisone/IdeaProjects/WhatToEatToday/src/test/java/com/whattoeattoday/recommendationservice/RecommendationTest.java
+/Users/chrisone/IdeaProjects/WhatToEatToday/src/test/java/com/whattoeattoday/recommendationservice/IntraTableServiceImplTest.java
+/Users/chrisone/IdeaProjects/WhatToEatToday/src/test/java/com/whattoeattoday/recommendationservice/TableServiceImplTest.java
+/Users/chrisone/IdeaProjects/WhatToEatToday/src/test/java/com/whattoeattoday/recommendationservice/user/UserServiceImplTest.java
+/Users/chrisone/IdeaProjects/WhatToEatToday/src/test/java/com/whattoeattoday/recommendationservice/DatabaseTest.java
+/Users/chrisone/IdeaProjects/WhatToEatToday/src/test/java/com/whattoeattoday/recommendationservice/QueryServiceImplTest.java
+/Users/chrisone/IdeaProjects/WhatToEatToday/src/test/java/com/whattoeattoday/recommendationservice/user/UserAdapterTest.java
+/Users/chrisone/IdeaProjects/WhatToEatToday/src/test/java/com/whattoeattoday/recommendationservice/InterTableImplTest.java

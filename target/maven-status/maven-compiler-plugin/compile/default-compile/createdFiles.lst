@@ -28,6 +28,7 @@ com/whattoeattoday/recommendationservice/database/request/table/BuildTableReques
 com/whattoeattoday/recommendationservice/database/response/QueryTableNamesResponse.class
 com/whattoeattoday/recommendationservice/database/request/table/UpdateTableRequest.class
 com/whattoeattoday/recommendationservice/intratable/service/api/IntraTableService.class
+com/whattoeattoday/recommendationservice/user/request/UserVerifyRequest.class
 com/whattoeattoday/recommendationservice/recommendation/request/GetVectorizedSimilarityRankRequest.class
 com/whattoeattoday/recommendationservice/database/service/TableService.class
 com/whattoeattoday/recommendationservice/database/request/table/DeleteTableRequest.class
