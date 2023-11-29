@@ -23,7 +23,6 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -95,71 +94,6 @@ public class GetRecommendationServiceImpl implements GetRecommendationService {
         List<String> resultList = callDataProc(region, projectId, clusterName, argsArr, mainClass, jarFileUris);
         if (resultList == null) return BaseResponse.with(Status.FAILURE, "Dataproc Error");
         return BaseResponse.with(Status.SUCCESS, resultList);
-
-
-
-//        String myEndpoint = String.format("%s-dataproc.googleapis.com:443", region);
-//
-//        // Configure the settings for the job controller client.
-//        JobControllerSettings jobControllerSettings = null;
-//        try {
-//            jobControllerSettings = JobControllerSettings.newBuilder().setEndpoint(myEndpoint).build();
-//        } catch (IOException e) {
-//            return BaseResponse.with(Status.FAILURE, "Job Controller Client Error");
-//        }
-//
-//        List<String> resultList = null;
-//
-//        // Create a job controller client with the configured settings. Using a try-with-resources
-//        // closes the client,
-//        // but this can also be done manually with the .close() method.
-//        try (JobControllerClient jobControllerClient =
-//                     JobControllerClient.create(jobControllerSettings)) {
-//
-//            // Configure cluster placement for the job.
-//            JobPlacement jobPlacement = JobPlacement.newBuilder().setClusterName(clusterName).build();
-//
-//            String[] argsArr = new String[]{
-//                    itemIdsStr,
-//                    tableName,
-//                    fieldNameSb.toString(),
-//                    String.valueOf(request.getRankTopSize())};
-//            List<String> args = Arrays.asList(argsArr);
-//            // Configure Spark job settings.
-//            SparkJob sparkJob =
-//                    SparkJob.newBuilder()
-//                            .setMainClass(mainClass)
-//                            .addJarFileUris(jarFileUris)
-//                            .addAllArgs(args)
-//                            .build();
-//
-//            Job job = Job.newBuilder().setPlacement(jobPlacement).setSparkJob(sparkJob).build();
-//
-//            // Submit an asynchronous request to execute the job.
-//            OperationFuture<Job, JobMetadata> submitJobAsOperationAsyncRequest =
-//                    jobControllerClient.submitJobAsOperationAsync(projectId, region, job);
-//
-//            Job response = submitJobAsOperationAsyncRequest.get();
-//
-//            // Print output from Google Cloud Storage.
-//            Matcher matches =
-//                    Pattern.compile("gs://(.*?)/(.*)").matcher(response.getDriverOutputResourceUri());
-//            matches.matches();
-//
-//            Storage storage = StorageOptions.getDefaultInstance().getService();
-//            Blob blob = storage.get(matches.group(1), String.format("%s.000000000", matches.group(2)));
-//
-//            String dataprocLog = new String(blob.getContent());
-//            log.info("Dataproc job finished successfully: {}", dataprocLog);
-//
-//            String[] dataprocLogLines = dataprocLog.split("\\r?\\n");
-//            String resultStr = dataprocLogLines[dataprocLogLines.length-1];
-//            String[] resultArr = resultStr.split(",");
-//            resultList = Arrays.asList(resultArr);
-//            return BaseResponse.with(Status.SUCCESS, resultList);
-//        } catch (Exception ignored) {
-//            return BaseResponse.with(Status.FAILURE, "Dataproc Error");
-//        }
     }
 
     @Override

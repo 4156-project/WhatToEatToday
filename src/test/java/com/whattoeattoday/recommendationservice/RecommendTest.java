@@ -34,15 +34,12 @@ public class RecommendTest {
     @InjectMocks
     public GetRecommendationServiceImpl getRecommendationServiceImpl;
 
-    @Mock
     @Value("${dataproc.project-id}")
     private String projectId;
 
-    @Mock
     @Value("${dataproc.region}")
     private String region;
 
-    @Mock
     @Value("${dataproc.cluster-name}")
     private String clusterName;
 
@@ -81,11 +78,6 @@ public class RecommendTest {
         request.setCategoryName("movies");
         request.setFieldNameList(new ArrayList<String>(){{add("genre"); add("rating");}});
         request.setRankTopSize(10);
-        // mock static method in GetRecommendationServiceImpl.class
-        MockedStatic<GetRecommendationServiceImpl> getRecommendationServiceMockedStatic = Mockito.mockStatic(GetRecommendationServiceImpl.class);
-        getRecommendationServiceMockedStatic.when(()-> GetRecommendationServiceImpl
-                        .callDataProc(Mockito.any(),Mockito.any(),Mockito.any(),Mockito.any(),Mockito.any(),Mockito.any()))
-                .thenReturn(new ArrayList<String>(){{add("1");add("2");add("3");}});
 
         // mock return of database
         List<Map<String, Object>> list = new ArrayList<>();
