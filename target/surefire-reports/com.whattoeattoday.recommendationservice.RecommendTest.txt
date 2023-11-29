@@ -1,0 +1,20 @@
+-------------------------------------------------------------------------------
+Test set: com.whattoeattoday.recommendationservice.RecommendTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 1, Errors: 1, Skipped: 0, Time elapsed: 0.611 sec <<< FAILURE!
+test01RecommendOnUser(com.whattoeattoday.recommendationservice.RecommendTest)  Time elapsed: 0.006 sec  <<< ERROR!
+org.mockito.exceptions.base.MockitoException: 
+The used MockMaker SubclassByteBuddyMockMaker does not support the creation of static mocks
+
+Mockito's inline mock maker supports static mocks based on the Instrumentation API.
+You can simply enable this mock mode, by placing the 'mockito-inline' artifact where you are currently using 'mockito-core'.
+Note that Mockito's inline mock maker is not supported on Android.
+	at com.whattoeattoday.recommendationservice.RecommendTest.test01RecommendOnUser(RecommendTest.java:58)
+
+test02RecommendOnItem(com.whattoeattoday.recommendationservice.RecommendTest)  Time elapsed: 0.154 sec  <<< FAILURE!
+java.lang.AssertionError: null
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertTrue(Assert.java:53)
+	at com.whattoeattoday.recommendationservice.RecommendTest.test02RecommendOnItem(RecommendTest.java:90)
+

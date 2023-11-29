@@ -122,32 +122,34 @@ import java.util.Map;
 <span class="fc" id="L122">        return pageInfo;</span>
     }
 
+
+
     public long queryTableRowsNum(String tableName) {
-<span class="fc" id="L126">        String sql = &quot;SELECT COUNT(*) AS cnt FROM &quot; + tableName;</span>
+<span class="fc" id="L128">        String sql = &quot;SELECT COUNT(*) AS cnt FROM &quot; + tableName;</span>
         Map&lt;String, Object&gt; res;
         try {
-<span class="fc" id="L129">            res = jdbcTemplate.queryForMap(sql);</span>
-<span class="nc" id="L130">        } catch (DataAccessException e) {</span>
-<span class="nc" id="L131">            return -1;</span>
-<span class="fc" id="L132">        }</span>
-<span class="fc" id="L133">        return (long) res.get(&quot;cnt&quot;);</span>
+<span class="fc" id="L131">            res = jdbcTemplate.queryForMap(sql);</span>
+<span class="nc" id="L132">        } catch (DataAccessException e) {</span>
+<span class="nc" id="L133">            return -1;</span>
+<span class="fc" id="L134">        }</span>
+<span class="fc" id="L135">        return (long) res.get(&quot;cnt&quot;);</span>
     }
 
     public BaseResponse updateRowNum(String tableName) {
-<span class="fc" id="L137">        long rowNum = queryTableRowsNum(tableName);</span>
-<span class="fc" id="L138">        UpdateRowRequest updateRowRequest = new UpdateRowRequest();</span>
-<span class="fc" id="L139">        updateRowRequest.setTableName(&quot;table_record&quot;);</span>
-<span class="fc" id="L140">        List&lt;String&gt; fieldNames = new ArrayList&lt;String&gt;(){{</span>
-<span class="fc" id="L141">            add(&quot;row_num&quot;);</span>
-<span class="fc" id="L142">        }};</span>
-<span class="fc" id="L143">        List&lt;String&gt; values = new ArrayList&lt;String&gt;(){{</span>
-<span class="fc" id="L144">            add(String.valueOf(rowNum));</span>
-<span class="fc" id="L145">        }};</span>
-<span class="fc" id="L146">        updateRowRequest.setFiledNames(fieldNames);</span>
-<span class="fc" id="L147">        updateRowRequest.setValues(values);</span>
-<span class="fc" id="L148">        updateRowRequest.setConditionField(&quot;name&quot;);</span>
-<span class="fc" id="L149">        updateRowRequest.setConditionValue(tableName);</span>
-<span class="fc" id="L150">        return update(updateRowRequest);</span>
+<span class="fc" id="L139">        long rowNum = queryTableRowsNum(tableName);</span>
+<span class="fc" id="L140">        UpdateRowRequest updateRowRequest = new UpdateRowRequest();</span>
+<span class="fc" id="L141">        updateRowRequest.setTableName(&quot;table_record&quot;);</span>
+<span class="fc" id="L142">        List&lt;String&gt; fieldNames = new ArrayList&lt;String&gt;(){{</span>
+<span class="fc" id="L143">            add(&quot;row_num&quot;);</span>
+<span class="fc" id="L144">        }};</span>
+<span class="fc" id="L145">        List&lt;String&gt; values = new ArrayList&lt;String&gt;(){{</span>
+<span class="fc" id="L146">            add(String.valueOf(rowNum));</span>
+<span class="fc" id="L147">        }};</span>
+<span class="fc" id="L148">        updateRowRequest.setFiledNames(fieldNames);</span>
+<span class="fc" id="L149">        updateRowRequest.setValues(values);</span>
+<span class="fc" id="L150">        updateRowRequest.setConditionField(&quot;name&quot;);</span>
+<span class="fc" id="L151">        updateRowRequest.setConditionValue(tableName);</span>
+<span class="fc" id="L152">        return update(updateRowRequest);</span>
     }
 
 }

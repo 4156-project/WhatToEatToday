@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.whattoeattoday.recommendationservice.TableServiceImplTest" time="0.435" tests="6" errors="0" skipped="0" failures="0">
+<testsuite name="com.whattoeattoday.recommendationservice.RecommendTest" time="0.16" tests="2" errors="1" skipped="0" failures="1">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="sun.boot.library.path" value="/Users/chrisone/Library/Java/JavaVirtualMachines/corretto-1.8.0_382/Contents/Home/jre/lib"/>
@@ -64,10 +64,27 @@
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase name="test0Insert" classname="com.whattoeattoday.recommendationservice.TableServiceImplTest" time="0.112"/>
-  <testcase name="test1Update" classname="com.whattoeattoday.recommendationservice.TableServiceImplTest" time="0.037"/>
-  <testcase name="test2Query" classname="com.whattoeattoday.recommendationservice.TableServiceImplTest" time="0.07"/>
-  <testcase name="test3QueryTableRowsNum" classname="com.whattoeattoday.recommendationservice.TableServiceImplTest" time="0.036"/>
-  <testcase name="test4UpdateRowNum" classname="com.whattoeattoday.recommendationservice.TableServiceImplTest" time="0.069"/>
-  <testcase name="test5Delete" classname="com.whattoeattoday.recommendationservice.TableServiceImplTest" time="0.111"/>
+  <testcase name="test01RecommendOnUser" classname="com.whattoeattoday.recommendationservice.RecommendTest" time="0.006">
+    <error message="&#10;The used MockMaker SubclassByteBuddyMockMaker does not support the creation of static mocks&#10;&#10;Mockito&apos;s inline mock maker supports static mocks based on the Instrumentation API.&#10;You can simply enable this mock mode, by placing the &apos;mockito-inline&apos; artifact where you are currently using &apos;mockito-core&apos;.&#10;Note that Mockito&apos;s inline mock maker is not supported on Android." type="org.mockito.exceptions.base.MockitoException">org.mockito.exceptions.base.MockitoException: 
+The used MockMaker SubclassByteBuddyMockMaker does not support the creation of static mocks
+
+Mockito's inline mock maker supports static mocks based on the Instrumentation API.
+You can simply enable this mock mode, by placing the 'mockito-inline' artifact where you are currently using 'mockito-core'.
+Note that Mockito's inline mock maker is not supported on Android.
+	at com.whattoeattoday.recommendationservice.RecommendTest.test01RecommendOnUser(RecommendTest.java:58)
+</error>
+    <system-out>2023-11-29 16:07:21.375  INFO 12177 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.whattoeattoday.recommendationservice.RecommendTest], using SpringBootContextLoader
+2023-11-29 16:07:21.376  INFO 12177 --- [           main] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [com.whattoeattoday.recommendationservice.RecommendTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+2023-11-29 16:07:21.380  INFO 12177 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2023-11-29 16:07:21.380  INFO 12177 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@257dc264, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@1245ca50, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@22b543f8, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@326d4f0f, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@79c8d5c4, org.springframework.test.context.support.DirtiesContextTestExecutionListener@456387e7, org.springframework.test.context.transaction.TransactionalTestExecutionListener@4d41b630, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@158c9da0, org.springframework.test.context.event.EventPublishingTestExecutionListener@2ad51c20, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@7350ea22, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@33e0224e, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@4270d80f, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@4046e87d, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@34b30bad, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@673ad27]
+</system-out>
+  </testcase>
+  <testcase name="test02RecommendOnItem" classname="com.whattoeattoday.recommendationservice.RecommendTest" time="0.154">
+    <failure type="java.lang.AssertionError:">java.lang.AssertionError: null
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertTrue(Assert.java:53)
+	at com.whattoeattoday.recommendationservice.RecommendTest.test02RecommendOnItem(RecommendTest.java:90)
+</failure>
+  </testcase>
 </testsuite>

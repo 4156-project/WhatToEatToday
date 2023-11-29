@@ -68,9 +68,9 @@ import java.util.*;
 <span class="nc" id="L68">            return BaseResponse.with(Status.PARAM_ERROR);</span>
 <span class="fc" id="L69">        }</span>
 <span class="pc bpc" id="L70" title="1 of 4 branches missed.">        boolean isAutoIncrementSuccess = request.getAutoIncrementField() != null &amp;&amp; !autoIncrResponse.isSuccess();</span>
-<span class="pc bpc" id="L71" title="1 of 4 branches missed.">        boolean isSetUniqueKeySuccess = request.getUniqueKey() != null &amp;&amp; !uniqueKeyResponse.isSuccess();</span>
-<span class="pc bpc" id="L72" title="2 of 4 branches missed.">        if (isAutoIncrementSuccess || isSetUniqueKeySuccess) {</span>
-<span class="nc" id="L73">            return BaseResponse.with(Status.PARAM_ERROR);</span>
+<span class="fc bfc" id="L71" title="All 4 branches covered.">        boolean isSetUniqueKeySuccess = request.getUniqueKey() != null &amp;&amp; !uniqueKeyResponse.isSuccess();</span>
+<span class="pc bpc" id="L72" title="1 of 4 branches missed.">        if (isAutoIncrementSuccess || isSetUniqueKeySuccess) {</span>
+<span class="fc" id="L73">            return BaseResponse.with(Status.PARAM_ERROR);</span>
         }
 <span class="fc" id="L75">        return BaseResponse.with(Status.SUCCESS);</span>
     }

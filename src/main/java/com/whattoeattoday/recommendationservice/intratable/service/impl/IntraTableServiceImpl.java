@@ -40,11 +40,6 @@ public class IntraTableServiceImpl implements IntraTableService {
     }
     @Override
     public BaseResponse insert(InsertRequest request) {
-        //check if the database null
-        QueryTableNamesResponse response = databaseService.queryTableNames();
-        if (response.tableNames == null || response.tableNames.isEmpty()) {
-            return BaseResponse.with(Status.SUCCESS, "Database is Empty");
-        }
 
         //check if table name in database
         String tableName = request.getTableName();
@@ -87,11 +82,6 @@ public class IntraTableServiceImpl implements IntraTableService {
 
     @Override
     public BaseResponse delete(DeleteRequest request) {
-        //check if the database null
-        QueryTableNamesResponse response = databaseService.queryTableNames();
-        if (response.tableNames == null || response.tableNames.isEmpty()) {
-            return BaseResponse.with(Status.SUCCESS, "Database is Empty");
-        }
 
         //check if table name in database
         String tableName = request.getTableName();
@@ -116,11 +106,6 @@ public class IntraTableServiceImpl implements IntraTableService {
 
     @Override
     public BaseResponse update(UpdateRequest request) {
-        //check if the database null
-        QueryTableNamesResponse response = databaseService.queryTableNames();
-        if (response.tableNames == null || response.tableNames.isEmpty()) {
-            return BaseResponse.with(Status.SUCCESS, "Database is Empty");
-        }
 
         //check if table name in database
         String tableName = request.getTableName();
