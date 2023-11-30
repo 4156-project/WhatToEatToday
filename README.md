@@ -56,3 +56,8 @@ these APIs.
 Let's have a quick test on ListAllCategoryName API which responds with names of all categories without requiring a request body.
 
 http://localhost:8080/query/category/list/name (make sure you complete step 2)
+
+## Sample Client App
+Here is a sample client of this service. \
+https://github.com/rxxnnnnn/RecipeWebsite/ 
+
