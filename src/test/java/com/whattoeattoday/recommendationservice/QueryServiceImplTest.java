@@ -6,6 +6,7 @@ import com.whattoeattoday.recommendationservice.common.Status;
 import com.whattoeattoday.recommendationservice.query.request.QueryCategoryByNameRequest;
 import com.whattoeattoday.recommendationservice.query.request.QueryCategoryInfoRequest;
 import com.whattoeattoday.recommendationservice.query.request.QueryContentBySingleConditionRequest;
+import com.whattoeattoday.recommendationservice.query.request.QueryContentRequest;
 import com.whattoeattoday.recommendationservice.query.service.api.QueryService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
@@ -80,6 +81,16 @@ public class QueryServiceImplTest {
         BaseResponse<PageInfo> response = queryService.queryContentBySingleCondition(request);
         log.info("TestQueryContentBySingleCondition RESPONSE: {}", response);
         Assert.assertNotNull(response.getData().getPageData());
+    }
+
+    @Test
+    public void test4QueryContentInCategory() {
+        QueryContentRequest request = new QueryContentRequest();
+        request.setCategoryName("test1016");
+        request.setPageNo("1");
+        request.setPageSize("3");
+        BaseResponse<PageInfo> pageInfoBaseResponse = queryService.queryContent(request);
+        log.info("TestQueryContentInCategory RESPONSE: {}", pageInfoBaseResponse);
     }
 
 }

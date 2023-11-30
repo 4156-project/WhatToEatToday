@@ -15,9 +15,13 @@ import com.whattoeattoday.recommendationservice.query.service.api.QueryService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * @author Lijie Huang lh3158@columbia.edu
@@ -146,6 +150,26 @@ public class QueryServiceImpl implements QueryService {
         String tableName = request.getCategoryName();
         String keyword = request.getKeyword();
         return null;
+    }
+
+    @Override
+    public BaseResponse queryContent(QueryContentRequest request) {
+        String tableName = request.getCategoryName();
+        PageInfo pageInfo = PageInfo.builder()
+                .pageNo(Integer.valueOf(request.getPageNo()))
+                .pageSize(Integer.valueOf(request.getPageSize()))
+                .build();
+        QueryRowRequest queryRowRequest = QueryRowRequest
+                .builder()
+                .fieldNames(Stream.of("*").collect(toList()))
+                .tableName(tableName)
+                .pageInfo(pageInfo)
+                .build();
+        PageInfo queryResult = tableService.query(queryRowRequest);
+        if (queryResult == null) {
+            return BaseResponse.with(Status.DATABASE_ERROR);
+        }
+        return BaseResponse.with(Status.SUCCESS, queryResult);
     }
 
 }
