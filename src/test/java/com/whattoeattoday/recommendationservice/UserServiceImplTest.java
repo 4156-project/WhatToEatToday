@@ -73,19 +73,17 @@ public class UserServiceImplTest {
     @Test
     public void userLoginTest() {
         UserLoginRequest request = new UserLoginRequest();
-        request.setUsername("Larry");
-        request.setPassword("1234");
-        // test password not valid
-        BaseResponse response = userService.userLogin(request);
-        Assert.assertEquals(response.getCode(), Status.PARAM_ERROR);
         // test username not found
-        request.setUsername("");
-        response = userService.userLogin(request);
+        BaseResponse response = userService.userLogin(request);
         Assert.assertEquals(response.getCode(), Status.NOT_FOUND);
         // test password not found
-        request.setPassword("");
+        request.setUsername("Larry");
         response = userService.userLogin(request);
         Assert.assertEquals(response.getCode(), Status.NOT_FOUND);
+        // test password not valid
+        request.setPassword("22222");
+        response = userService.userLogin(request);
+        Assert.assertEquals(response.getCode(), Status.PARAM_ERROR);
         // test user not found
         request.setUsername("Wendy");
         request.setPassword("12345");
@@ -127,14 +125,18 @@ public class UserServiceImplTest {
         // check user not valid
         BaseResponse response = userService.userAddCollection(request);
         Assert.assertEquals(response.getCode(), Status.PARAM_ERROR);
-        // check Category or Item Not Valid
+        // check Category Not Valid
         request.setUsername("Nick");
         request.setPassword("54321");
-        request.setItemId("1");
+        response = userService.userAddCollection(request);
+        Assert.assertEquals(response.getCode(), Status.PARAM_ERROR);
+        // check Item Not Valid
+        request.setCategory("food");
+        request.setItemId("-1");
         response = userService.userAddCollection(request);
         Assert.assertEquals(response.getCode(), Status.PARAM_ERROR);
         // check Item has Existed
-        request.setCategory("food");
+        request.setItemId("1");
         response = userService.userAddCollection(request);
         Assert.assertEquals(response.getCode(), Status.PARAM_ERROR);
         // check Add Collection Success
