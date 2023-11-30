@@ -59,9 +59,6 @@ public class QueryServiceImpl implements QueryService {
         if (ParamUtil.isBlank(request.getCategoryName()) || ParamUtil.isBlank(request.getPageNo()) || ParamUtil.isBlank(request.getPageSize())) {
             return BaseResponse.with(Status.PARAM_ERROR, "Params Incomplete");
         }
-        if (!ParamUtil.isPageValid(request.getPageNo(), request.getPageSize())) {
-            return BaseResponse.with(Status.PARAM_ERROR, "Page Number or Page Size is not Numeric");
-        }
         String categoryName = request.getCategoryName();
         if (!ParamUtil.isTableName(categoryName)) {
             return BaseResponse.with(Status.NOT_FOUND, "Category Not Found");
@@ -93,9 +90,6 @@ public class QueryServiceImpl implements QueryService {
         if (response == null) {
             return BaseResponse.with(Status.DATABASE_ERROR);
         }
-        if (response.tableNames.isEmpty()) {
-            return BaseResponse.with(Status.SUCCESS, "Database is Empty");
-        }
         return BaseResponse.with(Status.SUCCESS, response.tableNames);
     }
 
@@ -111,10 +105,7 @@ public class QueryServiceImpl implements QueryService {
         }
         boolean isStarSign = request.getFieldNames().size() == 1 && "*".equals(request.getFieldNames().get(0));
         if (!isStarSign && !ParamUtil.isFieldNames(request.getCategoryName(), request.getFieldNames())) {
-            return BaseResponse.with(Status.PARAM_ERROR, "Filed Name Error");
-        }
-        if (!ParamUtil.isPageValid(request.getPageNo(), request.getPageSize())) {
-            return BaseResponse.with(Status.PARAM_ERROR, "Page Number or Page Size is not Numeric");
+            return BaseResponse.with(Status.PARAM_ERROR, "Field Name Error");
         }
 
         PageInfo pageInfo = PageInfo.builder()

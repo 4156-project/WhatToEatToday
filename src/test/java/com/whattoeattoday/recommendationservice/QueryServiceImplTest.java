@@ -52,11 +52,13 @@ public class QueryServiceImplTest {
     @Test
     public void test2QueryCategoryByName() {
         QueryCategoryByNameRequest request = new QueryCategoryByNameRequest();
-        request.setCategoryName("test1016");
+        request.setCategoryName("fakeName");
         request.setContentName("Larry");
         Assert.assertFalse(queryService.queryCategoryByName(request).isSuccess());
         request.setPageNo("1");
         request.setPageSize("2");
+        Assert.assertFalse(queryService.queryCategoryByName(request).isSuccess());
+        request.setCategoryName("test1016");
         BaseResponse<PageInfo> response = queryService.queryCategoryByName(request);
         log.info(" TestQueryCategoryByName RESPONSE1: {}", response);
         Assert.assertTrue(response.isSuccess());
@@ -73,12 +75,20 @@ public class QueryServiceImplTest {
     @Test
     public void test3QueryContentBySingleCondition() {
         QueryContentBySingleConditionRequest request = new QueryContentBySingleConditionRequest();
-        request.setCategoryName("test1016");
+        // param incomplete
+        Assert.assertFalse(queryService.queryContentBySingleCondition(request).isSuccess());
+        request.setCategoryName("fakeName");
         request.setFieldNames(new ArrayList<String>(){{add("*");}});
         request.setConditionField("gender");
-        request.setConditionValue("male");
+        request.setConditionValue("mal");
         request.setPageNo("1");
         request.setPageSize("2");
+        //category not found
+        Assert.assertFalse(queryService.queryContentBySingleCondition(request).isSuccess());
+        request.setCategoryName("test1016");
+        // field name error
+        Assert.assertFalse(queryService.queryContentBySingleCondition(request).isSuccess());
+        request.setConditionValue("male");
         BaseResponse<PageInfo> response = queryService.queryContentBySingleCondition(request);
         log.info("TestQueryContentBySingleCondition RESPONSE: {}", response);
         Assert.assertNotNull(response.getData().getPageData());
