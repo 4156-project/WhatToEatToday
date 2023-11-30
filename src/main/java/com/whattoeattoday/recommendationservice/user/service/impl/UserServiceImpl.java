@@ -161,9 +161,8 @@ public class UserServiceImpl implements UserService {
         BaseResponse insertResponse = intraTableService.insert(insertRequest);
         if (insertResponse.getCode() == Status.SUCCESS) {
             return BaseResponse.with(Status.SUCCESS,"Add Collection Success!", user);
-        } else {
-            return BaseResponse.with(Status.DATABASE_ERROR,"Add Collection Fail!");
         }
+        return BaseResponse.with(Status.DATABASE_ERROR,"Add Collection Fail!");
     }
 
     @Override
@@ -201,9 +200,8 @@ public class UserServiceImpl implements UserService {
         BaseResponse deleteResponse = tableService.delete(deleteRequest);
         if (deleteResponse.getCode() == Status.SUCCESS) {
             return BaseResponse.with(Status.SUCCESS,"Delete Collection Success!", user);
-        } else {
-            return BaseResponse.with(Status.DATABASE_ERROR,"Delete Collection Fail!");
         }
+        return BaseResponse.with(Status.DATABASE_ERROR,"Delete Collection Fail!");
     }
 
     private boolean checkItemInCategory(Long itemId, String category) {
