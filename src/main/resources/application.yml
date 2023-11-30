@@ -18,4 +18,4 @@ mybatis:
 dataproc:
   project-id: whattoeattoday-401920
   region: us-central1
-  cluster-name: cluster-9428
+  cluster-name: cluster-228a
