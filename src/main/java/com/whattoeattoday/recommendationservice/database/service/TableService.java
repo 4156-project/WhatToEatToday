@@ -24,6 +24,13 @@ public interface TableService {
     BaseResponse<Object> delete(DeleteRowRequest request);
 
     /**
+     * delete one row by multiple condition
+     * @param request
+     * @return
+     */
+    BaseResponse<Object> delete(DeleteRowPlusRequest request);
+
+    /**
      * update one row by condition
      * @param request
      * @return
