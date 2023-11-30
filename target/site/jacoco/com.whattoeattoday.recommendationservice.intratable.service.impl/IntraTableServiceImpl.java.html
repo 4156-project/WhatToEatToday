@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>IntraTableServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">RecommendationService</a> &gt; <a href="index.source.html" class="el_package">com.whattoeattoday.recommendationservice.intratable.service.impl</a> &gt; <span class="el_source">IntraTableServiceImpl.java</span></div><h1>IntraTableServiceImpl.java</h1><pre class="source lang-java linenums">package com.whattoeattoday.recommendationservice.intratable.service.impl;
+
+import com.whattoeattoday.recommendationservice.common.ParamUtil;
+import com.whattoeattoday.recommendationservice.intratable.request.DeleteRequest;
+import com.whattoeattoday.recommendationservice.intratable.request.InsertRequest;
+import com.whattoeattoday.recommendationservice.intratable.request.UpdateRequest;
+import com.whattoeattoday.recommendationservice.intratable.service.api.IntraTableService;
+import com.whattoeattoday.recommendationservice.common.BaseResponse;
+import com.whattoeattoday.recommendationservice.common.Status;
+import com.whattoeattoday.recommendationservice.database.request.row.DeleteRowRequest;
+import com.whattoeattoday.recommendationservice.database.request.row.InsertRowRequest;
+import com.whattoeattoday.recommendationservice.database.request.row.UpdateRowRequest;
+import com.whattoeattoday.recommendationservice.database.request.table.QueryTableRequest;
+import com.whattoeattoday.recommendationservice.database.response.QueryTableNamesResponse;
+import com.whattoeattoday.recommendationservice.database.response.QueryTableResponse;
+import com.whattoeattoday.recommendationservice.database.service.DatabaseService;
+import com.whattoeattoday.recommendationservice.database.service.TableService;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * @author Yufeng Wan yw3921@columbia.edu
+ * @date 10/16/23
+ */
+
+@Service
+<span class="fc" id="L31">public class IntraTableServiceImpl implements IntraTableService {</span>
+
+    @Resource
+    private DatabaseService databaseService;
+    @Resource
+    private TableService tableService;
+    private boolean isTableValid(String tableName) {
+<span class="fc" id="L38">        QueryTableNamesResponse response = databaseService.queryTableNames();</span>
+<span class="fc" id="L39">        return response.tableNames.contains(tableName);</span>
+    }
+    @Override
+    public BaseResponse insert(InsertRequest request) {
+
+        //check if table name in database
+<span class="fc" id="L45">        String tableName = request.getTableName();</span>
+<span class="fc bfc" id="L46" title="All 2 branches covered.">        if(!isTableValid(tableName)){</span>
+<span class="fc" id="L47">            return BaseResponse.with(Status.NOT_FOUND, &quot;Table Not Found&quot;);</span>
+        }
+
+        //check if the inserted fieldName and value valid
+<span class="fc" id="L51">        Map&lt;String,Object&gt;fieldNameValues = request.getFieldNameValues();</span>
+<span class="fc" id="L52">        QueryTableRequest request1 = new QueryTableRequest();</span>
+<span class="fc" id="L53">        request1.setTableName(tableName);</span>
+<span class="fc" id="L54">        QueryTableResponse response1 = databaseService.queryTable(request1);</span>
+<span class="fc" id="L55">        Map&lt;String, String&gt; fieldNameTypeMap = response1.getFiledNameTypeMap();</span>
+
+<span class="fc" id="L57">        List&lt;String&gt; fieldNames = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L58">        List&lt;String&gt; values = new ArrayList&lt;&gt;();</span>
+
+<span class="fc bfc" id="L60" title="All 2 branches covered.">        for (Map.Entry&lt;String,Object&gt;entry:fieldNameValues.entrySet()){</span>
+<span class="fc" id="L61">            String key = entry.getKey();</span>
+<span class="fc" id="L62">            Object value = entry.getValue();</span>
+
+<span class="fc bfc" id="L64" title="All 2 branches covered.">            if (!fieldNameTypeMap.containsKey(key)){</span>
+<span class="fc" id="L65">                return BaseResponse.with(Status.NOT_FOUND, &quot;Field Not Found&quot;);</span>
+
+            }
+<span class="fc" id="L68">            String sqlType = fieldNameTypeMap.get(key);</span>
+<span class="fc bfc" id="L69" title="All 2 branches covered.">            if (!ParamUtil.isValidSqlType(value, sqlType)) {</span>
+<span class="fc" id="L70">                return BaseResponse.with(Status.PARAM_ERROR, &quot;Type Error&quot;);</span>
+            }
+<span class="fc" id="L72">            fieldNames.add(entry.getKey());</span>
+<span class="fc" id="L73">            values.add(entry.getValue().toString());</span>
+
+<span class="fc" id="L75">        }</span>
+<span class="fc" id="L76">        InsertRowRequest request2 = new InsertRowRequest();</span>
+<span class="fc" id="L77">        request2.setTableName(tableName);</span>
+<span class="fc" id="L78">        request2.setFiledNames(fieldNames);</span>
+<span class="fc" id="L79">        request2.setValues(values);</span>
+<span class="fc" id="L80">        return tableService.insert(request2);</span>
+    }
+
+    @Override
+    public BaseResponse delete(DeleteRequest request) {
+
+        //check if table name in database
+<span class="fc" id="L87">        String tableName = request.getTableName();</span>
+<span class="fc bfc" id="L88" title="All 2 branches covered.">        if(!isTableValid(tableName)){</span>
+<span class="fc" id="L89">            return BaseResponse.with(Status.NOT_FOUND, &quot;Table Not Found&quot;);</span>
+        }
+        //check if the deleted fieldName null or empty
+<span class="fc" id="L92">        String conditionField = request.getConditionField();</span>
+<span class="fc" id="L93">        Object conditionValue = request.getConditionValue();</span>
+
+<span class="fc bfc" id="L95" title="All 2 branches covered.">        if(conditionField.isEmpty()){</span>
+<span class="fc" id="L96">            return BaseResponse.with(Status.PARAM_ERROR,&quot;FieldName should not be Empty&quot;);</span>
+        }
+
+<span class="fc" id="L99">        DeleteRowRequest request2 = new DeleteRowRequest();</span>
+<span class="fc" id="L100">        request2.setTableName(tableName);</span>
+<span class="fc" id="L101">        request2.setConditionField(conditionField);</span>
+<span class="fc" id="L102">        request2.setConditionValue(conditionValue.toString());</span>
+
+<span class="fc" id="L104">        return tableService.delete(request2);</span>
+    }
+
+    @Override
+    public BaseResponse update(UpdateRequest request) {
+
+        //check if table name in database
+<span class="fc" id="L111">        String tableName = request.getTableName();</span>
+<span class="fc bfc" id="L112" title="All 2 branches covered.">        if(!isTableValid(tableName)){</span>
+<span class="fc" id="L113">            return BaseResponse.with(Status.NOT_FOUND, &quot;Table Not Found&quot;);</span>
+        }
+        //check if the deleted fieldName null or empty
+<span class="fc" id="L116">        String conditionField = request.getConditionField();</span>
+<span class="fc" id="L117">        Object conditionValue = request.getConditionValue();</span>
+
+<span class="fc bfc" id="L119" title="All 2 branches covered.">        if(conditionField.isEmpty()){</span>
+<span class="fc" id="L120">            return BaseResponse.with(Status.PARAM_ERROR,&quot;FieldName should not be Empty&quot;);</span>
+        }
+
+        //check if the update fieldName and value valid
+<span class="fc" id="L124">        Map&lt;String,Object&gt;fieldNameValues = request.getFieldNameValues();</span>
+<span class="fc" id="L125">        QueryTableRequest request1 = new QueryTableRequest();</span>
+<span class="fc" id="L126">        request1.setTableName(tableName);</span>
+<span class="fc" id="L127">        QueryTableResponse response1 = databaseService.queryTable(request1);</span>
+<span class="fc" id="L128">        Map&lt;String, String&gt; fieldNameTypeMap = response1.getFiledNameTypeMap();</span>
+
+<span class="fc" id="L130">        List&lt;String&gt; fieldNames = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L131">        List&lt;String&gt; values = new ArrayList&lt;&gt;();</span>
+
+<span class="fc bfc" id="L133" title="All 2 branches covered.">        for (Map.Entry&lt;String,Object&gt;entry:fieldNameValues.entrySet()){</span>
+<span class="fc" id="L134">            String key = entry.getKey();</span>
+<span class="fc" id="L135">            Object value = entry.getValue();</span>
+
+<span class="fc bfc" id="L137" title="All 2 branches covered.">            if (!fieldNameTypeMap.containsKey(key)){</span>
+<span class="fc" id="L138">                return BaseResponse.with(Status.NOT_FOUND, &quot;Field Not Found&quot;);</span>
+
+            }
+<span class="fc" id="L141">            String sqlType = fieldNameTypeMap.get(key);</span>
+<span class="fc bfc" id="L142" title="All 2 branches covered.">            if (!ParamUtil.isValidSqlType(value, sqlType)) {</span>
+<span class="fc" id="L143">                return BaseResponse.with(Status.PARAM_ERROR, &quot;Type Error&quot;);</span>
+            }
+<span class="fc" id="L145">            fieldNames.add(entry.getKey());</span>
+<span class="fc" id="L146">            values.add(entry.getValue().toString());</span>
+
+<span class="fc" id="L148">        }</span>
+
+<span class="fc" id="L150">        UpdateRowRequest request2 = new UpdateRowRequest();</span>
+<span class="fc" id="L151">        request2.setConditionField(conditionField);</span>
+<span class="fc" id="L152">        request2.setConditionValue(conditionValue.toString());</span>
+<span class="fc" id="L153">        request2.setTableName(tableName);</span>
+<span class="fc" id="L154">        request2.setFiledNames(fieldNames);</span>
+<span class="fc" id="L155">        request2.setValues(values);</span>
+<span class="fc" id="L156">        return tableService.update(request2);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

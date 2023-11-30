@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>QueryController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">RecommendationService</a> &gt; <a href="index.source.html" class="el_package">com.whattoeattoday.recommendationservice.query.controller</a> &gt; <span class="el_source">QueryController.java</span></div><h1>QueryController.java</h1><pre class="source lang-java linenums">package com.whattoeattoday.recommendationservice.query.controller;
+
+import com.whattoeattoday.recommendationservice.common.BaseResponse;
+import com.whattoeattoday.recommendationservice.common.PageInfo;
+import com.whattoeattoday.recommendationservice.database.response.QueryTableResponse;
+import com.whattoeattoday.recommendationservice.query.request.*;
+import com.whattoeattoday.recommendationservice.query.service.api.QueryService;
+import io.github.yedaxia.apidocs.Ignore;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import java.util.Set;
+
+/**
+ * @author Lijie Huang lh3158@columbia.edu
+ * @Date 10/13/2023
+ */
+@RestController
+<span class="fc" id="L19">public class QueryController {</span>
+
+    @Resource
+    public QueryService queryService;
+
+    /**
+     * Query basic information about a category
+     * @param request
+     */
+    @PostMapping(&quot;/query/category/list/info&quot;)
+    public BaseResponse&lt;QueryTableResponse&gt; queryCategoryInfo(@RequestBody QueryCategoryInfoRequest request) {
+<span class="nc" id="L30">        return queryService.queryCategoryInfo(request);</span>
+    }
+
+    /**
+     * Query contents in a category
+     * @param request
+     */
+    @PostMapping(&quot;/query/category/name&quot;)
+    public BaseResponse&lt;PageInfo&gt; queryCategoryByName(@RequestBody QueryCategoryByNameRequest request) {
+<span class="nc" id="L39">        return queryService.queryCategoryByName(request);</span>
+    }
+
+    /**
+     * Query names of all categories
+     * @return
+     */
+    @GetMapping(&quot;/query/category/list/name&quot;)
+    public BaseResponse&lt;Set&lt;String&gt;&gt; queryAllCategoryName() {
+<span class="nc" id="L48">        return queryService.queryAllCategoryName();</span>
+    }
+
+    /**
+     * Query contents in a category with a single selection condition
+     * @param request
+     * @return
+     */
+    @PostMapping(&quot;/query/content/single-condition&quot;)
+    public BaseResponse&lt;PageInfo&gt; queryContentBySingleCondition(@RequestBody QueryContentBySingleConditionRequest request) {
+<span class="nc" id="L58">        return queryService.queryContentBySingleCondition(request);</span>
+    }
+
+    @Ignore
+    @PostMapping(&quot;/query/content/multi-condition&quot;)
+    public BaseResponse queryContentByMultiCondition(@RequestBody QueryContentByMultiConditionRequest request) {
+<span class="nc" id="L64">        return queryService.queryContentByMultiCondition(request);</span>
+    }
+
+    @Ignore
+    @PostMapping(&quot;/query/content/fuzzy&quot;)
+    public BaseResponse fuzzySearchContent(@RequestBody FuzzySearchContentRequest request) {
+<span class="nc" id="L70">        return queryService.fuzzySearchContent(request);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

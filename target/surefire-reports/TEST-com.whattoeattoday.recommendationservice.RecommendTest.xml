@@ -1,67 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.whattoeattoday.recommendationservice.RecommendTest" time="0.156" tests="2" errors="0" skipped="0" failures="0">
+<testsuite name="com.whattoeattoday.recommendationservice.RecommendTest" time="0.16" tests="2" errors="1" skipped="0" failures="1">
   <properties>
-    <property name="idea.version" value="2023.2.3"/>
-    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
-    <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_301.jdk/Contents/Home/jre/lib"/>
-    <property name="java.vm.version" value="25.301-b09"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="sun.boot.library.path" value="/Users/chrisone/Library/Java/JavaVirtualMachines/corretto-1.8.0_382/Contents/Home/jre/lib"/>
+    <property name="java.vm.version" value="25.382-b05"/>
     <property name="gopherProxySet" value="false"/>
-    <property name="java.vm.vendor" value="Oracle Corporation"/>
-    <property name="maven.multiModuleProjectDirectory" value="/Users/huanglijie/Documents/Columbia_University/3rd_semester/COMS4156/WhatToEatToday"/>
-    <property name="java.vendor.url" value="http://java.oracle.com/"/>
+    <property name="java.vm.vendor" value="Amazon.com Inc."/>
+    <property name="maven.multiModuleProjectDirectory" value="/Users/chrisone/IdeaProjects/WhatToEatToday"/>
+    <property name="java.vendor.url" value="https://aws.amazon.com/corretto/"/>
     <property name="path.separator" value=":"/>
     <property name="guice.disable.misplaced.annotation.check" value="true"/>
-    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
     <property name="file.encoding.pkg" value="sun.io"/>
     <property name="user.country" value="US"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.os.patch.level" value="unknown"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="/Users/huanglijie/Documents/Columbia_University/3rd_semester/COMS4156/WhatToEatToday"/>
-    <property name="java.runtime.version" value="1.8.0_301-b09"/>
+    <property name="user.dir" value="/Users/chrisone/IdeaProjects/WhatToEatToday"/>
+    <property name="java.runtime.version" value="1.8.0_382-b05"/>
     <property name="java.awt.graphicsenv" value="sun.awt.CGraphicsEnvironment"/>
-    <property name="java.endorsed.dirs" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_301.jdk/Contents/Home/jre/lib/endorsed"/>
-    <property name="os.arch" value="x86_64"/>
-    <property name="java.io.tmpdir" value="/var/folders/vy/ykt4g8b964lg7lw785vcc0l00000gn/T/"/>
+    <property name="java.endorsed.dirs" value="/Users/chrisone/Library/Java/JavaVirtualMachines/corretto-1.8.0_382/Contents/Home/jre/lib/endorsed"/>
+    <property name="os.arch" value="aarch64"/>
+    <property name="java.io.tmpdir" value="/var/folders/b_/9qrfwkwx26xc53byvfj3r_k00000gn/T/"/>
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="os.name" value="Mac OS X"/>
-    <property name="maven.ext.class.path" value="/Applications/IntelliJ IDEA.app/Contents/plugins/maven/lib/maven-event-listener.jar"/>
-    <property name="classworlds.conf" value="/Applications/IntelliJ IDEA.app/Contents/plugins/maven/lib/maven3/bin/m2.conf"/>
+    <property name="classworlds.conf" value="/Users/chrisone/Downloads/apache-maven-3.8.3/bin/m2.conf"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
-    <property name="java.library.path" value="/Users/huanglijie/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
-    <property name="jansi.passthrough" value="true"/>
-    <property name="maven.conf" value="/Applications/IntelliJ IDEA.app/Contents/plugins/maven/lib/maven3/conf"/>
+    <property name="java.library.path" value="/Users/chrisone/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
+    <property name="maven.conf" value="/Users/chrisone/Downloads/apache-maven-3.8.3/conf"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.class.version" value="52.0"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
-    <property name="os.version" value="10.16"/>
-    <property name="user.home" value="/Users/huanglijie"/>
+    <property name="os.version" value="13.4"/>
+    <property name="library.jansi.path" value="/Users/chrisone/Downloads/apache-maven-3.8.3/lib/jansi-native"/>
+    <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="user.home" value="/Users/chrisone"/>
     <property name="user.timezone" value="America/New_York"/>
     <property name="java.awt.printerjob" value="sun.lwawt.macosx.CPrinterJob"/>
     <property name="java.specification.version" value="1.8"/>
     <property name="file.encoding" value="UTF-8"/>
-    <property name="user.name" value="huanglijie"/>
-    <property name="java.class.path" value="/Applications/IntelliJ IDEA.app/Contents/plugins/maven/lib/maven3/boot/plexus-classworlds.license:/Applications/IntelliJ IDEA.app/Contents/plugins/maven/lib/maven3/boot/plexus-classworlds-2.7.0.jar:/Applications/IntelliJ IDEA.app/Contents/lib/idea_rt.jar"/>
+    <property name="user.name" value="chrisone"/>
+    <property name="java.class.path" value="/Users/chrisone/Downloads/apache-maven-3.8.3/boot/plexus-classworlds-2.6.0.jar"/>
     <property name="java.vm.specification.version" value="1.8"/>
     <property name="sun.arch.data.model" value="64"/>
-    <property name="java.home" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_301.jdk/Contents/Home/jre"/>
-    <property name="sun.java.command" value="org.codehaus.classworlds.Launcher -Didea.version=2023.2.3 test"/>
+    <property name="java.home" value="/Users/chrisone/Library/Java/JavaVirtualMachines/corretto-1.8.0_382/Contents/Home/jre"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher clean test"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
     <property name="user.language" value="en"/>
     <property name="awt.toolkit" value="sun.lwawt.macosx.LWCToolkit"/>
     <property name="java.vm.info" value="mixed mode"/>
-    <property name="java.version" value="1.8.0_301"/>
-    <property name="java.ext.dirs" value="/Users/huanglijie/Library/Java/Extensions:/Library/Java/JavaVirtualMachines/jdk1.8.0_301.jdk/Contents/Home/jre/lib/ext:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java"/>
-    <property name="sun.boot.class.path" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_301.jdk/Contents/Home/jre/lib/resources.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_301.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_301.jdk/Contents/Home/jre/lib/sunrsasign.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_301.jdk/Contents/Home/jre/lib/jsse.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_301.jdk/Contents/Home/jre/lib/jce.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_301.jdk/Contents/Home/jre/lib/charsets.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_301.jdk/Contents/Home/jre/lib/jfr.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_301.jdk/Contents/Home/jre/classes"/>
-    <property name="java.vendor" value="Oracle Corporation"/>
-    <property name="maven.home" value="/Applications/IntelliJ IDEA.app/Contents/plugins/maven/lib/maven3"/>
+    <property name="java.version" value="1.8.0_382"/>
+    <property name="java.ext.dirs" value="/Users/chrisone/Library/Java/Extensions:/Users/chrisone/Library/Java/JavaVirtualMachines/corretto-1.8.0_382/Contents/Home/jre/lib/ext:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java"/>
+    <property name="sun.boot.class.path" value="/Users/chrisone/Library/Java/JavaVirtualMachines/corretto-1.8.0_382/Contents/Home/jre/lib/resources.jar:/Users/chrisone/Library/Java/JavaVirtualMachines/corretto-1.8.0_382/Contents/Home/jre/lib/rt.jar:/Users/chrisone/Library/Java/JavaVirtualMachines/corretto-1.8.0_382/Contents/Home/jre/lib/sunrsasign.jar:/Users/chrisone/Library/Java/JavaVirtualMachines/corretto-1.8.0_382/Contents/Home/jre/lib/jsse.jar:/Users/chrisone/Library/Java/JavaVirtualMachines/corretto-1.8.0_382/Contents/Home/jre/lib/jce.jar:/Users/chrisone/Library/Java/JavaVirtualMachines/corretto-1.8.0_382/Contents/Home/jre/lib/charsets.jar:/Users/chrisone/Library/Java/JavaVirtualMachines/corretto-1.8.0_382/Contents/Home/jre/lib/jfr.jar:/Users/chrisone/Library/Java/JavaVirtualMachines/corretto-1.8.0_382/Contents/Home/jre/classes"/>
+    <property name="java.vendor" value="Amazon.com Inc."/>
+    <property name="java.specification.maintenance.version" value="5"/>
+    <property name="maven.home" value="/Users/chrisone/Downloads/apache-maven-3.8.3"/>
     <property name="file.separator" value="/"/>
-    <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/"/>
+    <property name="java.vendor.url.bug" value="https://github.com/corretto/corretto-8/issues/"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
+    <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase name="test01RecommendOnUser" classname="com.whattoeattoday.recommendationservice.RecommendTest" time="0.149"/>
-  <testcase name="test02RecommendOnItem" classname="com.whattoeattoday.recommendationservice.RecommendTest" time="0.007"/>
+  <testcase name="test01RecommendOnUser" classname="com.whattoeattoday.recommendationservice.RecommendTest" time="0.006">
+    <error message="&#10;The used MockMaker SubclassByteBuddyMockMaker does not support the creation of static mocks&#10;&#10;Mockito&apos;s inline mock maker supports static mocks based on the Instrumentation API.&#10;You can simply enable this mock mode, by placing the &apos;mockito-inline&apos; artifact where you are currently using &apos;mockito-core&apos;.&#10;Note that Mockito&apos;s inline mock maker is not supported on Android." type="org.mockito.exceptions.base.MockitoException">org.mockito.exceptions.base.MockitoException: 
+The used MockMaker SubclassByteBuddyMockMaker does not support the creation of static mocks
+
+Mockito's inline mock maker supports static mocks based on the Instrumentation API.
+You can simply enable this mock mode, by placing the 'mockito-inline' artifact where you are currently using 'mockito-core'.
+Note that Mockito's inline mock maker is not supported on Android.
+	at com.whattoeattoday.recommendationservice.RecommendTest.test01RecommendOnUser(RecommendTest.java:58)
+</error>
+    <system-out>2023-11-29 16:07:21.375  INFO 12177 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.whattoeattoday.recommendationservice.RecommendTest], using SpringBootContextLoader
+2023-11-29 16:07:21.376  INFO 12177 --- [           main] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [com.whattoeattoday.recommendationservice.RecommendTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+2023-11-29 16:07:21.380  INFO 12177 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2023-11-29 16:07:21.380  INFO 12177 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@257dc264, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@1245ca50, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@22b543f8, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@326d4f0f, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@79c8d5c4, org.springframework.test.context.support.DirtiesContextTestExecutionListener@456387e7, org.springframework.test.context.transaction.TransactionalTestExecutionListener@4d41b630, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@158c9da0, org.springframework.test.context.event.EventPublishingTestExecutionListener@2ad51c20, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@7350ea22, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@33e0224e, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@4270d80f, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@4046e87d, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@34b30bad, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@673ad27]
+</system-out>
+  </testcase>
+  <testcase name="test02RecommendOnItem" classname="com.whattoeattoday.recommendationservice.RecommendTest" time="0.154">
+    <failure type="java.lang.AssertionError:">java.lang.AssertionError: null
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertTrue(Assert.java:53)
+	at com.whattoeattoday.recommendationservice.RecommendTest.test02RecommendOnItem(RecommendTest.java:90)
+</failure>
+  </testcase>
 </testsuite>

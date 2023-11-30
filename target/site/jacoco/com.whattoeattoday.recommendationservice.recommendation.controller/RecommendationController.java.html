@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RecommendationController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">RecommendationService</a> &gt; <a href="index.source.html" class="el_package">com.whattoeattoday.recommendationservice.recommendation.controller</a> &gt; <span class="el_source">RecommendationController.java</span></div><h1>RecommendationController.java</h1><pre class="source lang-java linenums">package com.whattoeattoday.recommendationservice.recommendation.controller;
+
+import com.whattoeattoday.recommendationservice.common.BaseResponse;
+import com.whattoeattoday.recommendationservice.recommendation.service.GetRecommendationService;
+import com.whattoeattoday.recommendationservice.recommendation.request.GetRecommendationOnUserRequest;
+import com.whattoeattoday.recommendationservice.recommendation.request.GetRecommendationOnItemRequest;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
+import java.io.IOException;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+
+/**
+ * @author Lijie Huang lh3158@columbia.edu
+ * @date 11/24/23
+ */
+@RestController
+<span class="fc" id="L21">public class RecommendationController {</span>
+    @Resource
+    public GetRecommendationService getRecommendationService;
+
+    /**
+     * Generate top-k Similar items to the given item id, based on the given field names
+     * @param request
+     */
+    @PostMapping(&quot;/recommend/item&quot;)
+    public BaseResponse&lt;List&lt;String&gt;&gt; recommendOnItem(@RequestBody GetRecommendationOnItemRequest request) throws IOException, ExecutionException, InterruptedException {
+<span class="nc" id="L31">        return getRecommendationService.getRecommendationOnItem(request);</span>
+    }
+
+    /**
+     * Generate top-k similar items to the given user, based on whose collection
+     * @param request
+     * @return
+     */
+    @PostMapping(&quot;/recommend/user&quot;)
+    public BaseResponse&lt;List&lt;String&gt;&gt; recommendOnUser(@RequestBody GetRecommendationOnUserRequest request){
+<span class="nc" id="L41">        return getRecommendationService.getRecommendationOnUser(request);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

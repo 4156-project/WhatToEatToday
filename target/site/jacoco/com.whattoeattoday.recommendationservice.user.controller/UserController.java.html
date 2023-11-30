@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">RecommendationService</a> &gt; <a href="index.source.html" class="el_package">com.whattoeattoday.recommendationservice.user.controller</a> &gt; <span class="el_source">UserController.java</span></div><h1>UserController.java</h1><pre class="source lang-java linenums">package com.whattoeattoday.recommendationservice.user.controller;
+
+import com.whattoeattoday.recommendationservice.common.BaseResponse;
+import com.whattoeattoday.recommendationservice.user.request.UserLoginRequest;
+import com.whattoeattoday.recommendationservice.user.request.UserRegisterRequest;
+import com.whattoeattoday.recommendationservice.user.request.UserVerifyRequest;
+import com.whattoeattoday.recommendationservice.user.service.api.UserService;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
+
+/**
+ * @author Jiarong Shi js6132@columbia.edu
+ * @Date 11/24/2023
+ */
+@RestController
+<span class="fc" id="L19">public class UserController {</span>
+
+    @Resource
+    public UserService userService;
+
+    /**
+     * user register
+     * @param request
+     */
+    @PostMapping(&quot;/user/register&quot;)
+    public BaseResponse userRegister(@RequestBody UserRegisterRequest request) {
+<span class="nc" id="L30">        return userService.userRegister(request);</span>
+    }
+
+    /**
+     * user login
+     * @param request
+     */
+    @PostMapping(&quot;/user/login&quot;)
+    public BaseResponse userLogin(@RequestBody UserLoginRequest request) {
+<span class="nc" id="L39">        return userService.userLogin(request);</span>
+    }
+
+    /**
+     * check whether the user has the authority of certain category
+     * @param request
+     */
+    @PostMapping(&quot;/user/verify&quot;)
+    public BaseResponse userVerify(@RequestBody UserVerifyRequest request) {
+<span class="nc" id="L48">        return userService.userVerify(request);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

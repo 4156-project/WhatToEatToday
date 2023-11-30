@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TableServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">RecommendationService</a> &gt; <a href="index.source.html" class="el_package">com.whattoeattoday.recommendationservice.database.service.impl</a> &gt; <span class="el_source">TableServiceImpl.java</span></div><h1>TableServiceImpl.java</h1><pre class="source lang-java linenums">package com.whattoeattoday.recommendationservice.database.service.impl;
+
+import com.whattoeattoday.recommendationservice.common.BaseResponse;
+import com.whattoeattoday.recommendationservice.common.PageInfo;
+import com.whattoeattoday.recommendationservice.common.Status;
+import com.whattoeattoday.recommendationservice.database.request.row.DeleteRowRequest;
+import com.whattoeattoday.recommendationservice.database.request.row.InsertRowRequest;
+import com.whattoeattoday.recommendationservice.database.request.row.QueryRowRequest;
+import com.whattoeattoday.recommendationservice.database.request.row.UpdateRowRequest;
+import com.whattoeattoday.recommendationservice.database.service.TableService;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * @author Jiarong Shi js6132@columbia.edu
+ * @date 10/15/23
+ */
+@Service
+<span class="fc" id="L25">public class TableServiceImpl implements TableService {</span>
+    @Resource
+    private JdbcTemplate jdbcTemplate;
+
+    @Override
+    public BaseResponse insert(InsertRowRequest request) {
+<span class="fc" id="L31">        String tableName = request.getTableName();</span>
+<span class="fc" id="L32">        List&lt;String&gt; fieldNames = request.getFiledNames();</span>
+<span class="fc" id="L33">        List&lt;String&gt; values = request.getValues();</span>
+<span class="fc" id="L34">        String columnNames = String.join(&quot;,&quot;, fieldNames);</span>
+<span class="fc" id="L35">        String columnValues = String.join(&quot;','&quot;, values);</span>
+<span class="fc" id="L36">        columnValues = &quot;'&quot; + columnValues + &quot;'&quot;;</span>
+<span class="fc" id="L37">        StringBuilder insertSql = new StringBuilder(String.format(&quot;INSERT IGNORE INTO `%s` (%s) VALUES (%s);&quot;, tableName,</span>
+                columnNames, columnValues));
+<span class="fc" id="L39">        return getBaseResponse(tableName, insertSql.toString());</span>
+    }
+
+    @Override
+    public BaseResponse delete(DeleteRowRequest request) {
+<span class="fc" id="L44">        String tableName = request.getTableName();</span>
+<span class="fc" id="L45">        String fieldName = request.getConditionField();</span>
+<span class="fc" id="L46">        String condition = request.getConditionValue();</span>
+<span class="fc" id="L47">        StringBuilder deleteSql = new StringBuilder(String.format(&quot;DELETE FROM `%s` WHERE %s = '%s';&quot;, tableName, fieldName, condition));</span>
+<span class="fc" id="L48">        return getBaseResponse(tableName, deleteSql.toString());</span>
+    }
+
+    private BaseResponse getBaseResponse(String tableName, String sql) {
+        int numOfRowsEffected;
+        try {
+<span class="fc" id="L54">            numOfRowsEffected = jdbcTemplate.update(sql);</span>
+<span class="nc" id="L55">        } catch (DataAccessException e) {</span>
+<span class="nc" id="L56">            return BaseResponse.with(Status.PARAM_ERROR);</span>
+<span class="fc" id="L57">        }</span>
+<span class="fc" id="L58">        BaseResponse response = updateRowNum(tableName);</span>
+<span class="pc bpc" id="L59" title="1 of 2 branches missed.">        if (response.getCode().equals(Status.SUCCESS)) {</span>
+<span class="pc bpc" id="L60" title="1 of 2 branches missed.">            if (numOfRowsEffected &gt; 0) {</span>
+<span class="fc" id="L61">                return BaseResponse.with(Status.SUCCESS, numOfRowsEffected);</span>
+            } else {
+<span class="nc" id="L63">                return BaseResponse.with(Status.NOT_FOUND, numOfRowsEffected);</span>
+            }
+        } else {
+<span class="nc" id="L66">            return BaseResponse.with(Status.PARAM_ERROR);</span>
+        }
+    }
+
+    @Override
+    public BaseResponse update(UpdateRowRequest request) {
+<span class="fc" id="L72">        String tableName = request.getTableName();</span>
+<span class="fc" id="L73">        String fieldName = request.getConditionField();</span>
+<span class="fc" id="L74">        String condition = request.getConditionValue();</span>
+<span class="fc" id="L75">        List&lt;String&gt; fieldNames = request.getFiledNames();</span>
+<span class="fc" id="L76">        List&lt;String&gt; values = request.getValues();</span>
+<span class="fc" id="L77">        StringBuilder updateSql = new StringBuilder(String.format(&quot;UPDATE `%s` SET &quot;, tableName));</span>
+<span class="fc bfc" id="L78" title="All 2 branches covered.">        for (int i = 0; i &lt; fieldNames.size(); i++) {</span>
+<span class="fc" id="L79">            updateSql.append(fieldNames.get(i) + &quot;='&quot; + values.get(i) + &quot;'&quot;);</span>
+<span class="fc bfc" id="L80" title="All 2 branches covered.">            if (i != fieldNames.size() - 1) {</span>
+<span class="fc" id="L81">                updateSql.append(&quot;,&quot;);</span>
+            }
+        }
+<span class="fc" id="L84">        updateSql.append(String.format(&quot; WHERE %s = '%s';&quot;, fieldName, condition));</span>
+        int numOfRowsEffected;
+        try {
+<span class="fc" id="L87">            numOfRowsEffected = jdbcTemplate.update(updateSql.toString());</span>
+<span class="nc" id="L88">        } catch (DataAccessException e) {</span>
+<span class="nc" id="L89">            return BaseResponse.with(Status.PARAM_ERROR);</span>
+<span class="fc" id="L90">        }</span>
+
+<span class="fc bfc" id="L92" title="All 2 branches covered.">        if (numOfRowsEffected &gt; 0) {</span>
+<span class="fc" id="L93">            return BaseResponse.with(Status.SUCCESS, numOfRowsEffected);</span>
+        } else {
+<span class="fc" id="L95">            return BaseResponse.with(Status.NOT_FOUND, numOfRowsEffected);</span>
+        }
+    }
+
+    @Override
+    public PageInfo query(QueryRowRequest request) {
+<span class="fc" id="L101">        String tableName = request.getTableName();</span>
+<span class="fc" id="L102">        String fieldName = request.getConditionField();</span>
+<span class="fc" id="L103">        String condition = request.getConditionValue();</span>
+<span class="fc" id="L104">        PageInfo pageInfo = request.getPageInfo();</span>
+<span class="fc" id="L105">        int pageNo = Integer.valueOf(pageInfo.getPageNo());</span>
+<span class="fc" id="L106">        int pageSize = Integer.valueOf(pageInfo.getPageSize());</span>
+<span class="fc" id="L107">        List&lt;String&gt; fieldNames = request.getFieldNames();</span>
+<span class="fc" id="L108">        String columnNames = String.join(&quot;,&quot;, fieldNames);</span>
+<span class="fc" id="L109">        StringBuilder querySql = new StringBuilder(String.format(&quot;SELECT %s FROM `%s` &quot;, columnNames, tableName));</span>
+<span class="pc bpc" id="L110" title="1 of 4 branches missed.">        if (fieldName != null &amp;&amp; condition != null) {</span>
+<span class="fc" id="L111">            querySql.append(String.format(&quot;WHERE %s = '%s' &quot;, fieldName, condition));</span>
+        }
+<span class="fc" id="L113">        int offset = (pageNo - 1) * pageSize;</span>
+<span class="fc" id="L114">        querySql.append(String.format(&quot;LIMIT %s offset %s;&quot;, pageSize, offset));</span>
+        List&lt;Map&lt;String, Object&gt;&gt; res;
+        try {
+<span class="fc" id="L117">            res = jdbcTemplate.queryForList(querySql.toString());</span>
+<span class="nc" id="L118">        } catch (DataAccessException e) {</span>
+<span class="nc" id="L119">            return null;</span>
+<span class="fc" id="L120">        }</span>
+<span class="fc" id="L121">        pageInfo.setPageData(res);</span>
+<span class="fc" id="L122">        return pageInfo;</span>
+    }
+
+
+
+    public long queryTableRowsNum(String tableName) {
+<span class="fc" id="L128">        String sql = &quot;SELECT COUNT(*) AS cnt FROM &quot; + tableName;</span>
+        Map&lt;String, Object&gt; res;
+        try {
+<span class="fc" id="L131">            res = jdbcTemplate.queryForMap(sql);</span>
+<span class="nc" id="L132">        } catch (DataAccessException e) {</span>
+<span class="nc" id="L133">            return -1;</span>
+<span class="fc" id="L134">        }</span>
+<span class="fc" id="L135">        return (long) res.get(&quot;cnt&quot;);</span>
+    }
+
+    public BaseResponse updateRowNum(String tableName) {
+<span class="fc" id="L139">        long rowNum = queryTableRowsNum(tableName);</span>
+<span class="fc" id="L140">        UpdateRowRequest updateRowRequest = new UpdateRowRequest();</span>
+<span class="fc" id="L141">        updateRowRequest.setTableName(&quot;table_record&quot;);</span>
+<span class="fc" id="L142">        List&lt;String&gt; fieldNames = new ArrayList&lt;String&gt;(){{</span>
+<span class="fc" id="L143">            add(&quot;row_num&quot;);</span>
+<span class="fc" id="L144">        }};</span>
+<span class="fc" id="L145">        List&lt;String&gt; values = new ArrayList&lt;String&gt;(){{</span>
+<span class="fc" id="L146">            add(String.valueOf(rowNum));</span>
+<span class="fc" id="L147">        }};</span>
+<span class="fc" id="L148">        updateRowRequest.setFiledNames(fieldNames);</span>
+<span class="fc" id="L149">        updateRowRequest.setValues(values);</span>
+<span class="fc" id="L150">        updateRowRequest.setConditionField(&quot;name&quot;);</span>
+<span class="fc" id="L151">        updateRowRequest.setConditionValue(tableName);</span>
+<span class="fc" id="L152">        return update(updateRowRequest);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
