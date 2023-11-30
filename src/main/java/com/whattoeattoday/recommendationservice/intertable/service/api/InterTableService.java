@@ -3,7 +3,6 @@ package com.whattoeattoday.recommendationservice.intertable.service.api;
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
 import com.whattoeattoday.recommendationservice.database.request.table.BuildTableRequest;
 import com.whattoeattoday.recommendationservice.database.request.table.DeleteTableRequest;
-import com.whattoeattoday.recommendationservice.database.request.table.UpdateTableRequest;
 
 /**
  * @author Ruoxuan wANG rw2961@columbia.edu
@@ -25,10 +24,4 @@ public interface InterTableService {
      */
     BaseResponse<Object> deleteTable(DeleteTableRequest request);
 
-    /**
-     * Set a column to be auto incremented
-     * @param request
-     * @return
-     */
-    BaseResponse setAutoIncrement(UpdateTableRequest request);
 }
