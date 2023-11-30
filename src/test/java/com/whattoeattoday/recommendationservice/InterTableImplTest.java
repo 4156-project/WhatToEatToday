@@ -162,5 +162,11 @@ public class InterTableImplTest {
         response = interTableService.deleteTable(request);
         log.info("TestDeleteTable RESPONSE3: {}", response);
         Assert.assertFalse(response.isSuccess());
+        //Param Incomplete
+        request.setTableName("");
+        response = interTableService.deleteTable(request);
+        log.info("TestDeleteTable RESPONSE4: {}", response);
+        Assert.assertFalse(response.isSuccess());
+        Assert.assertEquals("Param is Incomplete", response.getMessage());
     }
 }
