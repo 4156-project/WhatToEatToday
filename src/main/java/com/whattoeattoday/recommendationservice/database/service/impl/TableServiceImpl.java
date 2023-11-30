@@ -45,6 +45,22 @@ public class TableServiceImpl implements TableService {
         return getBaseResponse(tableName, deleteSql.toString());
     }
 
+    @Override
+    public BaseResponse<Object> delete(DeleteRowPlusRequest request) {
+        String tableName = request.getTableName();
+        List<String> fieldNames = request.getConditionFields();
+        List<String> conditions = request.getConditionValues();
+        StringBuilder deleteSql = new StringBuilder(String.format("DELETE FROM `%s` WHERE ", tableName));
+        for (int i = 0; i < fieldNames.size(); i++) {
+            deleteSql.append(fieldNames.get(i) + " = " + conditions.get(i));
+            if (i != fieldNames.size() - 1) {
+                deleteSql.append(" AND ");
+            }
+        }
+        deleteSql.append(";");
+        return getBaseResponse(tableName, deleteSql.toString());
+    }
+
     private BaseResponse getBaseResponse(String tableName, String sql) {
         int numOfRowsEffected;
         try {

@@ -1,6 +1,7 @@
 package com.whattoeattoday.recommendationservice.user.controller;
 
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
+import com.whattoeattoday.recommendationservice.user.request.UserCollectionRequest;
 import com.whattoeattoday.recommendationservice.user.request.UserLoginRequest;
 import com.whattoeattoday.recommendationservice.user.request.UserRegisterRequest;
 import com.whattoeattoday.recommendationservice.user.request.UserVerifyRequest;
@@ -46,5 +47,23 @@ public class UserController {
     @PostMapping("/user/verify")
     public BaseResponse userVerify(@RequestBody UserVerifyRequest request) {
         return userService.userVerify(request);
+    }
+
+    /**
+     * add collection to user
+     * @param request
+     */
+    @PostMapping("/user/add/collection")
+    public BaseResponse userAddCollection(@RequestBody UserCollectionRequest request) {
+        return userService.userAddCollection(request);
+    }
+
+    /**
+     * delete collection to user
+     * @param request
+     */
+    @PostMapping("/user/delete/collection")
+    public BaseResponse userDeleteCollection(@RequestBody UserCollectionRequest request) {
+        return userService.userDeleteCollection(request);
     }
 }

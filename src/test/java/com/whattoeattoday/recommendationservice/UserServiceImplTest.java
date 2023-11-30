@@ -1,10 +1,10 @@
-package com.whattoeattoday.recommendationservice.user;
+package com.whattoeattoday.recommendationservice;
 
-import com.whattoeattoday.recommendationservice.RecommendationServiceApplication;
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
 import com.whattoeattoday.recommendationservice.common.Status;
 import com.whattoeattoday.recommendationservice.database.request.row.DeleteRowRequest;
 import com.whattoeattoday.recommendationservice.database.service.impl.TableServiceImpl;
+import com.whattoeattoday.recommendationservice.user.request.UserCollectionRequest;
 import com.whattoeattoday.recommendationservice.user.request.UserLoginRequest;
 import com.whattoeattoday.recommendationservice.user.request.UserRegisterRequest;
 import com.whattoeattoday.recommendationservice.user.request.UserVerifyRequest;
@@ -119,6 +119,50 @@ public class UserServiceImplTest {
         // check verify success
         request.setCategory("food");
         response = userService.userVerify(request);
+        Assert.assertEquals(response.getCode(), Status.SUCCESS);
+    }
+
+    @Test
+    public void userAddCollectionTest() {
+        UserCollectionRequest request = new UserCollectionRequest();
+        // check user not valid
+        BaseResponse response = userService.userAddCollection(request);
+        Assert.assertEquals(response.getCode(), Status.PARAM_ERROR);
+        // check Category or Item Not Valid
+        request.setUsername("Nick");
+        request.setPassword("54321");
+        request.setItemId("1");
+        response = userService.userAddCollection(request);
+        Assert.assertEquals(response.getCode(), Status.PARAM_ERROR);
+        // check Item has Existed
+        request.setCategory("food");
+        response = userService.userAddCollection(request);
+        Assert.assertEquals(response.getCode(), Status.PARAM_ERROR);
+        // check Add Collection Success
+        request.setItemId("10");
+        response = userService.userAddCollection(request);
+        Assert.assertEquals(response.getCode(), Status.SUCCESS);
+    }
+
+    @Test
+    public void userDeleteCollectionTest() {
+        UserCollectionRequest request = new UserCollectionRequest();
+        // check user not valid
+        BaseResponse response = userService.userDeleteCollection(request);
+        Assert.assertEquals(response.getCode(), Status.PARAM_ERROR);
+        // check Category or Item Not Valid
+        request.setUsername("Nick");
+        request.setPassword("54321");
+        request.setItemId("100");
+        response = userService.userDeleteCollection(request);
+        Assert.assertEquals(response.getCode(), Status.PARAM_ERROR);
+        // check Item not has Existed
+        request.setCategory("food");
+        response = userService.userDeleteCollection(request);
+        Assert.assertEquals(response.getCode(), Status.PARAM_ERROR);
+        // check delete Collection Success
+        request.setItemId("10");
+        response = userService.userDeleteCollection(request);
         Assert.assertEquals(response.getCode(), Status.SUCCESS);
     }
 }
