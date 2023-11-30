@@ -32,30 +32,29 @@ public class UserServiceImplTest {
     @Test
     public void userRegisterTest() {
         UserRegisterRequest request = new UserRegisterRequest();
-        request.setUsername("Larry");
-        request.setPassword("12345");
-        request.setEmail("js6132@columbia.edu");
-        request.setCategory("food");
-        // test duplicate
-        BaseResponse response = userService.userRegister(request);
-        System.out.println(response);
-        Assert.assertEquals(response.getCode(), Status.DUPLICATE_ERROR);
         // test username not found
-        request.setUsername("");
-        response = userService.userRegister(request);
+        BaseResponse response = userService.userRegister(request);
         Assert.assertEquals(response.getCode(), Status.NOT_FOUND);
         // test password not found
-        request.setPassword("");
+        request.setUsername("Larry");
         response = userService.userRegister(request);
         Assert.assertEquals(response.getCode(), Status.NOT_FOUND);
         // test email not found
-        request.setEmail("");
+        request.setPassword("12345");
         response = userService.userRegister(request);
         Assert.assertEquals(response.getCode(), Status.NOT_FOUND);
+        // test email not valid
+        request.setEmail("12345");
+        response = userService.userRegister(request);
+        Assert.assertEquals(response.getCode(), Status.PARAM_ERROR);
         // test category not found
-        request.setCategory("books");
+        request.setEmail("js6132@columbia.edu");
         response = userService.userRegister(request);
         Assert.assertEquals(response.getCode(), Status.NOT_FOUND);
+        // test duplicate
+        request.setCategory("food");
+        response = userService.userRegister(request);
+        Assert.assertEquals(response.getCode(), Status.DUPLICATE_ERROR);
         // test register successfully
         request.setUsername("Wendy");
         request.setPassword("54321");
