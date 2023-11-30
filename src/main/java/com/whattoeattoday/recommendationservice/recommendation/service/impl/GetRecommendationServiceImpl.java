@@ -88,7 +88,6 @@ public class GetRecommendationServiceImpl implements GetRecommendationService {
             String.valueOf(request.getRankTopSize())};
 
         List<String> resultList = callDataProc(region, projectId, clusterName, argsArr, mainClass, jarFileUris);
-        if (resultList == null) return BaseResponse.with(Status.FAILURE, "Dataproc Error");
         return BaseResponse.with(Status.SUCCESS, resultList);
     }
 
@@ -114,7 +113,6 @@ public class GetRecommendationServiceImpl implements GetRecommendationService {
                 String.valueOf(request.getRankTopSize())};
 
         List<String> resultList = callDataProc(region, projectId, clusterName, argsArr, mainClass, jarFileUris);
-        if (resultList == null) return BaseResponse.with(Status.FAILURE, "Dataproc Error");
         return BaseResponse.with(Status.SUCCESS, resultList);
     }
 

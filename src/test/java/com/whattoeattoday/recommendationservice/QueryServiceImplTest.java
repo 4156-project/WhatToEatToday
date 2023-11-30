@@ -58,10 +58,13 @@ public class QueryServiceImplTest {
     @Test
     public void test2QueryCategoryByName() {
         QueryCategoryByNameRequest request = new QueryCategoryByNameRequest();
+        Assert.assertFalse(queryService.queryCategoryByName(request).isSuccess());
         request.setCategoryName("fakeName");
+        Assert.assertFalse(queryService.queryCategoryByName(request).isSuccess());
         request.setContentName("Larry");
         Assert.assertFalse(queryService.queryCategoryByName(request).isSuccess());
         request.setPageNo("1");
+        Assert.assertFalse(queryService.queryCategoryByName(request).isSuccess());
         request.setPageSize("2");
         Assert.assertFalse(queryService.queryCategoryByName(request).isSuccess());
         request.setCategoryName("test1016");
@@ -84,8 +87,8 @@ public class QueryServiceImplTest {
         // param incomplete
         Assert.assertFalse(queryService.queryContentBySingleCondition(request).isSuccess());
         request.setCategoryName("fakeName");
-        request.setFieldNames(new ArrayList<String>(){{add("*");}});
-        request.setConditionField("genderFake");
+        request.setFieldNames(new ArrayList<String>(){{add("fieldFakeName");}});
+        request.setConditionField("gender");
         request.setConditionValue("male");
         request.setPageNo("1");
         request.setPageSize("2");
@@ -94,7 +97,7 @@ public class QueryServiceImplTest {
         request.setCategoryName("test1016");
         // field name error
         Assert.assertFalse(queryService.queryContentBySingleCondition(request).isSuccess());
-        request.setConditionField("gender");
+        request.setFieldNames(new ArrayList<String>(){{add("*");}});
         BaseResponse<PageInfo> response = queryService.queryContentBySingleCondition(request);
         log.info("TestQueryContentBySingleCondition RESPONSE: {}", response);
         Assert.assertNotNull(response.getData().getPageData());
