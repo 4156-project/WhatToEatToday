@@ -159,10 +159,8 @@ public class UserServiceImpl implements UserService {
         fieldNameValues.put("item_id", Integer.parseInt(request.getItemId()));
         insertRequest.setFieldNameValues(fieldNameValues);
         BaseResponse insertResponse = intraTableService.insert(insertRequest);
-        if (insertResponse.getCode() == Status.SUCCESS) {
-            return BaseResponse.with(Status.SUCCESS,"Add Collection Success!", user);
-        }
-        return BaseResponse.with(Status.DATABASE_ERROR,"Add Collection Fail!");
+
+        return BaseResponse.with(Status.SUCCESS,"Add Collection Success!", user);
     }
 
     @Override
@@ -198,10 +196,8 @@ public class UserServiceImpl implements UserService {
         deleteRequest.setConditionFields(fields);
         deleteRequest.setConditionValues(conditions);
         BaseResponse deleteResponse = tableService.delete(deleteRequest);
-        if (deleteResponse.getCode() == Status.SUCCESS) {
-            return BaseResponse.with(Status.SUCCESS,"Delete Collection Success!", user);
-        }
-        return BaseResponse.with(Status.DATABASE_ERROR,"Delete Collection Fail!");
+
+        return BaseResponse.with(Status.SUCCESS,"Delete Collection Success!", user);
     }
 
     private boolean checkItemInCategory(Long itemId, String category) {
