@@ -35,12 +35,21 @@ public class UserServiceImplTest {
         // test username not found
         BaseResponse response = userService.userRegister(request);
         Assert.assertEquals(response.getCode(), Status.NOT_FOUND);
+        request.setUsername("");
+        response = userService.userRegister(request);
+        Assert.assertEquals(response.getCode(), Status.NOT_FOUND);
         // test password not found
         request.setUsername("Larry");
         response = userService.userRegister(request);
         Assert.assertEquals(response.getCode(), Status.NOT_FOUND);
+        request.setPassword("");
+        response = userService.userRegister(request);
+        Assert.assertEquals(response.getCode(), Status.NOT_FOUND);
         // test email not found
         request.setPassword("12345");
+        response = userService.userRegister(request);
+        Assert.assertEquals(response.getCode(), Status.NOT_FOUND);
+        request.setEmail("");
         response = userService.userRegister(request);
         Assert.assertEquals(response.getCode(), Status.NOT_FOUND);
         // test email not valid
@@ -49,6 +58,12 @@ public class UserServiceImplTest {
         Assert.assertEquals(response.getCode(), Status.PARAM_ERROR);
         // test category not found
         request.setEmail("js6132@columbia.edu");
+        response = userService.userRegister(request);
+        Assert.assertEquals(response.getCode(), Status.NOT_FOUND);
+        request.setCategory("");
+        response = userService.userRegister(request);
+        Assert.assertEquals(response.getCode(), Status.NOT_FOUND);
+        request.setCategory("aaaa");
         response = userService.userRegister(request);
         Assert.assertEquals(response.getCode(), Status.NOT_FOUND);
         // test duplicate
@@ -76,8 +91,14 @@ public class UserServiceImplTest {
         // test username not found
         BaseResponse response = userService.userLogin(request);
         Assert.assertEquals(response.getCode(), Status.NOT_FOUND);
+        request.setUsername("");
+        response = userService.userLogin(request);
+        Assert.assertEquals(response.getCode(), Status.NOT_FOUND);
         // test password not found
         request.setUsername("Larry");
+        response = userService.userLogin(request);
+        Assert.assertEquals(response.getCode(), Status.NOT_FOUND);
+        request.setPassword("");
         response = userService.userLogin(request);
         Assert.assertEquals(response.getCode(), Status.NOT_FOUND);
         // test password not valid
@@ -101,8 +122,14 @@ public class UserServiceImplTest {
         // check username not found
         BaseResponse response = userService.userVerify(request);
         Assert.assertEquals(response.getCode(), Status.NOT_FOUND);
+        request.setUsername("");
+        response = userService.userVerify(request);
+        Assert.assertEquals(response.getCode(), Status.NOT_FOUND);
         // check password not found
         request.setUsername("Larry");
+        response = userService.userVerify(request);
+        Assert.assertEquals(response.getCode(), Status.NOT_FOUND);
+        request.setPassword("");
         response = userService.userVerify(request);
         Assert.assertEquals(response.getCode(), Status.NOT_FOUND);
         // check category not found
