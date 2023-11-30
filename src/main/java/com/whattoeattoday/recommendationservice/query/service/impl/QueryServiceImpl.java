@@ -48,9 +48,6 @@ public class QueryServiceImpl implements QueryService {
         QueryTableRequest queryTableRequest = new QueryTableRequest();
         queryTableRequest.setTableName(categoryName);
         QueryTableResponse response = databaseService.queryTable(queryTableRequest);
-        if (response == null) {
-            return BaseResponse.with(Status.DATABASE_ERROR);
-        }
         return BaseResponse.with(Status.SUCCESS, response);
     }
 
@@ -78,18 +75,12 @@ public class QueryServiceImpl implements QueryService {
                 .build();
 
         PageInfo queryResult = tableService.query(queryRowRequest);
-        if (queryResult == null) {
-            return BaseResponse.with(Status.DATABASE_ERROR);
-        }
         return BaseResponse.with(Status.SUCCESS, queryResult);
     }
 
     @Override
     public BaseResponse<Set<String>> queryAllCategoryName() {
         QueryTableNamesResponse response = databaseService.queryTableNames();
-        if (response == null) {
-            return BaseResponse.with(Status.DATABASE_ERROR);
-        }
         return BaseResponse.with(Status.SUCCESS, response.tableNames);
     }
 
@@ -148,9 +139,6 @@ public class QueryServiceImpl implements QueryService {
                 .pageInfo(pageInfo)
                 .build();
         PageInfo queryResult = tableService.query(queryRowRequest);
-        if (queryResult == null) {
-            return BaseResponse.with(Status.DATABASE_ERROR);
-        }
         return BaseResponse.with(Status.SUCCESS, queryResult);
     }
 

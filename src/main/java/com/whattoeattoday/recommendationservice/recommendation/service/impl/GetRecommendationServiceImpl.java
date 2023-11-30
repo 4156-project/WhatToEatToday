@@ -63,11 +63,7 @@ public class GetRecommendationServiceImpl implements GetRecommendationService {
         int offset = (pageInfo.getPageNo() - 1) * pageInfo.getPageSize();
         querySql.append(String.format("LIMIT %s offset %s;", pageInfo.getPageSize(), offset));
         List<Map<String, Object>> res;
-        try {
-            res = jdbcTemplate.queryForList(querySql.toString());
-        } catch (DataAccessException e) {
-            return null;
-        }
+        res = jdbcTemplate.queryForList(querySql.toString());
         StringBuilder itemIds = new StringBuilder();
         for (Map<String, Object> map : res) {
             itemIds.append(String.valueOf(map.get("item_id")));
