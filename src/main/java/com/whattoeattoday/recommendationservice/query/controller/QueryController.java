@@ -53,7 +53,7 @@ public class QueryController {
      * @param request
      * @return
      */
-    @PostMapping("/query/content/")
+    @PostMapping("/query/content")
     public BaseResponse<PageInfo> queryContent(@RequestBody QueryContentRequest request) {
         return queryService.queryContent(request);
     }
