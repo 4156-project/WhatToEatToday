@@ -79,8 +79,8 @@ public class QueryServiceImplTest {
         Assert.assertFalse(queryService.queryContentBySingleCondition(request).isSuccess());
         request.setCategoryName("fakeName");
         request.setFieldNames(new ArrayList<String>(){{add("*");}});
-        request.setConditionField("gender");
-        request.setConditionValue("mal");
+        request.setConditionField("genderFake");
+        request.setConditionValue("male");
         request.setPageNo("1");
         request.setPageSize("2");
         //category not found
@@ -88,7 +88,7 @@ public class QueryServiceImplTest {
         request.setCategoryName("test1016");
         // field name error
         Assert.assertFalse(queryService.queryContentBySingleCondition(request).isSuccess());
-        request.setConditionValue("male");
+        request.setConditionField("gender");
         BaseResponse<PageInfo> response = queryService.queryContentBySingleCondition(request);
         log.info("TestQueryContentBySingleCondition RESPONSE: {}", response);
         Assert.assertNotNull(response.getData().getPageData());
