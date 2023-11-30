@@ -4,10 +4,9 @@ import com.whattoeattoday.recommendationservice.common.BaseResponse;
 import com.whattoeattoday.recommendationservice.common.PageInfo;
 import com.whattoeattoday.recommendationservice.common.Status;
 import com.whattoeattoday.recommendationservice.database.request.row.DeleteRowPlusRequest;
+import com.whattoeattoday.recommendationservice.database.request.row.InsertRowRequest;
 import com.whattoeattoday.recommendationservice.database.request.row.QueryRowRequest;
 import com.whattoeattoday.recommendationservice.database.service.TableService;
-import com.whattoeattoday.recommendationservice.intratable.request.InsertRequest;
-import com.whattoeattoday.recommendationservice.intratable.service.api.IntraTableService;
 import com.whattoeattoday.recommendationservice.query.service.api.QueryService;
 import com.whattoeattoday.recommendationservice.user.model.User;
 import com.whattoeattoday.recommendationservice.user.request.UserCollectionRequest;
@@ -33,8 +32,6 @@ public class UserServiceImpl implements UserService {
 
     @Resource
     private TableService tableService;
-    @Resource
-    private IntraTableService intraTableService;
     @Resource
     private QueryService queryService;
 
@@ -71,15 +68,21 @@ public class UserServiceImpl implements UserService {
             return BaseResponse.with(Status.DUPLICATE_ERROR, "User already exists!");
         }
         // insert into db table
-        InsertRequest insertRequest = new InsertRequest();
-        insertRequest.setTableName("user");
-        Map<String, Object> fieldNameValues = new HashMap<>();
-        fieldNameValues.put("username", username);
-        fieldNameValues.put("password", encodedPassword);
-        fieldNameValues.put("email", email);
-        fieldNameValues.put("category", category);
-        insertRequest.setFieldNameValues(fieldNameValues);
-        BaseResponse response = intraTableService.insert(insertRequest);
+        InsertRowRequest insertRowRequest = new InsertRowRequest();
+        List<String> fields = new ArrayList<>();
+        fields.add("username");
+        fields.add("password");
+        fields.add("email");
+        fields.add("category");
+        List<String> values = new ArrayList<>();
+        values.add(username);
+        values.add(encodedPassword);
+        values.add(email);
+        values.add(category);
+        insertRowRequest.setTableName("user");
+        insertRowRequest.setFiledNames(fields);
+        insertRowRequest.setValues(values);
+        BaseResponse response = tableService.insert(insertRowRequest);
 
         return response;
     }
@@ -151,14 +154,19 @@ public class UserServiceImpl implements UserService {
             collection.add(itemId);
         }
         // write into collection table
-        InsertRequest insertRequest = new InsertRequest();
-        insertRequest.setTableName("collection");
-        Map<String, Object> fieldNameValues = new HashMap<>();
-        fieldNameValues.put("user_id", Integer.parseInt(user.getId()));
-        fieldNameValues.put("category_name", user.getCategory());
-        fieldNameValues.put("item_id", Integer.parseInt(request.getItemId()));
-        insertRequest.setFieldNameValues(fieldNameValues);
-        BaseResponse insertResponse = intraTableService.insert(insertRequest);
+        InsertRowRequest insertRowRequest = new InsertRowRequest();
+        List<String> fields = new ArrayList<>();
+        fields.add("user_id");
+        fields.add("category_name");
+        fields.add("item_id");
+        List<String> values = new ArrayList<>();
+        values.add(user.getId());
+        values.add(user.getCategory());
+        values.add(request.getItemId());
+        insertRowRequest.setTableName("collection");
+        insertRowRequest.setFiledNames(fields);
+        insertRowRequest.setValues(values);
+        BaseResponse insertResponse = tableService.insert(insertRowRequest);
         return BaseResponse.with(Status.SUCCESS,"Add Collection Success!", user);
     }
 
