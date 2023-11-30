@@ -161,6 +161,10 @@ public class UserServiceImplTest {
         request.setCategory("food");
         response = userService.userDeleteCollection(request);
         Assert.assertEquals(response.getCode(), Status.PARAM_ERROR);
+        // check item not valid
+        request.setItemId("-1");
+        response = userService.userDeleteCollection(request);
+        Assert.assertEquals(response.getCode(), Status.PARAM_ERROR);
         // check delete Collection Success
         request.setItemId("10");
         response = userService.userDeleteCollection(request);

@@ -207,12 +207,6 @@ public class UserServiceImpl implements UserService {
     }
 
     private boolean checkItemInCategory(Long itemId, String category) {
-        // check whether category valid
-        BaseResponse queryResponse = queryService.queryAllCategoryName();
-        Set<String> categories = (Set<String>) queryResponse.getData();
-        if (category == null || category.length() == 0 || !categories.contains(category)) {
-            return false;
-        }
         // check whether itemId included in category
         QueryRowRequest queryRowRequest = QueryRowRequest.builder().build();
         queryRowRequest.setTableName(category);
