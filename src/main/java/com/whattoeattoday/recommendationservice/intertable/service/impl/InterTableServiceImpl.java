@@ -5,18 +5,13 @@ import com.whattoeattoday.recommendationservice.common.ParamUtil;
 import com.whattoeattoday.recommendationservice.common.Status;
 import com.whattoeattoday.recommendationservice.database.request.table.BuildTableRequest;
 import com.whattoeattoday.recommendationservice.database.request.table.DeleteTableRequest;
-import com.whattoeattoday.recommendationservice.database.request.table.UpdateTableRequest;
-import com.whattoeattoday.recommendationservice.database.response.QueryTableResponse;
 import com.whattoeattoday.recommendationservice.database.service.DatabaseService;
 import com.whattoeattoday.recommendationservice.intertable.service.api.InterTableService;
-import com.whattoeattoday.recommendationservice.query.request.QueryCategoryInfoRequest;
 import com.whattoeattoday.recommendationservice.query.service.api.QueryService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author ruoxuanwang rw2961@columbia.edu
@@ -26,9 +21,6 @@ import java.util.Map;
 public class InterTableServiceImpl implements InterTableService {
     @Resource
     private DatabaseService databaseService;
-
-    @Resource
-    private QueryService queryService;
 
     @Override
     public BaseResponse createTable(BuildTableRequest request) {
@@ -111,27 +103,4 @@ public class InterTableServiceImpl implements InterTableService {
         return response;
     }
 
-    @Override
-    public BaseResponse<Object> setAutoIncrement(UpdateTableRequest request) {
-        String tableName = request.getTableName();
-        String columnName = request.getColumnName();
-        //check if there is any blank string
-        if (ParamUtil.isBlank(tableName) || ParamUtil.isBlank(columnName)) {
-            return BaseResponse.with(Status.PARAM_ERROR, "Param is Incomplete");
-        }
-        //check if table exists
-        if (!databaseService.queryTableNames( ).tableNames.contains(tableName)) {
-            return BaseResponse.with(Status.PARAM_ERROR, "Table Does Not Exist");
-        }
-        //check if column exists
-        QueryCategoryInfoRequest fieldRequest = new QueryCategoryInfoRequest();
-        fieldRequest.setCategoryName(tableName);
-        QueryTableResponse fieldResponse = queryService.queryCategoryInfo(fieldRequest).getData();
-        Map<String, String> filedNameTypeMap = fieldResponse.getFiledNameTypeMap();
-        List<String> filedNameList = new ArrayList<>(filedNameTypeMap.keySet());
-        if (!filedNameList.contains(columnName)) {
-            return BaseResponse.with(Status.PARAM_ERROR, "Field Does Not Exist");
-        }
-        return databaseService.setAutoIncrement(request);
-    }
 }
