@@ -3,10 +3,7 @@ package com.whattoeattoday.recommendationservice;
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
 import com.whattoeattoday.recommendationservice.common.PageInfo;
 import com.whattoeattoday.recommendationservice.common.Status;
-import com.whattoeattoday.recommendationservice.database.request.row.DeleteRowRequest;
-import com.whattoeattoday.recommendationservice.database.request.row.InsertRowRequest;
-import com.whattoeattoday.recommendationservice.database.request.row.QueryRowRequest;
-import com.whattoeattoday.recommendationservice.database.request.row.UpdateRowRequest;
+import com.whattoeattoday.recommendationservice.database.request.row.*;
 import com.whattoeattoday.recommendationservice.database.service.impl.TableServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
@@ -47,6 +44,22 @@ public class TableServiceImplTest {
         log.info("RESPONSE: {}", response);
         Assert.assertTrue(response.isSuccess());
         //Assert.assertEquals(response.getCode(), Status.NOT_FOUND);
+        fieldNames = new ArrayList<String>(){{
+            add("name");
+            add("gender");
+            add("age");
+        }};
+        values = new ArrayList<String>(){{
+            add("Tom");
+            add("male");
+            add("24");
+        }};
+        request.setTableName("test1016");
+        request.setFiledNames(fieldNames);
+        request.setValues(values);
+        response = tableService.insert(request);
+        log.info("RESPONSE: {}", response);
+        Assert.assertTrue(response.isSuccess());
     }
 
     @Test
@@ -62,6 +75,24 @@ public class TableServiceImplTest {
     }
 
     @Test
+    public void testDeletePlus() {
+        DeleteRowPlusRequest deleteRowPlusRequest = new DeleteRowPlusRequest();
+        deleteRowPlusRequest.setTableName("test1016");
+        List<String> conditions = new ArrayList<>();
+        conditions.add("'male'");
+        conditions.add("24");
+        List<String> fields = new ArrayList<>();
+        fields.add("gender");
+        fields.add("age");
+        deleteRowPlusRequest.setConditionFields(fields);
+        deleteRowPlusRequest.setConditionValues(conditions);
+        BaseResponse response = tableService.delete(deleteRowPlusRequest);
+        log.info("RESPONSE: {}", response);
+        //Assert.assertEquals(response.getCode(), Status.NOT_FOUND);
+        Assert.assertTrue(response.isSuccess());
+    }
+
+    @Test
     public void test1Update() {
         UpdateRowRequest request = new UpdateRowRequest();
         List<String> fieldNames = new ArrayList<String>(){{
@@ -70,7 +101,7 @@ public class TableServiceImplTest {
             add("age");
         }};
         List<String> values = new ArrayList<String>(){{
-            add("Larry");
+            add("Tom");
             add("male");
             add("24");
         }};
@@ -78,7 +109,7 @@ public class TableServiceImplTest {
         request.setFiledNames(fieldNames);
         request.setValues(values);
         request.setConditionField("name");
-        request.setConditionValue("Tom");
+        request.setConditionValue("Larry");
         BaseResponse response = tableService.update(request);
         log.info("RESPONSE: {}", response);
         Assert.assertEquals(response.getCode(), Status.NOT_FOUND);
