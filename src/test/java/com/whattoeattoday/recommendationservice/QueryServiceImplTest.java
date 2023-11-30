@@ -3,10 +3,7 @@ package com.whattoeattoday.recommendationservice;
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
 import com.whattoeattoday.recommendationservice.common.PageInfo;
 import com.whattoeattoday.recommendationservice.common.Status;
-import com.whattoeattoday.recommendationservice.query.request.QueryCategoryByNameRequest;
-import com.whattoeattoday.recommendationservice.query.request.QueryCategoryInfoRequest;
-import com.whattoeattoday.recommendationservice.query.request.QueryContentBySingleConditionRequest;
-import com.whattoeattoday.recommendationservice.query.request.QueryContentRequest;
+import com.whattoeattoday.recommendationservice.query.request.*;
 import com.whattoeattoday.recommendationservice.query.service.api.QueryService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
@@ -91,6 +88,16 @@ public class QueryServiceImplTest {
         request.setPageSize("3");
         BaseResponse<PageInfo> pageInfoBaseResponse = queryService.queryContent(request);
         log.info("TestQueryContentInCategory RESPONSE: {}", pageInfoBaseResponse);
+    }
+
+    @Test
+    public void test05FuzzySearch() {
+        FuzzySearchContentRequest request = new FuzzySearchContentRequest();
+        request.setCategoryName("food");
+        request.setKeyword("taco");
+        BaseResponse<PageInfo> response = queryService.fuzzySearchContent(request);
+        log.info("TestFuzzyQuery RESPONSE: {}", response);
+        Assert.assertTrue(response.isSuccess());
     }
 
 }

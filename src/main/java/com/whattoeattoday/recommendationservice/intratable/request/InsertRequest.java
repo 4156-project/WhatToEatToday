@@ -8,6 +8,8 @@ import java.util.Map;
  */
 @Data
 public class InsertRequest {
+    public String username;
+    public String password;
     public String tableName;
     public Map<String,Object> fieldNameValues;
 }

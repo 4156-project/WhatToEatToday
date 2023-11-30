@@ -5,6 +5,7 @@ import com.whattoeattoday.recommendationservice.common.PageInfo;
 import com.whattoeattoday.recommendationservice.common.Status;
 import com.whattoeattoday.recommendationservice.database.request.row.*;
 import com.whattoeattoday.recommendationservice.database.service.TableService;
+import com.whattoeattoday.recommendationservice.query.request.FuzzySearchContentRequest;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -135,6 +136,26 @@ public class TableServiceImpl implements TableService {
         return pageInfo;
     }
 
+    @Override
+    public PageInfo fuzzySearch(FuzzySearchContentRequest request) {
+        List<Map<String, Object>> maps = jdbcTemplate.queryForList("SHOW INDEX FROM " + request.getCategoryName());
+        StringBuilder columnNames = new StringBuilder();
+        for (Map<String, Object> map : maps) {
+            columnNames.append(map.get("Column_name"));
+            columnNames.append(", ");
+        }
+        columnNames.delete(columnNames.length()-2, columnNames.length());
+        String sql = String.format("SELECT * FROM %s WHERE MATCH ( %s ) AGAINST ( '%s' IN NATURAL LANGUAGE MODE )"
+                , request.getCategoryName(), columnNames, request.getKeyword());
+        sql = sql + String.format("LIMIT %s offset %s;", "10", "0");
+        List<Map<String, Object>> mapList = jdbcTemplate.queryForList(sql);
+        PageInfo pageInfo = PageInfo.builder()
+                .pageNo(1)
+                .pageSize(10)
+                .pageData(mapList)
+                .build();
+        return pageInfo;
+    }
 
 
     public long queryTableRowsNum(String tableName) {

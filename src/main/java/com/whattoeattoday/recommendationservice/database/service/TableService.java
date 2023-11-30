@@ -1,8 +1,10 @@
 package com.whattoeattoday.recommendationservice.database.service;
 
+import com.google.api.Page;
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
 import com.whattoeattoday.recommendationservice.common.PageInfo;
 import com.whattoeattoday.recommendationservice.database.request.row.*;
+import com.whattoeattoday.recommendationservice.query.request.FuzzySearchContentRequest;
 
 /**
  * @author Jiarong Shi js6132@columbia.edu
@@ -43,4 +45,11 @@ public interface TableService {
      * @return
      */
     PageInfo query(QueryRowRequest request);
+
+    /**
+     * fuzzy search with key word
+     * @param request
+     * @return
+     */
+    PageInfo fuzzySearch(FuzzySearchContentRequest request);
 }

@@ -52,7 +52,7 @@ public interface QueryService {
      * @param request
      * @return
      */
-    BaseResponse fuzzySearchContent(FuzzySearchContentRequest request);
+    BaseResponse<PageInfo> fuzzySearchContent(FuzzySearchContentRequest request);
 
     /**
      * Query contents in a given category

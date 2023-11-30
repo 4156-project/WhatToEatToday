@@ -147,9 +147,8 @@ public class QueryServiceImpl implements QueryService {
 
     @Override
     public BaseResponse fuzzySearchContent(FuzzySearchContentRequest request) {
-        String tableName = request.getCategoryName();
-        String keyword = request.getKeyword();
-        return null;
+        PageInfo pageInfo = tableService.fuzzySearch(request);
+        return BaseResponse.with(Status.SUCCESS, pageInfo);
     }
 
     @Override

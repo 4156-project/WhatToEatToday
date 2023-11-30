@@ -41,6 +41,9 @@ public class IntraTableServiceImpl implements IntraTableService {
     @Override
     public BaseResponse insert(InsertRequest request) {
 
+        // TODO
+
+
         //check if table name in database
         String tableName = request.getTableName();
         if(!isTableValid(tableName)){
