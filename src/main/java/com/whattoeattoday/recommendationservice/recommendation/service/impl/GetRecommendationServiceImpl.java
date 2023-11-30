@@ -49,7 +49,7 @@ public class GetRecommendationServiceImpl implements GetRecommendationService {
 
     @Override
     public BaseResponse<List<String>> getRecommendationOnUser(GetRecommendationOnUserRequest request) {
-        // TODO Param Validation
+
         String mainClass = "com.whattoeattoday.RecommendOnUser";
         String jarFileUris = "gs://4156-recommend-job/Recommend-1.0-SNAPSHOT.jar";
 
@@ -98,8 +98,7 @@ public class GetRecommendationServiceImpl implements GetRecommendationService {
 
     @Override
     public BaseResponse<List<String>> getRecommendationOnItem(GetRecommendationOnItemRequest request) {
-        // TODO Param Check
-        // TODO Double Type Unsupported
+
         String mainClass = "com.whattoeattoday.RecommendOnItem";
         String jarFileUris = "gs://4156-recommend-job/Recommend-1.0-SNAPSHOT.jar";
 

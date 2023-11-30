@@ -41,13 +41,6 @@ public interface QueryService {
     BaseResponse<PageInfo> queryContentBySingleCondition(QueryContentBySingleConditionRequest request);
 
     /**
-     * Query Contents in a given table with multiple search conditions
-     * @param request
-     * @return
-     */
-    BaseResponse queryContentByMultiCondition(QueryContentByMultiConditionRequest request);
-
-    /**
      * Fuzzy search contents by keyword
      * @param request
      * @return

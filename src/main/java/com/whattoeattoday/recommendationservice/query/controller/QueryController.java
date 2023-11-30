@@ -68,15 +68,13 @@ public class QueryController {
         return queryService.queryContentBySingleCondition(request);
     }
 
-    @Ignore
-    @PostMapping("/query/content/multi-condition")
-    public BaseResponse queryContentByMultiCondition(@RequestBody QueryContentByMultiConditionRequest request) {
-        return queryService.queryContentByMultiCondition(request);
-    }
-
-    @Ignore
+    /**
+     * fuzzy search content by keyword
+     * @param request
+     * @return
+     */
     @PostMapping("/query/content/fuzzy")
-    public BaseResponse fuzzySearchContent(@RequestBody FuzzySearchContentRequest request) {
+    public BaseResponse<PageInfo> fuzzySearchContent(@RequestBody FuzzySearchContentRequest request) {
         return queryService.fuzzySearchContent(request);
     }
 }

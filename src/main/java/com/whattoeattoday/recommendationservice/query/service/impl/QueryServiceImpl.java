@@ -138,14 +138,6 @@ public class QueryServiceImpl implements QueryService {
     }
 
     @Override
-    public BaseResponse queryContentByMultiCondition(QueryContentByMultiConditionRequest request) {
-        String tableName = request.getCategoryName();
-        List<String> filedNameList = request.getFiledNameList();
-        List<String> filedValueList = request.getFiledValueList();
-        return null;
-    }
-
-    @Override
     public BaseResponse fuzzySearchContent(FuzzySearchContentRequest request) {
         PageInfo pageInfo = tableService.fuzzySearch(request);
         return BaseResponse.with(Status.SUCCESS, pageInfo);

@@ -33,6 +33,9 @@ public class QueryServiceImplTest {
     @Test
     public void test0QueryCategoryInfo() {
         QueryCategoryInfoRequest request = new QueryCategoryInfoRequest();
+        Assert.assertFalse(queryService.queryCategoryInfo(request).isSuccess());
+        request.setCategoryName("testNotExists");
+        Assert.assertFalse(queryService.queryCategoryInfo(request).isSuccess());
         request.setCategoryName("test1016");
         BaseResponse response = queryService.queryCategoryInfo(request);
         log.info(" TestQueryCategoryInfo RESPONSE: {}", response);
@@ -51,6 +54,7 @@ public class QueryServiceImplTest {
         QueryCategoryByNameRequest request = new QueryCategoryByNameRequest();
         request.setCategoryName("test1016");
         request.setContentName("Larry");
+        Assert.assertFalse(queryService.queryCategoryByName(request).isSuccess());
         request.setPageNo("1");
         request.setPageSize("2");
         BaseResponse<PageInfo> response = queryService.queryCategoryByName(request);
