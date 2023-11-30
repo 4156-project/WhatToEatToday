@@ -1114,19 +1114,6 @@
 					"response": []
 				}
 			]
-		},
-		{
-			"name": "user",
-			"item": [
-				{
-					"name": "New Request",
-					"request": {
-						"method": "GET",
-						"header": []
-					},
-					"response": []
-				}
-			]
 		}
 	],
 	"event": [
