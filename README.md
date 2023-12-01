@@ -5,6 +5,10 @@
 
 [V1.0/RecommendationService-V1.0-api-docs.md](V1.0/RecommendationService-V1.0-api-docs.md)
 
+The APIs implemented in our final version are little different from the APIs in revised proposal. 
+To do the client verification, we add the APIs corresponding to users to ensure that the client can only access the data with the permission. 
+Also, we add the APIs about collection insert/delete and user base recommendation to enrich our recommendation functionality.
+
 ### Static Analysis (PMD):
 
 [report.md](report.md)
