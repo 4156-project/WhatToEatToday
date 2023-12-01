@@ -2,9 +2,9 @@
 	"info": {
 		"_postman_id": "70c36dbf-5662-4703-b4bd-c925c08aa68e",
 		"name": "RecommendationService",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "30507411",
-		"_collection_link": "https://lunar-spaceship-376652.postman.co/workspace/WhatToEatTody~d3fa6b55-6f1f-42e7-922b-fb93f0f83b12/collection/30475459-70c36dbf-5662-4703-b4bd-c925c08aa68e?action=share&source=collection_link&creator=30507411"
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "30475459",
+		"_collection_link": "https://lunar-spaceship-376652.postman.co/workspace/WhatToEatTody~d3fa6b55-6f1f-42e7-922b-fb93f0f83b12/collection/30475459-70c36dbf-5662-4703-b4bd-c925c08aa68e?action=share&source=collection_link&creator=30475459"
 	},
 	"item": [
 		{
@@ -40,18 +40,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{base_url}}/query/category/list/info",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"query",
-										"category",
-										"list",
-										"info"
-									]
-								}
+								"url": "{{base_url}}/query/category/list/info"
 							},
 							"response": []
 						},
@@ -83,18 +72,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{base_url}}/query/category/list/info",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"query",
-										"category",
-										"list",
-										"info"
-									]
-								}
+								"url": "{{base_url}}/query/category/list/info"
 							},
 							"response": []
 						},
@@ -125,18 +103,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{base_url}}/query/category/list/info",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"query",
-										"category",
-										"list",
-										"info"
-									]
-								}
+								"url": "{{base_url}}/query/category/list/info"
 							},
 							"response": []
 						}
@@ -163,18 +130,7 @@
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": {
-									"raw": "{{base_url}}/query/category/list/name",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"query",
-										"category",
-										"list",
-										"name"
-									]
-								}
+								"url": "{{base_url}}/query/category/list/name"
 							},
 							"response": []
 						}
@@ -210,17 +166,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{base_url}}/query/content/single-condition",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"query",
-										"content",
-										"single-condition"
-									]
-								}
+								"url": "{{base_url}}/query/content/single-condition"
 							},
 							"response": []
 						},
@@ -251,17 +197,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{base_url}}/query/content/single-condition",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"query",
-										"content",
-										"single-condition"
-									]
-								}
+								"url": "{{base_url}}/query/content/single-condition"
 							},
 							"response": []
 						},
@@ -292,17 +228,53 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{base_url}}/query/content/single-condition",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"query",
-										"content",
-										"single-condition"
-									]
-								}
+								"url": "{{base_url}}/query/content/single-condition"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "QueryContent",
+					"item": [
+						{
+							"name": "query content",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"categoryName\": \"movies\",\n    \"pageNo\": 1,\n    \"pageSize\": 5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}/query/content"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "FuzzySearch",
+					"item": [
+						{
+							"name": "fuzzy search",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"categoryName\": \"food\",\n    \"keyword\": \"taco\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}/query/content/fuzzy"
 							},
 							"response": []
 						}
@@ -334,185 +306,16 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"tableName\": \"test1016\",\n    \"fieldNameValues\": {\n        \"name\":\"Zoe\",\n        \"age\":4,\n        \"gender\":\"Female\"\n    }\n}",
+							"raw": "{\n  \"username\": \"Larry\",\n  \"password\": \"12345\",\n  \"tableName\": \"food\",\n  \"fieldNameValues\": {\n    \"title\": \"testfood\",\n    \"ingredients\": \"Water\"\n  }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": {
-							"raw": "{{base_url}}/content/insert",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"content",
-								"insert"
-							]
-						}
+						"url": "{{base_url}}/content/insert"
 					},
-					"response": [
-						{
-							"name": "insertContent400",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"tableName\": \"test1016\",\n    \"fieldNameValues\": {\n        \"name\":\"Zoe\",\n        \"age\":\"abdc\",\n        \"gender\":\"Female\"\n    }\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/content/insert",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"content",
-										"insert"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
-									"key": "Date",
-									"value": "Thu, 19 Oct 2023 23:53:29 GMT"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=60"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"code\": 400,\n    \"message\": \"Type Error\",\n    \"data\": null,\n    \"success\": false\n}"
-						},
-						{
-							"name": "insertContent404",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"tableName\": \"testTableNotExist\",\n    \"fieldNameValues\": {\n        \"name\":\"Zoe\",\n        \"age\":4,\n        \"gender\":\"Female\"\n    }\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/content/insert",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"content",
-										"insert"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
-									"key": "Date",
-									"value": "Thu, 19 Oct 2023 23:53:53 GMT"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=60"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"code\": 404,\n    \"message\": \"Table Not Found\",\n    \"data\": null,\n    \"success\": false\n}"
-						},
-						{
-							"name": "insertContent200",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"tableName\": \"test1016\",\n    \"fieldNameValues\": {\n        \"name\":\"Zoe\",\n        \"age\":4,\n        \"gender\":\"Female\"\n    }\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/content/insert",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"content",
-										"insert"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
-									"key": "Date",
-									"value": "Thu, 19 Oct 2023 23:56:18 GMT"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=60"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"code\": 200,\n    \"message\": \"Operation Success\",\n    \"data\": 1,\n    \"success\": true\n}"
-						}
-					]
+					"response": []
 				},
 				{
 					"name": "updateContent",
@@ -535,185 +338,16 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"tableName\": \"test1016\",\n    \"conditionField\":\"name\",\n    \"conditionValue\":\"Zoe\",\n    \"fieldNameValues\": {\n        \"age\":4,\n        \"gender\":\"Male\"\n    }\n}",
+							"raw": "{\n  \"username\": \"Larry\",\n  \"password\": \"12345\",\n  \"tableName\": \"food\",\n  \"conditionField\": \"title\",\n  \"conditionValue\": \"testfood\",\n  \"fieldNameValues\": {\n    \"title\": \"updatefood\"\n  }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": {
-							"raw": "{{base_url}}/content/update",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"content",
-								"update"
-							]
-						}
+						"url": "{{base_url}}/content/update"
 					},
-					"response": [
-						{
-							"name": "updateContent400",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"tableName\": \"test1016\",\n    \"conditionField\":\"age\",\n    \"conditionValue\":6,\n    \"fieldNameValues\": {\n        \"age\":\"dfsafsdadf\",\n        \"gender\":\"Male\"\n    }\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/content/update",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"content",
-										"update"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
-									"key": "Date",
-									"value": "Thu, 19 Oct 2023 23:52:18 GMT"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=60"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"code\": 400,\n    \"message\": \"Type Error\",\n    \"data\": null,\n    \"success\": false\n}"
-						},
-						{
-							"name": "updateContent404",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"tableName\": \"test10\",\n    \"conditionField\":\"age\",\n    \"conditionValue\":6,\n    \"fieldNameValues\": {\n        \"age\":4,\n        \"gender\":\"Male\"\n    }\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/content/update",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"content",
-										"update"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
-									"key": "Date",
-									"value": "Thu, 19 Oct 2023 23:53:05 GMT"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=60"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"code\": 404,\n    \"message\": \"Table Not Found\",\n    \"data\": null,\n    \"success\": false\n}"
-						},
-						{
-							"name": "updateContent200",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"tableName\": \"test1016\",\n    \"conditionField\":\"name\",\n    \"conditionValue\":\"Zoe\",\n    \"fieldNameValues\": {\n        \"age\":6,\n        \"gender\":\"Male\"\n    }\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/content/update",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"content",
-										"update"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
-									"key": "Date",
-									"value": "Thu, 19 Oct 2023 23:57:26 GMT"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=60"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"code\": 200,\n    \"message\": \"Operation Success\",\n    \"data\": 2,\n    \"success\": true\n}"
-						}
-					]
+					"response": []
 				},
 				{
 					"name": "deleteContent",
@@ -736,185 +370,232 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \n    \"tableName\": \"test1016\",\n    \"conditionField\":\"name\",\n    \"conditionValue\":\"Zoe\"\n    \n}",
+							"raw": "{\n  \"username\": \"Larry\",\n  \"password\": \"12345\",\n  \"tableName\": \"food\",\n  \"conditionField\": \"title\",\n  \"conditionValue\": \"updatefood\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": {
-							"raw": "{{base_url}}/content/delete",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"content",
-								"delete"
-							]
-						}
+						"url": "{{base_url}}/content/delete"
 					},
-					"response": [
-						{
-							"name": "deleteContent400",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \n    \"tableName\": \"test1016\",\n    \"conditionField\":\"\",\n    \"conditionValue\":\"Zoe\"\n    \n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/content/delete",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"content",
-										"delete"
-									]
+					"response": []
+				},
+				{
+					"name": "insertNoutable",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"Larry\",\n  \"password\": \"12345\",\n  \"tableName\": \"testfault\",\n  \"fieldNameValues\": {\n    \"name\": \"Lee\",\n    \"gender\": \"Male\",\n    \"age\": 2\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
 								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
-									"key": "Date",
-									"value": "Thu, 19 Oct 2023 23:54:24 GMT"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=60"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"code\": 400,\n    \"message\": \"FieldName should not be Empty\",\n    \"data\": null,\n    \"success\": false\n}"
+							}
 						},
-						{
-							"name": "deleteContent404",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \n    \"tableName\": \"test101\",\n    \"conditionField\":\"name\",\n    \"conditionValue\":\"Zoe\"\n    \n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/content/delete",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"content",
-										"delete"
-									]
+						"url": "{{base_url}}/content/insert"
+					},
+					"response": []
+				},
+				{
+					"name": "insertNofield",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"Larry\",\n  \"password\": \"12345\",\n  \"tableName\": \"food\",\n  \"fieldNameValues\": {\n    \"n\": \"Lee\",\n    \"gender\": \"Male\",\n    \"age\": 2\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
 								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
-									"key": "Date",
-									"value": "Thu, 19 Oct 2023 23:54:46 GMT"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=60"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"code\": 404,\n    \"message\": \"Table Not Found\",\n    \"data\": null,\n    \"success\": false\n}"
+							}
 						},
-						{
-							"name": "deleteContent200",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \n    \"tableName\": \"test1016\",\n    \"conditionField\":\"name\",\n    \"conditionValue\":\"Zoe\"\n    \n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/content/delete",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"content",
-										"delete"
-									]
+						"url": "{{base_url}}/content/insert"
+					},
+					"response": []
+				},
+				{
+					"name": "insertTypeError",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"Larry\",\n  \"password\": \"12345\",\n  \"tableName\": \"food\",\n  \"fieldNameValues\": {\n    \"title\": 1\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
 								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
-									"key": "Date",
-									"value": "Thu, 19 Oct 2023 23:56:43 GMT"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=60"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
+							}
+						},
+						"url": "{{base_url}}/content/insert"
+					},
+					"response": []
+				},
+				{
+					"name": "DelecteNotable",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"Larry\",\n  \"password\": \"12345\",\n  \"tableName\": \"testF\",\n  \"conditionField\": \"name\",\n  \"conditionValue\": \"Lee\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
 								}
-							],
-							"cookie": [],
-							"body": "{\n    \"code\": 200,\n    \"message\": \"Operation Success\",\n    \"data\": 1,\n    \"success\": true\n}"
-						}
-					]
+							}
+						},
+						"url": "{{base_url}}/content/delete"
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteEmpty",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"Larry\",\n  \"password\": \"12345\",\n  \"tableName\": \"food\",\n  \"conditionField\": \"\",\n  \"conditionValue\": \"Lee\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/content/delete"
+					},
+					"response": []
+				},
+				{
+					"name": "updateNotable",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"Larry\",\n  \"password\": \"12345\",\n  \"tableName\": \"testF\",\n  \"conditionField\": \"name\",\n  \"conditionValue\": \"Lee\",\n  \"fieldNameValues\": {\n    \"gender\": \"Male\",\n    \"age\": 6\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/content/update"
+					},
+					"response": []
+				},
+				{
+					"name": "updateEmpty",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"Larry\",\n  \"password\": \"12345\",\n  \"tableName\": \"food\",\n  \"conditionField\": \"\",\n  \"conditionValue\": \"Lee\",\n  \"fieldNameValues\": {\n    \"gender\": \"Male\",\n    \"age\": 6\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/content/update"
+					},
+					"response": []
+				},
+				{
+					"name": "updateNofield",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"Larry\",\n  \"password\": \"12345\",\n  \"tableName\": \"food\",\n  \"conditionField\": \"title\",\n  \"conditionValue\": \"Plum-Glazed Turkey\",\n  \"fieldNameValues\": {\n    \"g\": \"Male\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/content/update"
+					},
+					"response": []
+				},
+				{
+					"name": "updateTypeError",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"Larry\",\n  \"password\": \"12345\",\n  \"tableName\": \"food\",\n  \"conditionField\": \"title\",\n  \"conditionValue\": \"Plum-Glazed Turkey\",\n  \"fieldNameValues\": {\n    \"title\": 123\n  }\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/content/update"
+					},
+					"response": []
+				},
+				{
+					"name": "insertNouser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"L\",\n  \"password\": \"12345\",\n  \"tableName\": \"food\",\n  \"fieldNameValues\": {\n    \"title\": \"testfood\",\n    \"ingredients\": \"Water\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/content/insert"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteNouser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"L\",\n  \"password\": \"12345\",\n  \"tableName\": \"food\",\n  \"conditionField\": \"title\",\n  \"conditionValue\": \"updatefood\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/content/delete"
+					},
+					"response": []
+				},
+				{
+					"name": "updateNouser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"L\",\n  \"password\": \"12345\",\n  \"tableName\": \"food\",\n  \"conditionField\": \"title\",\n  \"conditionValue\": \"testfood\",\n  \"fieldNameValues\": {\n    \"title\": \"updatefood\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/content/update"
+					},
+					"response": []
 				}
 			]
 		},
@@ -948,16 +629,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{base_url}}/category/create",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"category",
-								"create"
-							]
-						}
+						"url": "{{base_url}}/category/create"
 					},
 					"response": []
 				},
@@ -988,16 +660,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{base_url}}/category/delete",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"category",
-								"delete"
-							]
-						}
+						"url": "https://whattoeattoday-k6jwzq4mja-uc.a.run.app/category/delete"
 					},
 					"response": []
 				},
@@ -1028,16 +691,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{base_url}}/category/create",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"category",
-								"create"
-							]
-						}
+						"url": "{{base_url}}/category/create"
 					},
 					"response": []
 				},
@@ -1068,16 +722,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{base_url}}/category/delete",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"category",
-								"delete"
-							]
-						}
+						"url": "{{base_url}}/category/delete"
 					},
 					"response": []
 				}
@@ -1093,23 +738,253 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"categoryName\": \"movies\",\n    \"fieldNameList\": [\"genre\", \"rating\", \"star\"],\n    \"targetId\": \"1\",\n    \"rankTopSize\": 10\n}",
+							"raw": "{\n    \"categoryName\": \"food\",\n    \"fieldNameList\": [\"ingredients\"],\n    \"targetId\": \"1\",\n    \"rankTopSize\": 10\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": {
-							"raw": "{{base_url}}/recommend/item",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"recommend",
-								"item"
-							]
-						}
+						"url": "{{base_url}}/recommend/item"
+					},
+					"response": []
+				},
+				{
+					"name": "based-on-user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"categoryName\": \"movies\",\n    \"fieldNameList\": [\"genre\", \"rating\", \"star\"],\n    \"userId\": \"1\",\n    \"rankTopSize\": 10\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/recommend/user"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "user register 400",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"Nick\",\n    \"password\": \"54321\",\n    \"email\": \"123456@163.com\",\n    \"category\": \"food\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/user/register"
+					},
+					"response": []
+				},
+				{
+					"name": "user register 404",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"Nick\",\n    \"password\": \"54321\",\n    \"email\": \"123456@163.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/user/register"
+					},
+					"response": []
+				},
+				{
+					"name": "user login 200",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"Nick\",\n    \"password\": \"54321\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/user/login"
+					},
+					"response": []
+				},
+				{
+					"name": "user login 404",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"Nick\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/user/login"
+					},
+					"response": []
+				},
+				{
+					"name": "user login 400",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"Nick\",\n    \"password\": \"1234\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/user/login"
+					},
+					"response": []
+				},
+				{
+					"name": "user verify 200",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"Nick\",\n    \"password\": \"54321\",\n    \"category\": \"food\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/user/verify"
+					},
+					"response": []
+				},
+				{
+					"name": "user verify 404",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"Nick\",\n    \"password\": \"54321\",\n    \"category\": \"movie\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/user/verify"
+					},
+					"response": []
+				},
+				{
+					"name": "user verify 400",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"Nick\",\n    \"password\": \"5432\",\n    \"category\": \"food\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/user/verify"
+					},
+					"response": []
+				},
+				{
+					"name": "user add collection 200",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"Nick\",\n    \"password\": \"54321\",\n    \"category\": \"food\",\n    \"itemId\": \"0\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/user/add/collection"
+					},
+					"response": []
+				},
+				{
+					"name": "user add collection 400",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"Nick\",\n    \"password\": \"54321\",\n    \"category\": \"food\",\n    \"itemId\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/user/add/collection"
+					},
+					"response": []
+				},
+				{
+					"name": "user delete collection 200",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"Nick\",\n    \"password\": \"54321\",\n    \"category\": \"food\",\n    \"itemId\": \"0\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/user/delete/collection"
+					},
+					"response": []
+				},
+				{
+					"name": "user delete collection 400",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"Nick\",\n    \"password\": \"54321\",\n    \"category\": \"food\",\n    \"itemId\": \"100\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/user/delete/collection"
 					},
 					"response": []
 				}
