@@ -95,6 +95,12 @@
                     <a class="catalog-item" href="com_whattoeattoday_recommendationservice_user_controller_UserController.html#userVerify">
                         check whether the user has the authority of certain category
                     </a>
+                    <a class="catalog-item" href="com_whattoeattoday_recommendationservice_user_controller_UserController.html#userAddCollection">
+                        add collection to user
+                    </a>
+                    <a class="catalog-item" href="com_whattoeattoday_recommendationservice_user_controller_UserController.html#userDeleteCollection">
+                        delete collection to user
+                    </a>
             </div>
         </div>
         <div class="panel">
@@ -126,8 +132,14 @@
                     <a class="catalog-item" href="com_whattoeattoday_recommendationservice_query_controller_QueryController.html#queryAllCategoryName">
                         Query names of all categories
                     </a>
+                    <a class="catalog-item" href="com_whattoeattoday_recommendationservice_query_controller_QueryController.html#queryContent">
+                        Query content in a given category
+                    </a>
                     <a class="catalog-item" href="com_whattoeattoday_recommendationservice_query_controller_QueryController.html#queryContentBySingleCondition">
                         Query contents in a category with a single selection condition
+                    </a>
+                    <a class="catalog-item" href="com_whattoeattoday_recommendationservice_query_controller_QueryController.html#fuzzySearchContent">
+                        fuzzy search content by keyword
                     </a>
             </div>
         </div>
@@ -233,6 +245,39 @@
                         </div>
                         <hr>
                         <div class="action-item">
+<h2 id="queryContent"><a href="#">Query content in a given category </a></h2>
+    <p class="text-muted"><em>author: Lijie Huang lh3158@columbia.edu</em></p>
+<p><strong>request url</strong></p>
+<p>
+    <code>/query/content</code>
+        <span class="label label-default">POST</span>
+</p>
+        <p><strong>request body</strong> <span class="badge">application/json</span></p>
+        <pre class="prettyprint lang-json">{
+	"categoryName":"string",
+	"pageNo":"string",
+	"pageSize":"string"
+}</pre>
+    <p><strong>response</strong></p>
+    <pre class="prettyprint lang-json">{
+	"code":{},
+	"message":"string",
+	"data":{
+		"pageNo":"int",
+		"pageSize":"int",
+		"pageData":[]
+	}
+}</pre>
+        <div class="form-group">
+            <a type="button" class="btn btn-sm btn-default" href="javaCodes/com_whattoeattoday_recommendationservice_query_controller_QueryController_queryContent_BaseResponse.html"><i
+                        class="fa fa-android" aria-hidden="true"></i> Android Model</a>
+            <a type="button" class="btn btn-sm btn-default" href="iosCodes/com_whattoeattoday_recommendationservice_query_controller_QueryController_queryContent_BaseResponse.html"><i class="fa fa-apple"
+                                                                                                 aria-hidden="true"></i>
+                iOS Model</a>
+        </div>
+                        </div>
+                        <hr>
+                        <div class="action-item">
 <h2 id="queryContentBySingleCondition"><a href="#">Query contents in a category with a single selection condition </a></h2>
     <p class="text-muted"><em>author: Lijie Huang lh3158@columbia.edu</em></p>
 <p><strong>request url</strong></p>
@@ -268,6 +313,38 @@
         </div>
                         </div>
                         <hr>
+                        <div class="action-item">
+<h2 id="fuzzySearchContent"><a href="#">fuzzy search content by keyword </a></h2>
+    <p class="text-muted"><em>author: Lijie Huang lh3158@columbia.edu</em></p>
+<p><strong>request url</strong></p>
+<p>
+    <code>/query/content/fuzzy</code>
+        <span class="label label-default">POST</span>
+</p>
+        <p><strong>request body</strong> <span class="badge">application/json</span></p>
+        <pre class="prettyprint lang-json">{
+	"categoryName":"string",
+	"keyword":"string"
+}</pre>
+    <p><strong>response</strong></p>
+    <pre class="prettyprint lang-json">{
+	"code":{},
+	"message":"string",
+	"data":{
+		"pageNo":"int",
+		"pageSize":"int",
+		"pageData":[]
+	}
+}</pre>
+        <div class="form-group">
+            <a type="button" class="btn btn-sm btn-default" href="javaCodes/com_whattoeattoday_recommendationservice_query_controller_QueryController_fuzzySearchContent_BaseResponse.html"><i
+                        class="fa fa-android" aria-hidden="true"></i> Android Model</a>
+            <a type="button" class="btn btn-sm btn-default" href="iosCodes/com_whattoeattoday_recommendationservice_query_controller_QueryController_fuzzySearchContent_BaseResponse.html"><i class="fa fa-apple"
+                                                                                                 aria-hidden="true"></i>
+                iOS Model</a>
+        </div>
+                        </div>
+                        <hr>
                     </div>
                 </div>
             </div>
@@ -289,12 +366,16 @@
             {name: 'UserController.user register', url: 'com_whattoeattoday_recommendationservice_user_controller_UserController.html#userRegister'},
             {name: 'UserController.user login', url: 'com_whattoeattoday_recommendationservice_user_controller_UserController.html#userLogin'},
             {name: 'UserController.check whether the user has the authority of certain category', url: 'com_whattoeattoday_recommendationservice_user_controller_UserController.html#userVerify'},
+            {name: 'UserController.add collection to user', url: 'com_whattoeattoday_recommendationservice_user_controller_UserController.html#userAddCollection'},
+            {name: 'UserController.delete collection to user', url: 'com_whattoeattoday_recommendationservice_user_controller_UserController.html#userDeleteCollection'},
             {name: 'InterTableController.Create a new category', url: 'com_whattoeattoday_recommendationservice_intertable_controller_InterTableController.html#createTable'},
             {name: 'InterTableController.Delete a category', url: 'com_whattoeattoday_recommendationservice_intertable_controller_InterTableController.html#deleteTable'},
             {name: 'QueryController.Query basic information about a category', url: 'com_whattoeattoday_recommendationservice_query_controller_QueryController.html#queryCategoryInfo'},
             {name: 'QueryController.Query contents in a category', url: 'com_whattoeattoday_recommendationservice_query_controller_QueryController.html#queryCategoryByName'},
             {name: 'QueryController.Query names of all categories', url: 'com_whattoeattoday_recommendationservice_query_controller_QueryController.html#queryAllCategoryName'},
+            {name: 'QueryController.Query content in a given category', url: 'com_whattoeattoday_recommendationservice_query_controller_QueryController.html#queryContent'},
             {name: 'QueryController.Query contents in a category with a single selection condition', url: 'com_whattoeattoday_recommendationservice_query_controller_QueryController.html#queryContentBySingleCondition'},
+            {name: 'QueryController.fuzzy search content by keyword', url: 'com_whattoeattoday_recommendationservice_query_controller_QueryController.html#fuzzySearchContent'},
     ];
 
 
