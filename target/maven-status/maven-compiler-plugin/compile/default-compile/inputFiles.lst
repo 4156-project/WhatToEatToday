@@ -2,9 +2,12 @@
 /Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/database/request/row/DeleteRowRequest.java
 /Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/query/service/api/QueryService.java
 /Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/database/response/QueryTableResponse.java
+/Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/user/request/UserCollectionRequest.java
 /Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/database/response/QueryTableNamesResponse.java
 /Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/intratable/controller/IntraTableController.java
+/Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/database/request/row/DeleteRowPlusRequest.java
 /Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/intratable/request/InsertRequest.java
+/Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/query/request/QueryContentRequest.java
 /Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/database/service/impl/DatabaseServiceImpl.java
 /Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/intertable/service/impl/InterTableServiceImpl.java
 /Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/user/service/api/UserService.java
@@ -30,12 +33,13 @@
 /Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/user/utils/MD5Util.java
 /Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/user/service/impl/UserServiceImpl.java
 /Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/common/PageInfo.java
+/Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/database/request/row/QueryContentInTableRequest.java
 /Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/database/service/TableService.java
 /Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/common/Status.java
+/Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/config/WebConfig.java
 /Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/query/request/QueryContentByMultiConditionRequest.java
 /Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/intertable/controller/InterTableController.java
 /Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/recommendation/request/GetRecommendationOnUserRequest.java
-/Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/user/utils/UserAdapter.java
 /Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/database/request/row/UpdateRowRequest.java
 /Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/query/request/QueryContentBySingleConditionRequest.java
 /Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/intratable/request/UpdateRequest.java

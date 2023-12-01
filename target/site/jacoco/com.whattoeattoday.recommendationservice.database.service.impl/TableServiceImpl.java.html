@@ -3,11 +3,9 @@
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
 import com.whattoeattoday.recommendationservice.common.PageInfo;
 import com.whattoeattoday.recommendationservice.common.Status;
-import com.whattoeattoday.recommendationservice.database.request.row.DeleteRowRequest;
-import com.whattoeattoday.recommendationservice.database.request.row.InsertRowRequest;
-import com.whattoeattoday.recommendationservice.database.request.row.QueryRowRequest;
-import com.whattoeattoday.recommendationservice.database.request.row.UpdateRowRequest;
+import com.whattoeattoday.recommendationservice.database.request.row.*;
 import com.whattoeattoday.recommendationservice.database.service.TableService;
+import com.whattoeattoday.recommendationservice.query.request.FuzzySearchContentRequest;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -22,134 +20,170 @@ import java.util.Map;
  * @date 10/15/23
  */
 @Service
-<span class="fc" id="L25">public class TableServiceImpl implements TableService {</span>
+<span class="fc" id="L23">public class TableServiceImpl implements TableService {</span>
     @Resource
     private JdbcTemplate jdbcTemplate;
 
     @Override
     public BaseResponse insert(InsertRowRequest request) {
-<span class="fc" id="L31">        String tableName = request.getTableName();</span>
-<span class="fc" id="L32">        List&lt;String&gt; fieldNames = request.getFiledNames();</span>
-<span class="fc" id="L33">        List&lt;String&gt; values = request.getValues();</span>
-<span class="fc" id="L34">        String columnNames = String.join(&quot;,&quot;, fieldNames);</span>
-<span class="fc" id="L35">        String columnValues = String.join(&quot;','&quot;, values);</span>
-<span class="fc" id="L36">        columnValues = &quot;'&quot; + columnValues + &quot;'&quot;;</span>
-<span class="fc" id="L37">        StringBuilder insertSql = new StringBuilder(String.format(&quot;INSERT IGNORE INTO `%s` (%s) VALUES (%s);&quot;, tableName,</span>
+<span class="fc" id="L29">        String tableName = request.getTableName();</span>
+<span class="fc" id="L30">        List&lt;String&gt; fieldNames = request.getFiledNames();</span>
+<span class="fc" id="L31">        List&lt;String&gt; values = request.getValues();</span>
+<span class="fc" id="L32">        String columnNames = String.join(&quot;,&quot;, fieldNames);</span>
+<span class="fc" id="L33">        String columnValues = String.join(&quot;','&quot;, values);</span>
+<span class="fc" id="L34">        columnValues = &quot;'&quot; + columnValues + &quot;'&quot;;</span>
+<span class="fc" id="L35">        StringBuilder insertSql = new StringBuilder(String.format(&quot;INSERT IGNORE INTO `%s` (%s) VALUES (%s);&quot;, tableName,</span>
                 columnNames, columnValues));
-<span class="fc" id="L39">        return getBaseResponse(tableName, insertSql.toString());</span>
+<span class="fc" id="L37">        return getBaseResponse(tableName, insertSql.toString());</span>
     }
 
     @Override
     public BaseResponse delete(DeleteRowRequest request) {
-<span class="fc" id="L44">        String tableName = request.getTableName();</span>
-<span class="fc" id="L45">        String fieldName = request.getConditionField();</span>
-<span class="fc" id="L46">        String condition = request.getConditionValue();</span>
-<span class="fc" id="L47">        StringBuilder deleteSql = new StringBuilder(String.format(&quot;DELETE FROM `%s` WHERE %s = '%s';&quot;, tableName, fieldName, condition));</span>
-<span class="fc" id="L48">        return getBaseResponse(tableName, deleteSql.toString());</span>
+<span class="fc" id="L42">        String tableName = request.getTableName();</span>
+<span class="fc" id="L43">        String fieldName = request.getConditionField();</span>
+<span class="fc" id="L44">        String condition = request.getConditionValue();</span>
+<span class="fc" id="L45">        StringBuilder deleteSql = new StringBuilder(String.format(&quot;DELETE FROM `%s` WHERE %s = '%s';&quot;, tableName, fieldName, condition));</span>
+<span class="fc" id="L46">        return getBaseResponse(tableName, deleteSql.toString());</span>
+    }
+
+    @Override
+    public BaseResponse&lt;Object&gt; delete(DeleteRowPlusRequest request) {
+<span class="fc" id="L51">        String tableName = request.getTableName();</span>
+<span class="fc" id="L52">        List&lt;String&gt; fieldNames = request.getConditionFields();</span>
+<span class="fc" id="L53">        List&lt;String&gt; conditions = request.getConditionValues();</span>
+<span class="fc" id="L54">        StringBuilder deleteSql = new StringBuilder(String.format(&quot;DELETE FROM `%s` WHERE &quot;, tableName));</span>
+<span class="fc bfc" id="L55" title="All 2 branches covered.">        for (int i = 0; i &lt; fieldNames.size(); i++) {</span>
+<span class="fc" id="L56">            deleteSql.append(fieldNames.get(i) + &quot; = &quot; + conditions.get(i));</span>
+<span class="fc bfc" id="L57" title="All 2 branches covered.">            if (i != fieldNames.size() - 1) {</span>
+<span class="fc" id="L58">                deleteSql.append(&quot; AND &quot;);</span>
+            }
+        }
+<span class="fc" id="L61">        deleteSql.append(&quot;;&quot;);</span>
+<span class="fc" id="L62">        return getBaseResponse(tableName, deleteSql.toString());</span>
     }
 
     private BaseResponse getBaseResponse(String tableName, String sql) {
         int numOfRowsEffected;
         try {
-<span class="fc" id="L54">            numOfRowsEffected = jdbcTemplate.update(sql);</span>
-<span class="nc" id="L55">        } catch (DataAccessException e) {</span>
-<span class="nc" id="L56">            return BaseResponse.with(Status.PARAM_ERROR);</span>
-<span class="fc" id="L57">        }</span>
-<span class="fc" id="L58">        BaseResponse response = updateRowNum(tableName);</span>
-<span class="pc bpc" id="L59" title="1 of 2 branches missed.">        if (response.getCode().equals(Status.SUCCESS)) {</span>
-<span class="pc bpc" id="L60" title="1 of 2 branches missed.">            if (numOfRowsEffected &gt; 0) {</span>
-<span class="fc" id="L61">                return BaseResponse.with(Status.SUCCESS, numOfRowsEffected);</span>
+<span class="fc" id="L68">            numOfRowsEffected = jdbcTemplate.update(sql);</span>
+<span class="nc" id="L69">        } catch (DataAccessException e) {</span>
+<span class="nc" id="L70">            return BaseResponse.with(Status.PARAM_ERROR);</span>
+<span class="fc" id="L71">        }</span>
+<span class="fc" id="L72">        BaseResponse response = updateRowNum(tableName);</span>
+<span class="pc bpc" id="L73" title="1 of 2 branches missed.">        if (response.getCode().equals(Status.SUCCESS)) {</span>
+<span class="fc bfc" id="L74" title="All 2 branches covered.">            if (numOfRowsEffected &gt; 0) {</span>
+<span class="fc" id="L75">                return BaseResponse.with(Status.SUCCESS, numOfRowsEffected);</span>
             } else {
-<span class="nc" id="L63">                return BaseResponse.with(Status.NOT_FOUND, numOfRowsEffected);</span>
+<span class="fc" id="L77">                return BaseResponse.with(Status.NOT_FOUND, numOfRowsEffected);</span>
             }
         } else {
-<span class="nc" id="L66">            return BaseResponse.with(Status.PARAM_ERROR);</span>
+<span class="nc" id="L80">            return BaseResponse.with(Status.PARAM_ERROR);</span>
         }
     }
 
     @Override
     public BaseResponse update(UpdateRowRequest request) {
-<span class="fc" id="L72">        String tableName = request.getTableName();</span>
-<span class="fc" id="L73">        String fieldName = request.getConditionField();</span>
-<span class="fc" id="L74">        String condition = request.getConditionValue();</span>
-<span class="fc" id="L75">        List&lt;String&gt; fieldNames = request.getFiledNames();</span>
-<span class="fc" id="L76">        List&lt;String&gt; values = request.getValues();</span>
-<span class="fc" id="L77">        StringBuilder updateSql = new StringBuilder(String.format(&quot;UPDATE `%s` SET &quot;, tableName));</span>
-<span class="fc bfc" id="L78" title="All 2 branches covered.">        for (int i = 0; i &lt; fieldNames.size(); i++) {</span>
-<span class="fc" id="L79">            updateSql.append(fieldNames.get(i) + &quot;='&quot; + values.get(i) + &quot;'&quot;);</span>
-<span class="fc bfc" id="L80" title="All 2 branches covered.">            if (i != fieldNames.size() - 1) {</span>
-<span class="fc" id="L81">                updateSql.append(&quot;,&quot;);</span>
+<span class="fc" id="L86">        String tableName = request.getTableName();</span>
+<span class="fc" id="L87">        String fieldName = request.getConditionField();</span>
+<span class="fc" id="L88">        String condition = request.getConditionValue();</span>
+<span class="fc" id="L89">        List&lt;String&gt; fieldNames = request.getFiledNames();</span>
+<span class="fc" id="L90">        List&lt;String&gt; values = request.getValues();</span>
+<span class="fc" id="L91">        StringBuilder updateSql = new StringBuilder(String.format(&quot;UPDATE `%s` SET &quot;, tableName));</span>
+<span class="fc bfc" id="L92" title="All 2 branches covered.">        for (int i = 0; i &lt; fieldNames.size(); i++) {</span>
+<span class="fc" id="L93">            updateSql.append(fieldNames.get(i) + &quot;='&quot; + values.get(i) + &quot;'&quot;);</span>
+<span class="fc bfc" id="L94" title="All 2 branches covered.">            if (i != fieldNames.size() - 1) {</span>
+<span class="fc" id="L95">                updateSql.append(&quot;,&quot;);</span>
             }
         }
-<span class="fc" id="L84">        updateSql.append(String.format(&quot; WHERE %s = '%s';&quot;, fieldName, condition));</span>
+<span class="fc" id="L98">        updateSql.append(String.format(&quot; WHERE %s = '%s';&quot;, fieldName, condition));</span>
         int numOfRowsEffected;
         try {
-<span class="fc" id="L87">            numOfRowsEffected = jdbcTemplate.update(updateSql.toString());</span>
-<span class="nc" id="L88">        } catch (DataAccessException e) {</span>
-<span class="nc" id="L89">            return BaseResponse.with(Status.PARAM_ERROR);</span>
-<span class="fc" id="L90">        }</span>
+<span class="fc" id="L101">            numOfRowsEffected = jdbcTemplate.update(updateSql.toString());</span>
+<span class="nc" id="L102">        } catch (DataAccessException e) {</span>
+<span class="nc" id="L103">            return BaseResponse.with(Status.PARAM_ERROR);</span>
+<span class="fc" id="L104">        }</span>
 
-<span class="fc bfc" id="L92" title="All 2 branches covered.">        if (numOfRowsEffected &gt; 0) {</span>
-<span class="fc" id="L93">            return BaseResponse.with(Status.SUCCESS, numOfRowsEffected);</span>
+<span class="fc bfc" id="L106" title="All 2 branches covered.">        if (numOfRowsEffected &gt; 0) {</span>
+<span class="fc" id="L107">            return BaseResponse.with(Status.SUCCESS, numOfRowsEffected);</span>
         } else {
-<span class="fc" id="L95">            return BaseResponse.with(Status.NOT_FOUND, numOfRowsEffected);</span>
+<span class="fc" id="L109">            return BaseResponse.with(Status.NOT_FOUND, numOfRowsEffected);</span>
         }
     }
 
     @Override
     public PageInfo query(QueryRowRequest request) {
-<span class="fc" id="L101">        String tableName = request.getTableName();</span>
-<span class="fc" id="L102">        String fieldName = request.getConditionField();</span>
-<span class="fc" id="L103">        String condition = request.getConditionValue();</span>
-<span class="fc" id="L104">        PageInfo pageInfo = request.getPageInfo();</span>
-<span class="fc" id="L105">        int pageNo = Integer.valueOf(pageInfo.getPageNo());</span>
-<span class="fc" id="L106">        int pageSize = Integer.valueOf(pageInfo.getPageSize());</span>
-<span class="fc" id="L107">        List&lt;String&gt; fieldNames = request.getFieldNames();</span>
-<span class="fc" id="L108">        String columnNames = String.join(&quot;,&quot;, fieldNames);</span>
-<span class="fc" id="L109">        StringBuilder querySql = new StringBuilder(String.format(&quot;SELECT %s FROM `%s` &quot;, columnNames, tableName));</span>
-<span class="pc bpc" id="L110" title="1 of 4 branches missed.">        if (fieldName != null &amp;&amp; condition != null) {</span>
-<span class="fc" id="L111">            querySql.append(String.format(&quot;WHERE %s = '%s' &quot;, fieldName, condition));</span>
+<span class="fc" id="L115">        String tableName = request.getTableName();</span>
+<span class="fc" id="L116">        String fieldName = request.getConditionField();</span>
+<span class="fc" id="L117">        String condition = request.getConditionValue();</span>
+<span class="fc" id="L118">        PageInfo pageInfo = request.getPageInfo();</span>
+<span class="fc" id="L119">        int pageNo = Integer.valueOf(pageInfo.getPageNo());</span>
+<span class="fc" id="L120">        int pageSize = Integer.valueOf(pageInfo.getPageSize());</span>
+<span class="fc" id="L121">        List&lt;String&gt; fieldNames = request.getFieldNames();</span>
+<span class="fc" id="L122">        String columnNames = String.join(&quot;,&quot;, fieldNames);</span>
+<span class="fc" id="L123">        StringBuilder querySql = new StringBuilder(String.format(&quot;SELECT %s FROM `%s` &quot;, columnNames, tableName));</span>
+<span class="pc bpc" id="L124" title="1 of 4 branches missed.">        if (fieldName != null &amp;&amp; condition != null) {</span>
+<span class="fc" id="L125">            querySql.append(String.format(&quot;WHERE %s = '%s' &quot;, fieldName, condition));</span>
         }
-<span class="fc" id="L113">        int offset = (pageNo - 1) * pageSize;</span>
-<span class="fc" id="L114">        querySql.append(String.format(&quot;LIMIT %s offset %s;&quot;, pageSize, offset));</span>
+<span class="fc" id="L127">        int offset = (pageNo - 1) * pageSize;</span>
+<span class="fc" id="L128">        querySql.append(String.format(&quot;LIMIT %s offset %s;&quot;, pageSize, offset));</span>
         List&lt;Map&lt;String, Object&gt;&gt; res;
         try {
-<span class="fc" id="L117">            res = jdbcTemplate.queryForList(querySql.toString());</span>
-<span class="nc" id="L118">        } catch (DataAccessException e) {</span>
-<span class="nc" id="L119">            return null;</span>
-<span class="fc" id="L120">        }</span>
-<span class="fc" id="L121">        pageInfo.setPageData(res);</span>
-<span class="fc" id="L122">        return pageInfo;</span>
+<span class="fc" id="L131">            res = jdbcTemplate.queryForList(querySql.toString());</span>
+<span class="nc" id="L132">        } catch (DataAccessException e) {</span>
+<span class="nc" id="L133">            return null;</span>
+<span class="fc" id="L134">        }</span>
+<span class="fc" id="L135">        pageInfo.setPageData(res);</span>
+<span class="fc" id="L136">        return pageInfo;</span>
     }
 
+    @Override
+    public PageInfo fuzzySearch(FuzzySearchContentRequest request) {
+<span class="fc" id="L141">        List&lt;Map&lt;String, Object&gt;&gt; maps = jdbcTemplate.queryForList(&quot;SHOW INDEX FROM &quot; + request.getCategoryName());</span>
+<span class="fc" id="L142">        StringBuilder columnNames = new StringBuilder();</span>
+<span class="fc bfc" id="L143" title="All 2 branches covered.">        for (Map&lt;String, Object&gt; map : maps) {</span>
+<span class="fc" id="L144">            columnNames.append(map.get(&quot;Column_name&quot;));</span>
+<span class="fc" id="L145">            columnNames.append(&quot;, &quot;);</span>
+<span class="fc" id="L146">        }</span>
+<span class="fc" id="L147">        columnNames.delete(columnNames.length()-2, columnNames.length());</span>
+<span class="fc" id="L148">        String sql = String.format(&quot;SELECT * FROM %s WHERE MATCH ( %s ) AGAINST ( '%s' IN NATURAL LANGUAGE MODE )&quot;</span>
+<span class="fc" id="L149">                , request.getCategoryName(), columnNames, request.getKeyword());</span>
+<span class="fc" id="L150">        sql = sql + String.format(&quot;LIMIT %s offset %s;&quot;, &quot;10&quot;, &quot;0&quot;);</span>
+<span class="fc" id="L151">        List&lt;Map&lt;String, Object&gt;&gt; mapList = jdbcTemplate.queryForList(sql);</span>
+<span class="fc" id="L152">        PageInfo pageInfo = PageInfo.builder()</span>
+<span class="fc" id="L153">                .pageNo(1)</span>
+<span class="fc" id="L154">                .pageSize(10)</span>
+<span class="fc" id="L155">                .pageData(mapList)</span>
+<span class="fc" id="L156">                .build();</span>
+<span class="fc" id="L157">        return pageInfo;</span>
+    }
 
 
     public long queryTableRowsNum(String tableName) {
-<span class="fc" id="L128">        String sql = &quot;SELECT COUNT(*) AS cnt FROM &quot; + tableName;</span>
+<span class="fc" id="L162">        String sql = &quot;SELECT COUNT(*) AS cnt FROM &quot; + tableName;</span>
         Map&lt;String, Object&gt; res;
         try {
-<span class="fc" id="L131">            res = jdbcTemplate.queryForMap(sql);</span>
-<span class="nc" id="L132">        } catch (DataAccessException e) {</span>
-<span class="nc" id="L133">            return -1;</span>
-<span class="fc" id="L134">        }</span>
-<span class="fc" id="L135">        return (long) res.get(&quot;cnt&quot;);</span>
+<span class="fc" id="L165">            res = jdbcTemplate.queryForMap(sql);</span>
+<span class="nc" id="L166">        } catch (DataAccessException e) {</span>
+<span class="nc" id="L167">            return -1;</span>
+<span class="fc" id="L168">        }</span>
+<span class="fc" id="L169">        return (long) res.get(&quot;cnt&quot;);</span>
     }
 
     public BaseResponse updateRowNum(String tableName) {
-<span class="fc" id="L139">        long rowNum = queryTableRowsNum(tableName);</span>
-<span class="fc" id="L140">        UpdateRowRequest updateRowRequest = new UpdateRowRequest();</span>
-<span class="fc" id="L141">        updateRowRequest.setTableName(&quot;table_record&quot;);</span>
-<span class="fc" id="L142">        List&lt;String&gt; fieldNames = new ArrayList&lt;String&gt;(){{</span>
-<span class="fc" id="L143">            add(&quot;row_num&quot;);</span>
-<span class="fc" id="L144">        }};</span>
-<span class="fc" id="L145">        List&lt;String&gt; values = new ArrayList&lt;String&gt;(){{</span>
-<span class="fc" id="L146">            add(String.valueOf(rowNum));</span>
-<span class="fc" id="L147">        }};</span>
-<span class="fc" id="L148">        updateRowRequest.setFiledNames(fieldNames);</span>
-<span class="fc" id="L149">        updateRowRequest.setValues(values);</span>
-<span class="fc" id="L150">        updateRowRequest.setConditionField(&quot;name&quot;);</span>
-<span class="fc" id="L151">        updateRowRequest.setConditionValue(tableName);</span>
-<span class="fc" id="L152">        return update(updateRowRequest);</span>
+<span class="fc" id="L173">        long rowNum = queryTableRowsNum(tableName);</span>
+<span class="fc" id="L174">        UpdateRowRequest updateRowRequest = new UpdateRowRequest();</span>
+<span class="fc" id="L175">        updateRowRequest.setTableName(&quot;table_record&quot;);</span>
+<span class="fc" id="L176">        List&lt;String&gt; fieldNames = new ArrayList&lt;String&gt;(){{</span>
+<span class="fc" id="L177">            add(&quot;row_num&quot;);</span>
+<span class="fc" id="L178">        }};</span>
+<span class="fc" id="L179">        List&lt;String&gt; values = new ArrayList&lt;String&gt;(){{</span>
+<span class="fc" id="L180">            add(String.valueOf(rowNum));</span>
+<span class="fc" id="L181">        }};</span>
+<span class="fc" id="L182">        updateRowRequest.setFiledNames(fieldNames);</span>
+<span class="fc" id="L183">        updateRowRequest.setValues(values);</span>
+<span class="fc" id="L184">        updateRowRequest.setConditionField(&quot;name&quot;);</span>
+<span class="fc" id="L185">        updateRowRequest.setConditionValue(tableName);</span>
+<span class="fc" id="L186">        return update(updateRowRequest);</span>
     }
 
 }

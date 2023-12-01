@@ -49,25 +49,33 @@ import java.util.Set;
     }
 
     /**
+     * Query content in a given category
+     * @param request
+     * @return
+     */
+    @PostMapping(&quot;/query/content&quot;)
+    public BaseResponse&lt;PageInfo&gt; queryContent(@RequestBody QueryContentRequest request) {
+<span class="nc" id="L58">        return queryService.queryContent(request);</span>
+    }
+
+    /**
      * Query contents in a category with a single selection condition
      * @param request
      * @return
      */
     @PostMapping(&quot;/query/content/single-condition&quot;)
     public BaseResponse&lt;PageInfo&gt; queryContentBySingleCondition(@RequestBody QueryContentBySingleConditionRequest request) {
-<span class="nc" id="L58">        return queryService.queryContentBySingleCondition(request);</span>
+<span class="nc" id="L68">        return queryService.queryContentBySingleCondition(request);</span>
     }
 
-    @Ignore
-    @PostMapping(&quot;/query/content/multi-condition&quot;)
-    public BaseResponse queryContentByMultiCondition(@RequestBody QueryContentByMultiConditionRequest request) {
-<span class="nc" id="L64">        return queryService.queryContentByMultiCondition(request);</span>
-    }
-
-    @Ignore
+    /**
+     * fuzzy search content by keyword
+     * @param request
+     * @return
+     */
     @PostMapping(&quot;/query/content/fuzzy&quot;)
-    public BaseResponse fuzzySearchContent(@RequestBody FuzzySearchContentRequest request) {
-<span class="nc" id="L70">        return queryService.fuzzySearchContent(request);</span>
+    public BaseResponse&lt;PageInfo&gt; fuzzySearchContent(@RequestBody FuzzySearchContentRequest request) {
+<span class="nc" id="L78">        return queryService.fuzzySearchContent(request);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

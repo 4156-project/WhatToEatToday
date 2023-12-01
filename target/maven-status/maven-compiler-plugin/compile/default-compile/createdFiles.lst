@@ -32,7 +32,6 @@ com/whattoeattoday/recommendationservice/intratable/service/api/IntraTableServic
 com/whattoeattoday/recommendationservice/user/request/UserVerifyRequest.class
 com/whattoeattoday/recommendationservice/database/service/TableService.class
 com/whattoeattoday/recommendationservice/database/request/table/DeleteTableRequest.class
-com/whattoeattoday/recommendationservice/user/utils/UserAdapter.class
 com/whattoeattoday/recommendationservice/database/service/impl/TableServiceImpl$1.class
 com/whattoeattoday/recommendationservice/query/controller/QueryController.class
 META-INF/spring-configuration-metadata.json

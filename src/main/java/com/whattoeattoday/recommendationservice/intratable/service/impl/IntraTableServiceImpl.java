@@ -15,6 +15,8 @@ import com.whattoeattoday.recommendationservice.database.response.QueryTableName
 import com.whattoeattoday.recommendationservice.database.response.QueryTableResponse;
 import com.whattoeattoday.recommendationservice.database.service.DatabaseService;
 import com.whattoeattoday.recommendationservice.database.service.TableService;
+import com.whattoeattoday.recommendationservice.user.request.UserVerifyRequest;
+import com.whattoeattoday.recommendationservice.user.service.api.UserService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -34,6 +36,8 @@ public class IntraTableServiceImpl implements IntraTableService {
     private DatabaseService databaseService;
     @Resource
     private TableService tableService;
+    @Resource
+    private UserService userService;
     private boolean isTableValid(String tableName) {
         QueryTableNamesResponse response = databaseService.queryTableNames();
         return response.tableNames.contains(tableName);
@@ -41,12 +45,26 @@ public class IntraTableServiceImpl implements IntraTableService {
     @Override
     public BaseResponse insert(InsertRequest request) {
 
-        // TODO
-
 
         //check if table name in database
         String tableName = request.getTableName();
         if(!isTableValid(tableName)){
+            return BaseResponse.with(Status.NOT_FOUND, "Table Not Found");
+        }
+        //Verify different clients
+        UserVerifyRequest userinfo = new UserVerifyRequest();
+        userinfo.setUsername(request.getUsername());
+        userinfo.setPassword(request.getPassword());
+        userinfo.setCategory(tableName);
+
+        BaseResponse r = userService.userVerify(userinfo);
+        if (!(tableName.equals("user")||tableName.equals("table_record")))
+        {
+            if (r.getCode() != Status.SUCCESS) {
+                return r;
+            }
+        }
+        else{
             return BaseResponse.with(Status.NOT_FOUND, "Table Not Found");
         }
 
@@ -91,6 +109,21 @@ public class IntraTableServiceImpl implements IntraTableService {
         if(!isTableValid(tableName)){
             return BaseResponse.with(Status.NOT_FOUND, "Table Not Found");
         }
+        UserVerifyRequest userinfo = new UserVerifyRequest();
+        userinfo.setUsername(request.getUsername());
+        userinfo.setPassword(request.getPassword());
+        userinfo.setCategory(tableName);
+
+        BaseResponse r = userService.userVerify(userinfo);
+        if (!(tableName.equals("user")||tableName.equals("table_record")))
+        {
+            if (r.getCode() != Status.SUCCESS) {
+                return r;
+            }
+        }
+        else{
+            return BaseResponse.with(Status.NOT_FOUND, "Table Not Found");
+        }
         //check if the deleted fieldName null or empty
         String conditionField = request.getConditionField();
         Object conditionValue = request.getConditionValue();
@@ -113,6 +146,21 @@ public class IntraTableServiceImpl implements IntraTableService {
         //check if table name in database
         String tableName = request.getTableName();
         if(!isTableValid(tableName)){
+            return BaseResponse.with(Status.NOT_FOUND, "Table Not Found");
+        }
+        UserVerifyRequest userinfo = new UserVerifyRequest();
+        userinfo.setUsername(request.getUsername());
+        userinfo.setPassword(request.getPassword());
+        userinfo.setCategory(tableName);
+
+        BaseResponse r = userService.userVerify(userinfo);
+        if (!(tableName.equals("user")||tableName.equals("table_record")))
+        {
+            if (r.getCode() != Status.SUCCESS) {
+                return r;
+            }
+        }
+        else{
             return BaseResponse.with(Status.NOT_FOUND, "Table Not Found");
         }
         //check if the deleted fieldName null or empty

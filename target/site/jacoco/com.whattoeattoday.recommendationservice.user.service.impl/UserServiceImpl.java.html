@@ -3,18 +3,18 @@
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
 import com.whattoeattoday.recommendationservice.common.PageInfo;
 import com.whattoeattoday.recommendationservice.common.Status;
+import com.whattoeattoday.recommendationservice.database.request.row.DeleteRowPlusRequest;
+import com.whattoeattoday.recommendationservice.database.request.row.InsertRowRequest;
 import com.whattoeattoday.recommendationservice.database.request.row.QueryRowRequest;
 import com.whattoeattoday.recommendationservice.database.service.TableService;
-import com.whattoeattoday.recommendationservice.intratable.request.InsertRequest;
-import com.whattoeattoday.recommendationservice.intratable.service.api.IntraTableService;
 import com.whattoeattoday.recommendationservice.query.service.api.QueryService;
 import com.whattoeattoday.recommendationservice.user.model.User;
+import com.whattoeattoday.recommendationservice.user.request.UserCollectionRequest;
 import com.whattoeattoday.recommendationservice.user.request.UserLoginRequest;
 import com.whattoeattoday.recommendationservice.user.request.UserRegisterRequest;
 import com.whattoeattoday.recommendationservice.user.request.UserVerifyRequest;
 import com.whattoeattoday.recommendationservice.user.service.api.UserService;
 import com.whattoeattoday.recommendationservice.user.utils.MD5Util;
-import com.whattoeattoday.recommendationservice.user.utils.UserAdapter;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -33,136 +33,262 @@ import java.util.regex.Pattern;
     @Resource
     private TableService tableService;
     @Resource
-    private IntraTableService intraTableService;
-    @Resource
     private QueryService queryService;
 
     private final static String salt = &quot;1a2b3c&quot;;
 
     @Override
     public BaseResponse userRegister(UserRegisterRequest request) {
-<span class="fc" id="L44">        String username = request.getUsername();</span>
-<span class="fc" id="L45">        String password = request.getPassword();</span>
-<span class="fc" id="L46">        String email = request.getEmail();</span>
-<span class="fc" id="L47">        String category = request.getCategory();</span>
+<span class="fc" id="L42">        String username = request.getUsername();</span>
+<span class="fc" id="L43">        String password = request.getPassword();</span>
+<span class="fc" id="L44">        String email = request.getEmail();</span>
+<span class="fc" id="L45">        String category = request.getCategory();</span>
         // valid check
-<span class="pc bpc" id="L49" title="1 of 4 branches missed.">        if (username == null || username.length() == 0) {</span>
-<span class="fc" id="L50">            return BaseResponse.with(Status.NOT_FOUND, &quot;Username Not Found&quot;);</span>
+<span class="fc bfc" id="L47" title="All 4 branches covered.">        if (username == null || username.length() == 0) {</span>
+<span class="fc" id="L48">            return BaseResponse.with(Status.NOT_FOUND, &quot;Username Not Found&quot;);</span>
         }
-<span class="pc bpc" id="L52" title="2 of 4 branches missed.">        if (password == null || password.length() == 0) {</span>
-<span class="nc" id="L53">            return BaseResponse.with(Status.NOT_FOUND, &quot;Password Not Found&quot;);</span>
+<span class="fc bfc" id="L50" title="All 4 branches covered.">        if (password == null || password.length() == 0) {</span>
+<span class="fc" id="L51">            return BaseResponse.with(Status.NOT_FOUND, &quot;Password Not Found&quot;);</span>
         }
-<span class="pc bpc" id="L55" title="2 of 4 branches missed.">        if (email == null || email.length() == 0) {</span>
-<span class="nc" id="L56">            return BaseResponse.with(Status.NOT_FOUND, &quot;Email Not Found&quot;);</span>
-<span class="pc bpc" id="L57" title="1 of 2 branches missed.">        } else if (!checkEmail(email)) {</span>
-<span class="nc" id="L58">            return BaseResponse.with(Status.PARAM_ERROR, &quot;Email Not Valid&quot;);</span>
+<span class="fc bfc" id="L53" title="All 4 branches covered.">        if (email == null || email.length() == 0) {</span>
+<span class="fc" id="L54">            return BaseResponse.with(Status.NOT_FOUND, &quot;Email Not Found&quot;);</span>
+<span class="fc bfc" id="L55" title="All 2 branches covered.">        } else if (!checkEmail(email)) {</span>
+<span class="fc" id="L56">            return BaseResponse.with(Status.PARAM_ERROR, &quot;Email Not Valid&quot;);</span>
         }
-<span class="fc" id="L60">        BaseResponse queryResponse = queryService.queryAllCategoryName();</span>
-<span class="fc" id="L61">        Set&lt;String&gt; categories = (Set&lt;String&gt;) queryResponse.getData();</span>
-<span class="pc bpc" id="L62" title="3 of 6 branches missed.">        if (category == null || category.length() == 0 || !categories.contains(category)) {</span>
-<span class="nc" id="L63">            return BaseResponse.with(Status.NOT_FOUND, &quot;Category Not Found&quot;);</span>
+<span class="fc" id="L58">        BaseResponse queryResponse = queryService.queryAllCategoryName();</span>
+<span class="fc" id="L59">        Set&lt;String&gt; categories = (Set&lt;String&gt;) queryResponse.getData();</span>
+<span class="fc bfc" id="L60" title="All 6 branches covered.">        if (category == null || category.length() == 0 || !categories.contains(category)) {</span>
+<span class="fc" id="L61">            return BaseResponse.with(Status.NOT_FOUND, &quot;Category Not Found&quot;);</span>
         }
 
-<span class="fc" id="L66">        String encodedPassword = MD5Util.formPassToDBPass(password, salt);</span>
+<span class="fc" id="L64">        String encodedPassword = MD5Util.formPassToDBPass(password, salt);</span>
         // check if user has already existed
-<span class="fc" id="L68">        User user = getUserByUsername(username);</span>
-<span class="fc bfc" id="L69" title="All 2 branches covered.">        if (user != null) {</span>
-<span class="fc" id="L70">            return BaseResponse.with(Status.DUPLICATE_ERROR, &quot;User already exists!&quot;);</span>
+<span class="fc" id="L66">        User user = getUserByUsername(username);</span>
+<span class="fc bfc" id="L67" title="All 2 branches covered.">        if (user != null) {</span>
+<span class="fc" id="L68">            return BaseResponse.with(Status.DUPLICATE_ERROR, &quot;User already exists!&quot;);</span>
         }
         // insert into db table
-<span class="fc" id="L73">        InsertRequest insertRequest = new InsertRequest();</span>
-<span class="fc" id="L74">        insertRequest.setTableName(&quot;user&quot;);</span>
-<span class="fc" id="L75">        Map&lt;String, Object&gt; fieldNameValues = new HashMap&lt;&gt;();</span>
-<span class="fc" id="L76">        fieldNameValues.put(&quot;username&quot;, username);</span>
-<span class="fc" id="L77">        fieldNameValues.put(&quot;password&quot;, encodedPassword);</span>
-<span class="fc" id="L78">        fieldNameValues.put(&quot;email&quot;, email);</span>
-<span class="fc" id="L79">        fieldNameValues.put(&quot;category&quot;, category);</span>
-<span class="fc" id="L80">        insertRequest.setFieldNameValues(fieldNameValues);</span>
-<span class="fc" id="L81">        BaseResponse response = intraTableService.insert(insertRequest);</span>
+<span class="fc" id="L71">        InsertRowRequest insertRowRequest = new InsertRowRequest();</span>
+<span class="fc" id="L72">        List&lt;String&gt; fields = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L73">        fields.add(&quot;username&quot;);</span>
+<span class="fc" id="L74">        fields.add(&quot;password&quot;);</span>
+<span class="fc" id="L75">        fields.add(&quot;email&quot;);</span>
+<span class="fc" id="L76">        fields.add(&quot;category&quot;);</span>
+<span class="fc" id="L77">        List&lt;String&gt; values = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L78">        values.add(username);</span>
+<span class="fc" id="L79">        values.add(encodedPassword);</span>
+<span class="fc" id="L80">        values.add(email);</span>
+<span class="fc" id="L81">        values.add(category);</span>
+<span class="fc" id="L82">        insertRowRequest.setTableName(&quot;user&quot;);</span>
+<span class="fc" id="L83">        insertRowRequest.setFiledNames(fields);</span>
+<span class="fc" id="L84">        insertRowRequest.setValues(values);</span>
+<span class="fc" id="L85">        BaseResponse response = tableService.insert(insertRowRequest);</span>
 
-<span class="fc" id="L83">        return response;</span>
+<span class="fc" id="L87">        return response;</span>
     }
 
     @Override
     public BaseResponse userLogin(UserLoginRequest request) {
-<span class="fc" id="L88">        String username = request.getUsername();</span>
-<span class="fc" id="L89">        String password = request.getPassword();</span>
-<span class="pc bpc" id="L90" title="1 of 4 branches missed.">        if (username == null || username.length() == 0) {</span>
-<span class="fc" id="L91">            return BaseResponse.with(Status.NOT_FOUND, &quot;Username Not Found&quot;);</span>
+<span class="fc" id="L92">        String username = request.getUsername();</span>
+<span class="fc" id="L93">        String password = request.getPassword();</span>
+<span class="fc bfc" id="L94" title="All 4 branches covered.">        if (username == null || username.length() == 0) {</span>
+<span class="fc" id="L95">            return BaseResponse.with(Status.NOT_FOUND, &quot;Username Not Found&quot;);</span>
         }
-<span class="pc bpc" id="L93" title="2 of 4 branches missed.">        if (password == null || password.length() == 0) {</span>
-<span class="nc" id="L94">            return BaseResponse.with(Status.NOT_FOUND, &quot;Password Not Found&quot;);</span>
+<span class="fc bfc" id="L97" title="All 4 branches covered.">        if (password == null || password.length() == 0) {</span>
+<span class="fc" id="L98">            return BaseResponse.with(Status.NOT_FOUND, &quot;Password Not Found&quot;);</span>
         }
-<span class="fc" id="L96">        User user = getUserByUsername(username);</span>
-<span class="fc bfc" id="L97" title="All 2 branches covered.">        if (user == null) {</span>
-<span class="fc" id="L98">            return BaseResponse.with(Status.NOT_FOUND, &quot;User Not Found!&quot;);</span>
+<span class="fc" id="L100">        User user = getUserByUsername(username);</span>
+<span class="fc bfc" id="L101" title="All 2 branches covered.">        if (user == null) {</span>
+<span class="fc" id="L102">            return BaseResponse.with(Status.NOT_FOUND, &quot;User Not Found!&quot;);</span>
         }
-<span class="fc" id="L100">        String encodedPassword = MD5Util.formPassToDBPass(password, salt);</span>
-<span class="fc bfc" id="L101" title="All 2 branches covered.">        if (!encodedPassword.equals(user.getEncodedPassword())) {</span>
-<span class="fc" id="L102">            return BaseResponse.with(Status.PARAM_ERROR, &quot;Password Not Valid&quot;);</span>
+<span class="fc" id="L104">        String encodedPassword = MD5Util.formPassToDBPass(password, salt);</span>
+<span class="fc bfc" id="L105" title="All 2 branches covered.">        if (!encodedPassword.equals(user.getEncodedPassword())) {</span>
+<span class="fc" id="L106">            return BaseResponse.with(Status.PARAM_ERROR, &quot;Password Not Valid&quot;);</span>
         }
 
-<span class="fc" id="L105">        return BaseResponse.with(Status.SUCCESS, &quot;Login Success!&quot;);</span>
+<span class="fc" id="L109">        return BaseResponse.with(Status.SUCCESS,&quot;Login Success!&quot;, user);</span>
     }
 
     @Override
     public BaseResponse userVerify(UserVerifyRequest request) {
-<span class="fc" id="L110">        String username = request.getUsername();</span>
-<span class="fc" id="L111">        String password = request.getPassword();</span>
-<span class="fc" id="L112">        String category = request.getCategory();</span>
-<span class="pc bpc" id="L113" title="1 of 4 branches missed.">        if (username == null || username.length() == 0) {</span>
-<span class="fc" id="L114">            return BaseResponse.with(Status.NOT_FOUND, &quot;Username Not Found&quot;);</span>
+<span class="fc" id="L114">        String username = request.getUsername();</span>
+<span class="fc" id="L115">        String password = request.getPassword();</span>
+<span class="fc" id="L116">        String category = request.getCategory();</span>
+<span class="fc bfc" id="L117" title="All 4 branches covered.">        if (username == null || username.length() == 0) {</span>
+<span class="fc" id="L118">            return BaseResponse.with(Status.NOT_FOUND, &quot;Username Not Found&quot;);</span>
         }
-<span class="pc bpc" id="L116" title="1 of 4 branches missed.">        if (password == null || password.length() == 0) {</span>
-<span class="fc" id="L117">            return BaseResponse.with(Status.NOT_FOUND, &quot;Password Not Found&quot;);</span>
+<span class="fc bfc" id="L120" title="All 4 branches covered.">        if (password == null || password.length() == 0) {</span>
+<span class="fc" id="L121">            return BaseResponse.with(Status.NOT_FOUND, &quot;Password Not Found&quot;);</span>
         }
-<span class="fc" id="L119">        BaseResponse queryResponse = queryService.queryAllCategoryName();</span>
-<span class="fc" id="L120">        Set&lt;String&gt; categories = (Set&lt;String&gt;) queryResponse.getData();</span>
-<span class="pc bpc" id="L121" title="2 of 6 branches missed.">        if (category == null || category.length() == 0 || !categories.contains(category)) {</span>
-<span class="fc" id="L122">            return BaseResponse.with(Status.NOT_FOUND, &quot;Category Not Found&quot;);</span>
+<span class="fc" id="L123">        BaseResponse queryResponse = queryService.queryAllCategoryName();</span>
+<span class="fc" id="L124">        Set&lt;String&gt; categories = (Set&lt;String&gt;) queryResponse.getData();</span>
+<span class="pc bpc" id="L125" title="2 of 6 branches missed.">        if (category == null || category.length() == 0 || !categories.contains(category)) {</span>
+<span class="fc" id="L126">            return BaseResponse.with(Status.NOT_FOUND, &quot;Category Not Found&quot;);</span>
         }
         // check user
-<span class="fc bfc" id="L125" title="All 2 branches covered.">        if (!checkUser(username, password, category)) {</span>
-<span class="fc" id="L126">            return BaseResponse.with(Status.PARAM_ERROR, &quot;User Not Valid&quot;);</span>
+<span class="fc bfc" id="L129" title="All 2 branches covered.">        if (!checkUser(username, password, category)) {</span>
+<span class="fc" id="L130">            return BaseResponse.with(Status.PARAM_ERROR, &quot;User Not Valid&quot;);</span>
         }
-<span class="fc" id="L128">        return BaseResponse.with(Status.SUCCESS, &quot;Verify Success!&quot;);</span>
+<span class="fc" id="L132">        return BaseResponse.with(Status.SUCCESS, &quot;Verify Success!&quot;);</span>
+    }
+
+    @Override
+    public BaseResponse userAddCollection(UserCollectionRequest request) {
+<span class="fc" id="L137">        UserVerifyRequest userVerifyRequest = new UserVerifyRequest();</span>
+<span class="fc" id="L138">        userVerifyRequest.setUsername(request.getUsername());</span>
+<span class="fc" id="L139">        userVerifyRequest.setPassword(request.getPassword());</span>
+<span class="fc" id="L140">        userVerifyRequest.setCategory(request.getCategory());</span>
+<span class="fc" id="L141">        BaseResponse response = userVerify(userVerifyRequest);</span>
+<span class="fc bfc" id="L142" title="All 2 branches covered.">        if (response.getCode() != Status.SUCCESS) {</span>
+<span class="fc" id="L143">            return BaseResponse.with(Status.PARAM_ERROR, &quot;User Not Valid&quot;);</span>
+        }
+<span class="fc" id="L145">        Long itemId = Long.parseLong(request.getItemId());</span>
+<span class="fc bfc" id="L146" title="All 2 branches covered.">        if (!checkItemInCategory(itemId, request.getCategory())) {</span>
+<span class="fc" id="L147">            return BaseResponse.with(Status.PARAM_ERROR, &quot;Category or Item Not Valid&quot;);</span>
+        }
+<span class="fc" id="L149">        User user = getUserByUsername(request.getUsername());</span>
+<span class="fc" id="L150">        Set&lt;Long&gt; collection = user.getCollection();</span>
+<span class="fc bfc" id="L151" title="All 2 branches covered.">        if (collection.contains(itemId)) {</span>
+<span class="fc" id="L152">            return BaseResponse.with(Status.PARAM_ERROR, &quot;Item has Existed&quot;);</span>
+        } else {
+<span class="fc" id="L154">            collection.add(itemId);</span>
+        }
+        // write into collection table
+<span class="fc" id="L157">        InsertRowRequest insertRowRequest = new InsertRowRequest();</span>
+<span class="fc" id="L158">        List&lt;String&gt; fields = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L159">        fields.add(&quot;user_id&quot;);</span>
+<span class="fc" id="L160">        fields.add(&quot;category_name&quot;);</span>
+<span class="fc" id="L161">        fields.add(&quot;item_id&quot;);</span>
+<span class="fc" id="L162">        List&lt;String&gt; values = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L163">        values.add(user.getId());</span>
+<span class="fc" id="L164">        values.add(user.getCategory());</span>
+<span class="fc" id="L165">        values.add(request.getItemId());</span>
+<span class="fc" id="L166">        insertRowRequest.setTableName(&quot;collection&quot;);</span>
+<span class="fc" id="L167">        insertRowRequest.setFiledNames(fields);</span>
+<span class="fc" id="L168">        insertRowRequest.setValues(values);</span>
+<span class="fc" id="L169">        BaseResponse insertResponse = tableService.insert(insertRowRequest);</span>
+<span class="fc" id="L170">        return BaseResponse.with(Status.SUCCESS,&quot;Add Collection Success!&quot;, user);</span>
+    }
+
+    @Override
+    public BaseResponse userDeleteCollection(UserCollectionRequest request) {
+<span class="fc" id="L175">        UserVerifyRequest userVerifyRequest = new UserVerifyRequest();</span>
+<span class="fc" id="L176">        userVerifyRequest.setUsername(request.getUsername());</span>
+<span class="fc" id="L177">        userVerifyRequest.setPassword(request.getPassword());</span>
+<span class="fc" id="L178">        userVerifyRequest.setCategory(request.getCategory());</span>
+<span class="fc" id="L179">        BaseResponse response = userVerify(userVerifyRequest);</span>
+<span class="fc bfc" id="L180" title="All 2 branches covered.">        if (response.getCode() != Status.SUCCESS) {</span>
+<span class="fc" id="L181">            return BaseResponse.with(Status.PARAM_ERROR, &quot;User Not Valid&quot;);</span>
+        }
+<span class="fc" id="L183">        Long itemId = Long.parseLong(request.getItemId());</span>
+<span class="fc bfc" id="L184" title="All 2 branches covered.">        if (!checkItemInCategory(itemId, request.getCategory())) {</span>
+<span class="fc" id="L185">            return BaseResponse.with(Status.PARAM_ERROR, &quot;Category or Item Not Valid&quot;);</span>
+        }
+<span class="fc" id="L187">        User user = getUserByUsername(request.getUsername());</span>
+<span class="fc" id="L188">        Set&lt;Long&gt; collection = user.getCollection();</span>
+<span class="fc bfc" id="L189" title="All 2 branches covered.">        if (!collection.contains(itemId)) {</span>
+<span class="fc" id="L190">            return BaseResponse.with(Status.PARAM_ERROR, &quot;Item not Existed&quot;);</span>
+        } else {
+<span class="fc" id="L192">            collection.remove(itemId);</span>
+        }
+        // write into collection table
+<span class="fc" id="L195">        DeleteRowPlusRequest deleteRequest = new DeleteRowPlusRequest();</span>
+<span class="fc" id="L196">        deleteRequest.setTableName(&quot;collection&quot;);</span>
+<span class="fc" id="L197">        List&lt;String&gt; conditions = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L198">        conditions.add(user.getId());</span>
+<span class="fc" id="L199">        conditions.add(request.getItemId());</span>
+<span class="fc" id="L200">        List&lt;String&gt; fields = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L201">        fields.add(&quot;user_id&quot;);</span>
+<span class="fc" id="L202">        fields.add(&quot;item_id&quot;);</span>
+<span class="fc" id="L203">        deleteRequest.setConditionFields(fields);</span>
+<span class="fc" id="L204">        deleteRequest.setConditionValues(conditions);</span>
+<span class="fc" id="L205">        BaseResponse deleteResponse = tableService.delete(deleteRequest);</span>
+<span class="fc" id="L206">        return BaseResponse.with(Status.SUCCESS,&quot;Delete Collection Success!&quot;, user);</span>
+    }
+
+    private boolean checkItemInCategory(Long itemId, String category) {
+        // check whether itemId included in category
+<span class="fc" id="L211">        QueryRowRequest queryRowRequest = QueryRowRequest.builder().build();</span>
+<span class="fc" id="L212">        queryRowRequest.setTableName(category);</span>
+<span class="fc" id="L213">        List&lt;String&gt; fieldNames = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L214">        fieldNames.add(&quot;id&quot;);</span>
+<span class="fc" id="L215">        queryRowRequest.setFieldNames(fieldNames);</span>
+<span class="fc" id="L216">        queryRowRequest.setConditionField(&quot;id&quot;);</span>
+<span class="fc" id="L217">        queryRowRequest.setConditionValue(String.valueOf(itemId));</span>
+<span class="fc" id="L218">        queryRowRequest.setPageInfo(PageInfo.builder().pageNo(1).pageSize(1).build());</span>
+<span class="fc" id="L219">        PageInfo response = tableService.query(queryRowRequest);</span>
+<span class="fc" id="L220">        List&lt;Map&lt;String,Object&gt;&gt; dataList = response.getPageData();</span>
+<span class="fc bfc" id="L221" title="All 2 branches covered.">        if (dataList.size() == 0) {</span>
+<span class="fc" id="L222">            return false;</span>
+        }
+<span class="fc" id="L224">        return true;</span>
     }
 
     private boolean checkUser(String username, String password, String category) {
-<span class="fc" id="L132">        User user = getUserByUsername(username);</span>
-<span class="fc" id="L133">        String encodedPassword = MD5Util.formPassToDBPass(password, salt);</span>
-<span class="pc bpc" id="L134" title="2 of 6 branches missed.">        if (user == null || !user.getEncodedPassword().equals(encodedPassword) || !user.getCategory().equals(category)) {</span>
-<span class="fc" id="L135">            return false;</span>
+<span class="fc" id="L228">        User user = getUserByUsername(username);</span>
+<span class="fc" id="L229">        String encodedPassword = MD5Util.formPassToDBPass(password, salt);</span>
+<span class="pc bpc" id="L230" title="1 of 6 branches missed.">        if (user == null || !user.getEncodedPassword().equals(encodedPassword) || !user.getCategory().equals(category)) {</span>
+<span class="fc" id="L231">            return false;</span>
         }
-<span class="fc" id="L137">        return true;</span>
+<span class="fc" id="L233">        return true;</span>
     }
 
     private boolean checkEmail(String email) {
-<span class="fc" id="L141">        String EMAIL_PATTERN = &quot;^[_A-Za-z0-9-+]+(.[_A-Za-z0-9-]+)*@&quot; + &quot;[A-Za-z0-9-]+(.[A-Za-z0-9]+)*(.[A-Za-z]{2,})$&quot;;</span>
-<span class="fc" id="L142">        Pattern pattern = Pattern.compile(EMAIL_PATTERN);</span>
-<span class="fc" id="L143">        Matcher matcher = pattern.matcher(email);</span>
-<span class="fc" id="L144">        return matcher.matches();</span>
+<span class="fc" id="L237">        String EMAIL_PATTERN = &quot;^[_A-Za-z0-9-+]+(.[_A-Za-z0-9-]+)*@&quot; + &quot;[A-Za-z0-9-]+(.[A-Za-z0-9]+)*(.[A-Za-z]{2,})$&quot;;</span>
+<span class="fc" id="L238">        Pattern pattern = Pattern.compile(EMAIL_PATTERN);</span>
+<span class="fc" id="L239">        Matcher matcher = pattern.matcher(email);</span>
+<span class="fc" id="L240">        return matcher.matches();</span>
     }
 
     private User getUserByUsername(String username) {
-<span class="fc" id="L148">        QueryRowRequest queryRowRequest = QueryRowRequest.builder().build();</span>
-<span class="fc" id="L149">        queryRowRequest.setTableName(&quot;user&quot;);</span>
-<span class="fc" id="L150">        List&lt;String&gt; fieldNames = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L151">        fieldNames.add(&quot;username&quot;);</span>
-<span class="fc" id="L152">        fieldNames.add(&quot;password&quot;);</span>
-<span class="fc" id="L153">        fieldNames.add(&quot;email&quot;);</span>
-<span class="fc" id="L154">        fieldNames.add(&quot;category&quot;);</span>
-<span class="fc" id="L155">        queryRowRequest.setFieldNames(fieldNames);</span>
-<span class="fc" id="L156">        queryRowRequest.setConditionField(&quot;username&quot;);</span>
-<span class="fc" id="L157">        queryRowRequest.setConditionValue(username);</span>
-<span class="fc" id="L158">        queryRowRequest.setPageInfo(PageInfo.builder().pageNo(1).pageSize(1).build());</span>
-<span class="fc" id="L159">        PageInfo response = tableService.query(queryRowRequest);</span>
-<span class="fc" id="L160">        List&lt;Map&lt;String,Object&gt;&gt; data = response.getPageData();</span>
-<span class="fc bfc" id="L161" title="All 2 branches covered.">        if (data.size() == 0) {</span>
-<span class="fc" id="L162">            return null;</span>
+<span class="fc" id="L244">        QueryRowRequest queryRowRequest = QueryRowRequest.builder().build();</span>
+<span class="fc" id="L245">        queryRowRequest.setTableName(&quot;user&quot;);</span>
+<span class="fc" id="L246">        List&lt;String&gt; fieldNames = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L247">        fieldNames.add(&quot;id&quot;);</span>
+<span class="fc" id="L248">        fieldNames.add(&quot;username&quot;);</span>
+<span class="fc" id="L249">        fieldNames.add(&quot;password&quot;);</span>
+<span class="fc" id="L250">        fieldNames.add(&quot;email&quot;);</span>
+<span class="fc" id="L251">        fieldNames.add(&quot;category&quot;);</span>
+<span class="fc" id="L252">        queryRowRequest.setFieldNames(fieldNames);</span>
+<span class="fc" id="L253">        queryRowRequest.setConditionField(&quot;username&quot;);</span>
+<span class="fc" id="L254">        queryRowRequest.setConditionValue(username);</span>
+<span class="fc" id="L255">        queryRowRequest.setPageInfo(PageInfo.builder().pageNo(1).pageSize(1).build());</span>
+<span class="fc" id="L256">        PageInfo response = tableService.query(queryRowRequest);</span>
+<span class="fc" id="L257">        List&lt;Map&lt;String,Object&gt;&gt; dataList = response.getPageData();</span>
+<span class="fc bfc" id="L258" title="All 2 branches covered.">        if (dataList.size() == 0) {</span>
+<span class="fc" id="L259">            return null;</span>
         } else {
-<span class="fc" id="L164">            return UserAdapter.adaptQueryData(data.get(0));</span>
+<span class="fc" id="L261">            Map&lt;String,Object&gt; data = dataList.get(0);</span>
+<span class="fc" id="L262">            User user = new User();</span>
+<span class="fc" id="L263">            user.setId(String.valueOf(data.get(&quot;id&quot;)));</span>
+<span class="fc" id="L264">            user.setUsername(String.valueOf(data.get(&quot;username&quot;)));</span>
+<span class="fc" id="L265">            user.setEncodedPassword(String.valueOf(data.get(&quot;password&quot;)));</span>
+<span class="fc" id="L266">            user.setEmail(String.valueOf(data.get(&quot;email&quot;)));</span>
+<span class="fc" id="L267">            String category = String.valueOf(data.get(&quot;category&quot;));</span>
+<span class="fc" id="L268">            user.setCategory(category);</span>
+<span class="fc" id="L269">            user.setCollection(getUserCollection(String.valueOf(data.get(&quot;id&quot;))));</span>
+<span class="fc" id="L270">            return user;</span>
         }
+    }
+
+    private Set&lt;Long&gt; getUserCollection(String id) {
+<span class="fc" id="L275">        QueryRowRequest queryRowRequest = QueryRowRequest.builder().build();</span>
+<span class="fc" id="L276">        queryRowRequest.setTableName(&quot;collection&quot;);</span>
+<span class="fc" id="L277">        List&lt;String&gt; fieldNames = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L278">        fieldNames.add(&quot;user_id&quot;);</span>
+<span class="fc" id="L279">        fieldNames.add(&quot;category_name&quot;);</span>
+<span class="fc" id="L280">        fieldNames.add(&quot;item_id&quot;);</span>
+<span class="fc" id="L281">        queryRowRequest.setFieldNames(fieldNames);</span>
+<span class="fc" id="L282">        queryRowRequest.setConditionField(&quot;user_id&quot;);</span>
+<span class="fc" id="L283">        queryRowRequest.setConditionValue(id);</span>
+<span class="fc" id="L284">        queryRowRequest.setPageInfo(PageInfo.builder().pageNo(1).pageSize(10).build());</span>
+<span class="fc" id="L285">        PageInfo response = tableService.query(queryRowRequest);</span>
+<span class="fc" id="L286">        List&lt;Map&lt;String,Object&gt;&gt; queryData = response.getPageData();</span>
+<span class="fc" id="L287">        Set&lt;Long&gt; collection = new HashSet&lt;&gt;();</span>
+<span class="fc bfc" id="L288" title="All 2 branches covered.">        for (Map&lt;String, Object&gt; oneRow : queryData) {</span>
+<span class="fc" id="L289">            collection.add((Long)oneRow.get(&quot;item_id&quot;));</span>
+<span class="fc" id="L290">        }</span>
+<span class="fc" id="L291">        return collection;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

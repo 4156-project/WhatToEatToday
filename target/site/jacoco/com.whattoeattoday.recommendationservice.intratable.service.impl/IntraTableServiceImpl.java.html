@@ -15,6 +15,8 @@ import com.whattoeattoday.recommendationservice.database.response.QueryTableName
 import com.whattoeattoday.recommendationservice.database.response.QueryTableResponse;
 import com.whattoeattoday.recommendationservice.database.service.DatabaseService;
 import com.whattoeattoday.recommendationservice.database.service.TableService;
+import com.whattoeattoday.recommendationservice.user.request.UserVerifyRequest;
+import com.whattoeattoday.recommendationservice.user.service.api.UserService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -28,132 +30,181 @@ import java.util.Map;
  */
 
 @Service
-<span class="fc" id="L31">public class IntraTableServiceImpl implements IntraTableService {</span>
+<span class="fc" id="L33">public class IntraTableServiceImpl implements IntraTableService {</span>
 
     @Resource
     private DatabaseService databaseService;
     @Resource
     private TableService tableService;
+    @Resource
+    private UserService userService;
     private boolean isTableValid(String tableName) {
-<span class="fc" id="L38">        QueryTableNamesResponse response = databaseService.queryTableNames();</span>
-<span class="fc" id="L39">        return response.tableNames.contains(tableName);</span>
+<span class="fc" id="L42">        QueryTableNamesResponse response = databaseService.queryTableNames();</span>
+<span class="fc" id="L43">        return response.tableNames.contains(tableName);</span>
     }
     @Override
     public BaseResponse insert(InsertRequest request) {
 
+
         //check if table name in database
-<span class="fc" id="L45">        String tableName = request.getTableName();</span>
-<span class="fc bfc" id="L46" title="All 2 branches covered.">        if(!isTableValid(tableName)){</span>
-<span class="fc" id="L47">            return BaseResponse.with(Status.NOT_FOUND, &quot;Table Not Found&quot;);</span>
+<span class="fc" id="L50">        String tableName = request.getTableName();</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">        if(!isTableValid(tableName)){</span>
+<span class="fc" id="L52">            return BaseResponse.with(Status.NOT_FOUND, &quot;Table Not Found&quot;);</span>
+        }
+        //Verify different clients
+<span class="fc" id="L55">        UserVerifyRequest userinfo = new UserVerifyRequest();</span>
+<span class="fc" id="L56">        userinfo.setUsername(request.getUsername());</span>
+<span class="fc" id="L57">        userinfo.setPassword(request.getPassword());</span>
+<span class="fc" id="L58">        userinfo.setCategory(tableName);</span>
+
+<span class="fc" id="L60">        BaseResponse r = userService.userVerify(userinfo);</span>
+<span class="pc bpc" id="L61" title="1 of 4 branches missed.">        if (!(tableName.equals(&quot;user&quot;)||tableName.equals(&quot;table_record&quot;)))</span>
+        {
+<span class="fc bfc" id="L63" title="All 2 branches covered.">            if (r.getCode() != Status.SUCCESS) {</span>
+<span class="fc" id="L64">                return r;</span>
+            }
+        }
+        else{
+<span class="fc" id="L68">            return BaseResponse.with(Status.NOT_FOUND, &quot;Table Not Found&quot;);</span>
         }
 
         //check if the inserted fieldName and value valid
-<span class="fc" id="L51">        Map&lt;String,Object&gt;fieldNameValues = request.getFieldNameValues();</span>
-<span class="fc" id="L52">        QueryTableRequest request1 = new QueryTableRequest();</span>
-<span class="fc" id="L53">        request1.setTableName(tableName);</span>
-<span class="fc" id="L54">        QueryTableResponse response1 = databaseService.queryTable(request1);</span>
-<span class="fc" id="L55">        Map&lt;String, String&gt; fieldNameTypeMap = response1.getFiledNameTypeMap();</span>
+<span class="fc" id="L72">        Map&lt;String,Object&gt;fieldNameValues = request.getFieldNameValues();</span>
+<span class="fc" id="L73">        QueryTableRequest request1 = new QueryTableRequest();</span>
+<span class="fc" id="L74">        request1.setTableName(tableName);</span>
+<span class="fc" id="L75">        QueryTableResponse response1 = databaseService.queryTable(request1);</span>
+<span class="fc" id="L76">        Map&lt;String, String&gt; fieldNameTypeMap = response1.getFiledNameTypeMap();</span>
 
-<span class="fc" id="L57">        List&lt;String&gt; fieldNames = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L58">        List&lt;String&gt; values = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L78">        List&lt;String&gt; fieldNames = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L79">        List&lt;String&gt; values = new ArrayList&lt;&gt;();</span>
 
-<span class="fc bfc" id="L60" title="All 2 branches covered.">        for (Map.Entry&lt;String,Object&gt;entry:fieldNameValues.entrySet()){</span>
-<span class="fc" id="L61">            String key = entry.getKey();</span>
-<span class="fc" id="L62">            Object value = entry.getValue();</span>
+<span class="fc bfc" id="L81" title="All 2 branches covered.">        for (Map.Entry&lt;String,Object&gt;entry:fieldNameValues.entrySet()){</span>
+<span class="fc" id="L82">            String key = entry.getKey();</span>
+<span class="fc" id="L83">            Object value = entry.getValue();</span>
 
-<span class="fc bfc" id="L64" title="All 2 branches covered.">            if (!fieldNameTypeMap.containsKey(key)){</span>
-<span class="fc" id="L65">                return BaseResponse.with(Status.NOT_FOUND, &quot;Field Not Found&quot;);</span>
+<span class="fc bfc" id="L85" title="All 2 branches covered.">            if (!fieldNameTypeMap.containsKey(key)){</span>
+<span class="fc" id="L86">                return BaseResponse.with(Status.NOT_FOUND, &quot;Field Not Found&quot;);</span>
 
             }
-<span class="fc" id="L68">            String sqlType = fieldNameTypeMap.get(key);</span>
-<span class="fc bfc" id="L69" title="All 2 branches covered.">            if (!ParamUtil.isValidSqlType(value, sqlType)) {</span>
-<span class="fc" id="L70">                return BaseResponse.with(Status.PARAM_ERROR, &quot;Type Error&quot;);</span>
+<span class="fc" id="L89">            String sqlType = fieldNameTypeMap.get(key);</span>
+<span class="fc bfc" id="L90" title="All 2 branches covered.">            if (!ParamUtil.isValidSqlType(value, sqlType)) {</span>
+<span class="fc" id="L91">                return BaseResponse.with(Status.PARAM_ERROR, &quot;Type Error&quot;);</span>
             }
-<span class="fc" id="L72">            fieldNames.add(entry.getKey());</span>
-<span class="fc" id="L73">            values.add(entry.getValue().toString());</span>
+<span class="fc" id="L93">            fieldNames.add(entry.getKey());</span>
+<span class="fc" id="L94">            values.add(entry.getValue().toString());</span>
 
-<span class="fc" id="L75">        }</span>
-<span class="fc" id="L76">        InsertRowRequest request2 = new InsertRowRequest();</span>
-<span class="fc" id="L77">        request2.setTableName(tableName);</span>
-<span class="fc" id="L78">        request2.setFiledNames(fieldNames);</span>
-<span class="fc" id="L79">        request2.setValues(values);</span>
-<span class="fc" id="L80">        return tableService.insert(request2);</span>
+<span class="fc" id="L96">        }</span>
+<span class="fc" id="L97">        InsertRowRequest request2 = new InsertRowRequest();</span>
+<span class="fc" id="L98">        request2.setTableName(tableName);</span>
+<span class="fc" id="L99">        request2.setFiledNames(fieldNames);</span>
+<span class="fc" id="L100">        request2.setValues(values);</span>
+<span class="fc" id="L101">        return tableService.insert(request2);</span>
     }
 
     @Override
     public BaseResponse delete(DeleteRequest request) {
 
         //check if table name in database
-<span class="fc" id="L87">        String tableName = request.getTableName();</span>
-<span class="fc bfc" id="L88" title="All 2 branches covered.">        if(!isTableValid(tableName)){</span>
-<span class="fc" id="L89">            return BaseResponse.with(Status.NOT_FOUND, &quot;Table Not Found&quot;);</span>
+<span class="fc" id="L108">        String tableName = request.getTableName();</span>
+<span class="fc bfc" id="L109" title="All 2 branches covered.">        if(!isTableValid(tableName)){</span>
+<span class="fc" id="L110">            return BaseResponse.with(Status.NOT_FOUND, &quot;Table Not Found&quot;);</span>
+        }
+<span class="fc" id="L112">        UserVerifyRequest userinfo = new UserVerifyRequest();</span>
+<span class="fc" id="L113">        userinfo.setUsername(request.getUsername());</span>
+<span class="fc" id="L114">        userinfo.setPassword(request.getPassword());</span>
+<span class="fc" id="L115">        userinfo.setCategory(tableName);</span>
+
+<span class="fc" id="L117">        BaseResponse r = userService.userVerify(userinfo);</span>
+<span class="pc bpc" id="L118" title="1 of 4 branches missed.">        if (!(tableName.equals(&quot;user&quot;)||tableName.equals(&quot;table_record&quot;)))</span>
+        {
+<span class="fc bfc" id="L120" title="All 2 branches covered.">            if (r.getCode() != Status.SUCCESS) {</span>
+<span class="fc" id="L121">                return r;</span>
+            }
+        }
+        else{
+<span class="fc" id="L125">            return BaseResponse.with(Status.NOT_FOUND, &quot;Table Not Found&quot;);</span>
         }
         //check if the deleted fieldName null or empty
-<span class="fc" id="L92">        String conditionField = request.getConditionField();</span>
-<span class="fc" id="L93">        Object conditionValue = request.getConditionValue();</span>
+<span class="fc" id="L128">        String conditionField = request.getConditionField();</span>
+<span class="fc" id="L129">        Object conditionValue = request.getConditionValue();</span>
 
-<span class="fc bfc" id="L95" title="All 2 branches covered.">        if(conditionField.isEmpty()){</span>
-<span class="fc" id="L96">            return BaseResponse.with(Status.PARAM_ERROR,&quot;FieldName should not be Empty&quot;);</span>
+<span class="fc bfc" id="L131" title="All 2 branches covered.">        if(conditionField.isEmpty()){</span>
+<span class="fc" id="L132">            return BaseResponse.with(Status.PARAM_ERROR,&quot;FieldName should not be Empty&quot;);</span>
         }
 
-<span class="fc" id="L99">        DeleteRowRequest request2 = new DeleteRowRequest();</span>
-<span class="fc" id="L100">        request2.setTableName(tableName);</span>
-<span class="fc" id="L101">        request2.setConditionField(conditionField);</span>
-<span class="fc" id="L102">        request2.setConditionValue(conditionValue.toString());</span>
+<span class="fc" id="L135">        DeleteRowRequest request2 = new DeleteRowRequest();</span>
+<span class="fc" id="L136">        request2.setTableName(tableName);</span>
+<span class="fc" id="L137">        request2.setConditionField(conditionField);</span>
+<span class="fc" id="L138">        request2.setConditionValue(conditionValue.toString());</span>
 
-<span class="fc" id="L104">        return tableService.delete(request2);</span>
+<span class="fc" id="L140">        return tableService.delete(request2);</span>
     }
 
     @Override
     public BaseResponse update(UpdateRequest request) {
 
         //check if table name in database
-<span class="fc" id="L111">        String tableName = request.getTableName();</span>
-<span class="fc bfc" id="L112" title="All 2 branches covered.">        if(!isTableValid(tableName)){</span>
-<span class="fc" id="L113">            return BaseResponse.with(Status.NOT_FOUND, &quot;Table Not Found&quot;);</span>
+<span class="fc" id="L147">        String tableName = request.getTableName();</span>
+<span class="fc bfc" id="L148" title="All 2 branches covered.">        if(!isTableValid(tableName)){</span>
+<span class="fc" id="L149">            return BaseResponse.with(Status.NOT_FOUND, &quot;Table Not Found&quot;);</span>
+        }
+<span class="fc" id="L151">        UserVerifyRequest userinfo = new UserVerifyRequest();</span>
+<span class="fc" id="L152">        userinfo.setUsername(request.getUsername());</span>
+<span class="fc" id="L153">        userinfo.setPassword(request.getPassword());</span>
+<span class="fc" id="L154">        userinfo.setCategory(tableName);</span>
+
+<span class="fc" id="L156">        BaseResponse r = userService.userVerify(userinfo);</span>
+<span class="pc bpc" id="L157" title="1 of 4 branches missed.">        if (!(tableName.equals(&quot;user&quot;)||tableName.equals(&quot;table_record&quot;)))</span>
+        {
+<span class="fc bfc" id="L159" title="All 2 branches covered.">            if (r.getCode() != Status.SUCCESS) {</span>
+<span class="fc" id="L160">                return r;</span>
+            }
+        }
+        else{
+<span class="fc" id="L164">            return BaseResponse.with(Status.NOT_FOUND, &quot;Table Not Found&quot;);</span>
         }
         //check if the deleted fieldName null or empty
-<span class="fc" id="L116">        String conditionField = request.getConditionField();</span>
-<span class="fc" id="L117">        Object conditionValue = request.getConditionValue();</span>
+<span class="fc" id="L167">        String conditionField = request.getConditionField();</span>
+<span class="fc" id="L168">        Object conditionValue = request.getConditionValue();</span>
 
-<span class="fc bfc" id="L119" title="All 2 branches covered.">        if(conditionField.isEmpty()){</span>
-<span class="fc" id="L120">            return BaseResponse.with(Status.PARAM_ERROR,&quot;FieldName should not be Empty&quot;);</span>
+<span class="fc bfc" id="L170" title="All 2 branches covered.">        if(conditionField.isEmpty()){</span>
+<span class="fc" id="L171">            return BaseResponse.with(Status.PARAM_ERROR,&quot;FieldName should not be Empty&quot;);</span>
         }
 
         //check if the update fieldName and value valid
-<span class="fc" id="L124">        Map&lt;String,Object&gt;fieldNameValues = request.getFieldNameValues();</span>
-<span class="fc" id="L125">        QueryTableRequest request1 = new QueryTableRequest();</span>
-<span class="fc" id="L126">        request1.setTableName(tableName);</span>
-<span class="fc" id="L127">        QueryTableResponse response1 = databaseService.queryTable(request1);</span>
-<span class="fc" id="L128">        Map&lt;String, String&gt; fieldNameTypeMap = response1.getFiledNameTypeMap();</span>
+<span class="fc" id="L175">        Map&lt;String,Object&gt;fieldNameValues = request.getFieldNameValues();</span>
+<span class="fc" id="L176">        QueryTableRequest request1 = new QueryTableRequest();</span>
+<span class="fc" id="L177">        request1.setTableName(tableName);</span>
+<span class="fc" id="L178">        QueryTableResponse response1 = databaseService.queryTable(request1);</span>
+<span class="fc" id="L179">        Map&lt;String, String&gt; fieldNameTypeMap = response1.getFiledNameTypeMap();</span>
 
-<span class="fc" id="L130">        List&lt;String&gt; fieldNames = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L131">        List&lt;String&gt; values = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L181">        List&lt;String&gt; fieldNames = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L182">        List&lt;String&gt; values = new ArrayList&lt;&gt;();</span>
 
-<span class="fc bfc" id="L133" title="All 2 branches covered.">        for (Map.Entry&lt;String,Object&gt;entry:fieldNameValues.entrySet()){</span>
-<span class="fc" id="L134">            String key = entry.getKey();</span>
-<span class="fc" id="L135">            Object value = entry.getValue();</span>
+<span class="fc bfc" id="L184" title="All 2 branches covered.">        for (Map.Entry&lt;String,Object&gt;entry:fieldNameValues.entrySet()){</span>
+<span class="fc" id="L185">            String key = entry.getKey();</span>
+<span class="fc" id="L186">            Object value = entry.getValue();</span>
 
-<span class="fc bfc" id="L137" title="All 2 branches covered.">            if (!fieldNameTypeMap.containsKey(key)){</span>
-<span class="fc" id="L138">                return BaseResponse.with(Status.NOT_FOUND, &quot;Field Not Found&quot;);</span>
+<span class="fc bfc" id="L188" title="All 2 branches covered.">            if (!fieldNameTypeMap.containsKey(key)){</span>
+<span class="fc" id="L189">                return BaseResponse.with(Status.NOT_FOUND, &quot;Field Not Found&quot;);</span>
 
             }
-<span class="fc" id="L141">            String sqlType = fieldNameTypeMap.get(key);</span>
-<span class="fc bfc" id="L142" title="All 2 branches covered.">            if (!ParamUtil.isValidSqlType(value, sqlType)) {</span>
-<span class="fc" id="L143">                return BaseResponse.with(Status.PARAM_ERROR, &quot;Type Error&quot;);</span>
+<span class="fc" id="L192">            String sqlType = fieldNameTypeMap.get(key);</span>
+<span class="fc bfc" id="L193" title="All 2 branches covered.">            if (!ParamUtil.isValidSqlType(value, sqlType)) {</span>
+<span class="fc" id="L194">                return BaseResponse.with(Status.PARAM_ERROR, &quot;Type Error&quot;);</span>
             }
-<span class="fc" id="L145">            fieldNames.add(entry.getKey());</span>
-<span class="fc" id="L146">            values.add(entry.getValue().toString());</span>
+<span class="fc" id="L196">            fieldNames.add(entry.getKey());</span>
+<span class="fc" id="L197">            values.add(entry.getValue().toString());</span>
 
-<span class="fc" id="L148">        }</span>
+<span class="fc" id="L199">        }</span>
 
-<span class="fc" id="L150">        UpdateRowRequest request2 = new UpdateRowRequest();</span>
-<span class="fc" id="L151">        request2.setConditionField(conditionField);</span>
-<span class="fc" id="L152">        request2.setConditionValue(conditionValue.toString());</span>
-<span class="fc" id="L153">        request2.setTableName(tableName);</span>
-<span class="fc" id="L154">        request2.setFiledNames(fieldNames);</span>
-<span class="fc" id="L155">        request2.setValues(values);</span>
-<span class="fc" id="L156">        return tableService.update(request2);</span>
+<span class="fc" id="L201">        UpdateRowRequest request2 = new UpdateRowRequest();</span>
+<span class="fc" id="L202">        request2.setConditionField(conditionField);</span>
+<span class="fc" id="L203">        request2.setConditionValue(conditionValue.toString());</span>
+<span class="fc" id="L204">        request2.setTableName(tableName);</span>
+<span class="fc" id="L205">        request2.setFiledNames(fieldNames);</span>
+<span class="fc" id="L206">        request2.setValues(values);</span>
+<span class="fc" id="L207">        return tableService.update(request2);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

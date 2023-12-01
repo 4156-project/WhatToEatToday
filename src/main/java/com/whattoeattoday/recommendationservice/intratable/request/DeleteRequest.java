@@ -7,6 +7,8 @@ import lombok.Data;
  */
 @Data
 public class DeleteRequest {
+    public String username;
+    public String password;
     public String tableName;
     public String conditionField;
     public Object conditionValue;

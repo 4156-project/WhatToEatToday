@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.whattoeattoday.recommendationservice.TableServiceImplTest" time="0.917" tests="7" errors="0" skipped="0" failures="0">
+<testsuite name="com.whattoeattoday.recommendationservice.UserServiceImplTest" time="3.05" tests="5" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="sun.boot.library.path" value="/Users/chrisone/Library/Java/JavaVirtualMachines/corretto-1.8.0_382/Contents/Home/jre/lib"/>
@@ -64,11 +64,9 @@
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase name="test0Insert" classname="com.whattoeattoday.recommendationservice.TableServiceImplTest" time="0.364"/>
-  <testcase name="test1Update" classname="com.whattoeattoday.recommendationservice.TableServiceImplTest" time="0.039"/>
-  <testcase name="test2Query" classname="com.whattoeattoday.recommendationservice.TableServiceImplTest" time="0.071"/>
-  <testcase name="test3QueryTableRowsNum" classname="com.whattoeattoday.recommendationservice.TableServiceImplTest" time="0.121"/>
-  <testcase name="test4UpdateRowNum" classname="com.whattoeattoday.recommendationservice.TableServiceImplTest" time="0.088"/>
-  <testcase name="test5Delete" classname="com.whattoeattoday.recommendationservice.TableServiceImplTest" time="0.118"/>
-  <testcase name="testDeletePlus" classname="com.whattoeattoday.recommendationservice.TableServiceImplTest" time="0.116"/>
+  <testcase name="userVerifyTest" classname="com.whattoeattoday.recommendationservice.UserServiceImplTest" time="0.262"/>
+  <testcase name="userAddCollectionTest" classname="com.whattoeattoday.recommendationservice.UserServiceImplTest" time="0.937"/>
+  <testcase name="userLoginTest" classname="com.whattoeattoday.recommendationservice.UserServiceImplTest" time="0.274"/>
+  <testcase name="userDeleteCollectionTest" classname="com.whattoeattoday.recommendationservice.UserServiceImplTest" time="0.816"/>
+  <testcase name="userRegisterTest" classname="com.whattoeattoday.recommendationservice.UserServiceImplTest" time="0.761"/>
 </testsuite>

@@ -39,11 +39,12 @@ public class IntraTableServiceImplTest {
     @Test
     public void test0Insert(){
         InsertRequest request = new InsertRequest();
-        request.setTableName("test1016");
+        request.setUsername("Larry");
+        request.setPassword("12345");
+        request.setTableName("food");
         Map<String, Object> fieldNameValues = new HashMap<>();
-        fieldNameValues.put("name", "Lee");
-        fieldNameValues.put("gender","Male");
-        fieldNameValues.put("age", 2);
+        fieldNameValues.put("title", "testfood");
+        fieldNameValues.put("ingredients","Water");
         request.setFieldNameValues(fieldNameValues);
         BaseResponse response = intraTableService.insert(request);
         log.info("RESPONSE: {}", response);
@@ -53,9 +54,11 @@ public class IntraTableServiceImplTest {
     @Test
     public void test2Delete(){
         DeleteRequest request = new DeleteRequest();
-        request.setTableName("test1016");
-        request.setConditionField("name");
-        request.setConditionValue("Lee");
+        request.setUsername("Larry");
+        request.setPassword("12345");
+        request.setTableName("food");
+        request.setConditionField("title");
+        request.setConditionValue("updatefood");
         BaseResponse response = intraTableService.delete(request);
         log.info("RESPONSE: {}", response);
         Assert.assertEquals(response.getCode(), Status.SUCCESS);
@@ -64,21 +67,67 @@ public class IntraTableServiceImplTest {
     @Test
     public void test1Update(){
         UpdateRequest request = new UpdateRequest();
-        request.setTableName("test1016");
-        request.setConditionField("name");
-        request.setConditionValue("Lee");
+        request.setUsername("Larry");
+        request.setPassword("12345");
+        request.setTableName("food");
+        request.setConditionField("title");
+        request.setConditionValue("testfood");
         Map<String,Object>map = new HashMap<>();
-        map.put("gender","Male");
-        map.put("age",6);
+        map.put("title","updatefood");
         request.setFieldNameValues(map);
         BaseResponse response = intraTableService.update(request);
         log.info("RESPONSE: {}", response);
         Assert.assertEquals(response.getCode(), Status.SUCCESS);
     }
+    @Test
+    public void testUser0Insert(){
+        InsertRequest request = new InsertRequest();
+        request.setUsername("Larry");
+        request.setPassword("12345");
+        request.setTableName("user");
+        Map<String, Object> fieldNameValues = new HashMap<>();
+        fieldNameValues.put("title", "testfood");
+        fieldNameValues.put("ingredients","Water");
+        request.setFieldNameValues(fieldNameValues);
+        BaseResponse response = intraTableService.insert(request);
+        log.info("RESPONSE: {}", response);
+        Assert.assertEquals(response.getCode(), Status.NOT_FOUND);
+    }
+
+    @Test
+    public void testUser2Delete(){
+        DeleteRequest request = new DeleteRequest();
+        request.setUsername("Larry");
+        request.setPassword("12345");
+        request.setTableName("user");
+        request.setConditionField("title");
+        request.setConditionValue("updatefood");
+        BaseResponse response = intraTableService.delete(request);
+        log.info("RESPONSE: {}", response);
+        Assert.assertEquals(response.getCode(), Status.NOT_FOUND);
+    }
+
+    @Test
+    public void testUser1Update(){
+        UpdateRequest request = new UpdateRequest();
+        request.setUsername("Larry");
+        request.setPassword("12345");
+        request.setTableName("user");
+        request.setConditionField("title");
+        request.setConditionValue("testfood");
+        Map<String,Object>map = new HashMap<>();
+        map.put("title","updatefood");
+        request.setFieldNameValues(map);
+        BaseResponse response = intraTableService.update(request);
+        log.info("RESPONSE: {}", response);
+        Assert.assertEquals(response.getCode(), Status.NOT_FOUND);
+    }
 
     @Test
     public void testInsertF1(){
         InsertRequest request = new InsertRequest();
+        request.setUsername("Larry");
+        request.setPassword("12345");
         request.setTableName("testfault");
         Map<String, Object> fieldNameValues = new HashMap<>();
         fieldNameValues.put("name", "Lee");
@@ -93,7 +142,9 @@ public class IntraTableServiceImplTest {
     @Test
     public void testInsertF2(){
         InsertRequest request = new InsertRequest();
-        request.setTableName("test1016");
+        request.setUsername("Larry");
+        request.setPassword("12345");
+        request.setTableName("food");
         Map<String, Object> fieldNameValues = new HashMap<>();
         fieldNameValues.put("n", "Lee");
         fieldNameValues.put("gender","Male");
@@ -107,11 +158,11 @@ public class IntraTableServiceImplTest {
     @Test
     public void testInsertF3(){
         InsertRequest request = new InsertRequest();
-        request.setTableName("test1016");
+        request.setUsername("Larry");
+        request.setPassword("12345");
+        request.setTableName("food");
         Map<String, Object> fieldNameValues = new HashMap<>();
-        fieldNameValues.put("name", 1);
-        fieldNameValues.put("gender","Male");
-        fieldNameValues.put("age", 2);
+        fieldNameValues.put("title", 1);
         request.setFieldNameValues(fieldNameValues);
         BaseResponse response = intraTableService.insert(request);
         log.info("RESPONSE: {}", response);
@@ -121,6 +172,8 @@ public class IntraTableServiceImplTest {
     @Test
     public void testDeleteF1(){
         DeleteRequest request = new DeleteRequest();
+        request.setUsername("Larry");
+        request.setPassword("12345");
         request.setTableName("testF");
         request.setConditionField("name");
         request.setConditionValue("Lee");
@@ -131,7 +184,9 @@ public class IntraTableServiceImplTest {
     @Test
     public void testDeleteF2(){
         DeleteRequest request = new DeleteRequest();
-        request.setTableName("test1016");
+        request.setUsername("Larry");
+        request.setPassword("12345");
+        request.setTableName("food");
         request.setConditionField("");
         request.setConditionValue("Lee");
         BaseResponse response = intraTableService.delete(request);
@@ -142,6 +197,8 @@ public class IntraTableServiceImplTest {
     @Test
     public void testUpdateF1(){
         UpdateRequest request = new UpdateRequest();
+        request.setUsername("Larry");
+        request.setPassword("12345");
         request.setTableName("testF");
         request.setConditionField("name");
         request.setConditionValue("Lee");
@@ -157,7 +214,9 @@ public class IntraTableServiceImplTest {
     @Test
     public void testUpdateF2(){
         UpdateRequest request = new UpdateRequest();
-        request.setTableName("test1016");
+        request.setUsername("Larry");
+        request.setPassword("12345");
+        request.setTableName("food");
         request.setConditionField("");
         request.setConditionValue("Lee");
         Map<String,Object>map = new HashMap<>();
@@ -172,12 +231,13 @@ public class IntraTableServiceImplTest {
     @Test
     public void testUpdateF3(){
         UpdateRequest request = new UpdateRequest();
-        request.setTableName("test1016");
-        request.setConditionField("name");
-        request.setConditionValue("Lee");
+        request.setUsername("Larry");
+        request.setPassword("12345");
+        request.setTableName("food");
+        request.setConditionField("title");
+        request.setConditionValue("Plum-Glazed Turkey");
         Map<String,Object>map = new HashMap<>();
         map.put("g","Male");
-        map.put("age",6);
         request.setFieldNameValues(map);
         BaseResponse response = intraTableService.update(request);
         log.info("RESPONSE: {}", response);
@@ -187,16 +247,57 @@ public class IntraTableServiceImplTest {
     @Test
     public void testUpdateF4(){
         UpdateRequest request = new UpdateRequest();
-        request.setTableName("test1016");
-        request.setConditionField("name");
-        request.setConditionValue("Lee");
+        request.setUsername("Larry");
+        request.setPassword("12345");
+        request.setTableName("food");
+        request.setConditionField("title");
+        request.setConditionValue("Plum-Glazed Turkey");
         Map<String,Object>map = new HashMap<>();
-        map.put("gender",123);
-        map.put("age",6);
+        map.put("title",123);
         request.setFieldNameValues(map);
         BaseResponse response = intraTableService.update(request);
         log.info("RESPONSE: {}", response);
         Assert.assertEquals(response.getCode(), Status.PARAM_ERROR);
     }
-
+    @Test
+    public void testInsertWronguser(){
+        InsertRequest request = new InsertRequest();
+        request.setUsername("L");
+        request.setPassword("12345");
+        request.setTableName("food");
+        Map<String, Object> fieldNameValues = new HashMap<>();
+        fieldNameValues.put("title", "testfood");
+        fieldNameValues.put("ingredients","Water");
+        request.setFieldNameValues(fieldNameValues);
+        BaseResponse response = intraTableService.insert(request);
+        log.info("RESPONSE: {}", response);
+        Assert.assertEquals(response.getCode(), Status.PARAM_ERROR);
+    }
+    @Test
+    public void test2eleteWrongUser(){
+        DeleteRequest request = new DeleteRequest();
+        request.setUsername("L");
+        request.setPassword("12345");
+        request.setTableName("food");
+        request.setConditionField("title");
+        request.setConditionValue("updatefood");
+        BaseResponse response = intraTableService.delete(request);
+        log.info("RESPONSE: {}", response);
+        Assert.assertEquals(response.getCode(), Status.PARAM_ERROR);
+    }
+    @Test
+    public void testUpdateWrongUser(){
+        UpdateRequest request = new UpdateRequest();
+        request.setUsername("L");
+        request.setPassword("12345");
+        request.setTableName("food");
+        request.setConditionField("title");
+        request.setConditionValue("testfood");
+        Map<String,Object>map = new HashMap<>();
+        map.put("title","updatefood");
+        request.setFieldNameValues(map);
+        BaseResponse response = intraTableService.update(request);
+        log.info("RESPONSE: {}", response);
+        Assert.assertEquals(response.getCode(), Status.PARAM_ERROR);
+    }
 }
