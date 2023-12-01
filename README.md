@@ -65,3 +65,9 @@ http://localhost:8080/query/category/list/name (make sure you complete step 2)
 Here is a sample client of this service. \
 https://github.com/rxxnnnnn/RecipeWebsite/ 
 
+## Report From CI
+Here is the test report from CI, including branch coverage report and Postman test report
+https://github.com/4156-project/WhatToEatToday/actions
+Click on the latest workflow and the reports are in Artifacts
+branch coverage:jacoco-report/index.html
+postman test: postman-test-report
