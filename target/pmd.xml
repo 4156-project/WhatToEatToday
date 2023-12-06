@@ -1,82 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pmd xmlns="http://pmd.sourceforge.net/report/2.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://pmd.sourceforge.net/report/2.0.0 http://pmd.sourceforge.net/report_2_0_0.xsd"
-    version="6.8.0" timestamp="2023-12-06T15:35:51.217">
-<file name="/Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/intratable/service/impl/IntraTableServiceImpl.java">
-<violation beginline="61" endline="61" begincolumn="15" endcolumn="38" rule="EqualsAvoidNullRule" ruleset="AlibabaJavaOop" package="com.whattoeattoday.recommendationservice.intratable.service.impl" class="IntraTableServiceImpl" method="insert" priority="2">
-【tableNametableName】应该作为equals的参数，而不是调用方
-</violation>
-<violation beginline="61" endline="61" begincolumn="41" endcolumn="72" rule="EqualsAvoidNullRule" ruleset="AlibabaJavaOop" package="com.whattoeattoday.recommendationservice.intratable.service.impl" class="IntraTableServiceImpl" method="insert" priority="2">
-【tableNametableName】应该作为equals的参数，而不是调用方
-</violation>
-<violation beginline="61" endline="61" begincolumn="58" endcolumn="71" rule="UndefineMagicConstantRule" ruleset="AlibabaJavaConstants" package="com.whattoeattoday.recommendationservice.intratable.service.impl" class="IntraTableServiceImpl" method="insert" priority="3">
-魔法值【&quot;table_record&quot;】
-</violation>
-<violation beginline="61" endline="61" begincolumn="32" endcolumn="37" rule="UndefineMagicConstantRule" ruleset="AlibabaJavaConstants" package="com.whattoeattoday.recommendationservice.intratable.service.impl" class="IntraTableServiceImpl" method="insert" priority="3">
-魔法值【&quot;user&quot;】
-</violation>
-<violation beginline="118" endline="118" begincolumn="15" endcolumn="38" rule="EqualsAvoidNullRule" ruleset="AlibabaJavaOop" package="com.whattoeattoday.recommendationservice.intratable.service.impl" class="IntraTableServiceImpl" method="delete" priority="2">
-【tableNametableName】应该作为equals的参数，而不是调用方
-</violation>
-<violation beginline="118" endline="118" begincolumn="41" endcolumn="72" rule="EqualsAvoidNullRule" ruleset="AlibabaJavaOop" package="com.whattoeattoday.recommendationservice.intratable.service.impl" class="IntraTableServiceImpl" method="delete" priority="2">
-【tableNametableName】应该作为equals的参数，而不是调用方
-</violation>
-<violation beginline="118" endline="118" begincolumn="58" endcolumn="71" rule="UndefineMagicConstantRule" ruleset="AlibabaJavaConstants" package="com.whattoeattoday.recommendationservice.intratable.service.impl" class="IntraTableServiceImpl" method="delete" priority="3">
-魔法值【&quot;table_record&quot;】
-</violation>
-<violation beginline="118" endline="118" begincolumn="32" endcolumn="37" rule="UndefineMagicConstantRule" ruleset="AlibabaJavaConstants" package="com.whattoeattoday.recommendationservice.intratable.service.impl" class="IntraTableServiceImpl" method="delete" priority="3">
-魔法值【&quot;user&quot;】
-</violation>
-<violation beginline="157" endline="157" begincolumn="15" endcolumn="38" rule="EqualsAvoidNullRule" ruleset="AlibabaJavaOop" package="com.whattoeattoday.recommendationservice.intratable.service.impl" class="IntraTableServiceImpl" method="update" priority="2">
-【tableNametableName】应该作为equals的参数，而不是调用方
-</violation>
-<violation beginline="157" endline="157" begincolumn="41" endcolumn="72" rule="EqualsAvoidNullRule" ruleset="AlibabaJavaOop" package="com.whattoeattoday.recommendationservice.intratable.service.impl" class="IntraTableServiceImpl" method="update" priority="2">
-【tableNametableName】应该作为equals的参数，而不是调用方
-</violation>
-<violation beginline="157" endline="157" begincolumn="58" endcolumn="71" rule="UndefineMagicConstantRule" ruleset="AlibabaJavaConstants" package="com.whattoeattoday.recommendationservice.intratable.service.impl" class="IntraTableServiceImpl" method="update" priority="3">
-魔法值【&quot;table_record&quot;】
-</violation>
-<violation beginline="157" endline="157" begincolumn="32" endcolumn="37" rule="UndefineMagicConstantRule" ruleset="AlibabaJavaConstants" package="com.whattoeattoday.recommendationservice.intratable.service.impl" class="IntraTableServiceImpl" method="update" priority="3">
-魔法值【&quot;user&quot;】
+<pmd xmlns="http://pmd.sourceforge.net/report/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pmd.sourceforge.net/report/2.0.0 http://pmd.sourceforge.net/report_2_0_0.xsd" version="6.55.0" timestamp="2023-12-06T16:23:09.727">
+<file name="/Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/database/response/QueryTableResponse.java">
+<violation beginline="3" endline="3" begincolumn="1" endcolumn="22" rule="UnnecessaryImport" ruleset="Code Style" package="com.whattoeattoday.recommendationservice.database.response" class="QueryTableResponse" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_codestyle.html#unnecessaryimport" priority="4">
+Unused import 'lombok.Builder'
 </violation>
 </file>
-<file name="/Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/recommendation/service/GetRecommendationService.java">
-<violation beginline="28" endline="28" begincolumn="32" endcolumn="94" rule="AbstractMethodOrInterfaceMethodMustUseJavadocRule" ruleset="AlibabaJavaComments" package="com.whattoeattoday.recommendationservice.recommendation.service" class="GetRecommendationService" method="getRecommendationOnItem" priority="3">
-方法【getRecommendationOnItem】的异常【ExecutionException】缺少javadoc注释
+<file name="/Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/database/service/TableService.java">
+<violation beginline="3" endline="3" begincolumn="1" endcolumn="27" rule="UnnecessaryImport" ruleset="Code Style" package="com.whattoeattoday.recommendationservice.database.service" class="TableService" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_codestyle.html#unnecessaryimport" priority="4">
+Unused import 'com.google.api.Page'
 </violation>
-<violation beginline="28" endline="28" begincolumn="32" endcolumn="94" rule="AbstractMethodOrInterfaceMethodMustUseJavadocRule" ruleset="AlibabaJavaComments" package="com.whattoeattoday.recommendationservice.recommendation.service" class="GetRecommendationService" method="getRecommendationOnItem" priority="3">
-方法【getRecommendationOnItem】的异常【IOException】缺少javadoc注释
+</file>
+<file name="/Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/intertable/service/impl/InterTableServiceImpl.java">
+<violation beginline="10" endline="10" begincolumn="1" endcolumn="79" rule="UnnecessaryImport" ruleset="Code Style" package="com.whattoeattoday.recommendationservice.intertable.service.impl" class="InterTableServiceImpl" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_codestyle.html#unnecessaryimport" priority="4">
+Unused import 'com.whattoeattoday.recommendationservice.query.service.api.QueryService'
 </violation>
-<violation beginline="28" endline="28" begincolumn="32" endcolumn="94" rule="AbstractMethodOrInterfaceMethodMustUseJavadocRule" ruleset="AlibabaJavaComments" package="com.whattoeattoday.recommendationservice.recommendation.service" class="GetRecommendationService" method="getRecommendationOnItem" priority="3">
-方法【getRecommendationOnItem】的异常【InterruptedException】缺少javadoc注释
+<violation beginline="71" endline="73" begincolumn="13" endcolumn="13" rule="CollapsibleIfStatements" ruleset="Design" package="com.whattoeattoday.recommendationservice.intertable.service.impl" class="InterTableServiceImpl" method="createTable" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_design.html#collapsibleifstatements" priority="3">
+These nested if statements could be combined
+</violation>
+<violation beginline="77" endline="79" begincolumn="13" endcolumn="13" rule="CollapsibleIfStatements" ruleset="Design" package="com.whattoeattoday.recommendationservice.intertable.service.impl" class="InterTableServiceImpl" method="createTable" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_design.html#collapsibleifstatements" priority="3">
+These nested if statements could be combined
+</violation>
+</file>
+<file name="/Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/query/controller/QueryController.java">
+<violation beginline="8" endline="8" begincolumn="1" endcolumn="40" rule="UnnecessaryImport" ruleset="Code Style" package="com.whattoeattoday.recommendationservice.query.controller" class="QueryController" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_codestyle.html#unnecessaryimport" priority="4">
+Unused import 'io.github.yedaxia.apidocs.Ignore'
+</violation>
+</file>
+<file name="/Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/query/request/QueryCategoryByNameRequest.java">
+<violation beginline="5" endline="5" begincolumn="1" endcolumn="22" rule="UnnecessaryImport" ruleset="Code Style" package="com.whattoeattoday.recommendationservice.query.request" class="QueryCategoryByNameRequest" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_codestyle.html#unnecessaryimport" priority="4">
+Unused import 'java.util.List'
+</violation>
+</file>
+<file name="/Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/query/service/impl/QueryServiceImpl.java">
+<violation beginline="18" endline="18" begincolumn="1" endcolumn="27" rule="UnnecessaryImport" ruleset="Code Style" package="com.whattoeattoday.recommendationservice.query.service.impl" class="QueryServiceImpl" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_codestyle.html#unnecessaryimport" priority="4">
+Unused import 'java.util.ArrayList'
+</violation>
+<violation beginline="20" endline="20" begincolumn="1" endcolumn="22" rule="UnnecessaryImport" ruleset="Code Style" package="com.whattoeattoday.recommendationservice.query.service.impl" class="QueryServiceImpl" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_codestyle.html#unnecessaryimport" priority="4">
+Unused import 'java.util.List'
 </violation>
 </file>
 <file name="/Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/recommendation/service/impl/GetRecommendationServiceImpl.java">
-<violation beginline="160" endline="160" begincolumn="21" endcolumn="101" rule="AvoidPatternCompileInMethodRule" ruleset="AlibabaJavaOthers" package="com.whattoeattoday.recommendationservice.recommendation.service.impl" class="GetRecommendationServiceImpl" method="callDataProc" priority="1">
-变量【matches】应定义为常量或者字段
+<violation beginline="17" endline="17" begincolumn="1" endcolumn="51" rule="UnnecessaryImport" ruleset="Code Style" package="com.whattoeattoday.recommendationservice.recommendation.service.impl" class="GetRecommendationServiceImpl" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_codestyle.html#unnecessaryimport" priority="4">
+Unused import 'org.springframework.dao.DataAccessException'
 </violation>
 </file>
 <file name="/Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/user/service/impl/UserServiceImpl.java">
-<violation beginline="38" endline="38" begincolumn="33" endcolumn="36" rule="ConstantFieldShouldBeUpperCaseRule" ruleset="AlibabaJavaNaming" package="com.whattoeattoday.recommendationservice.user.service.impl" class="UserServiceImpl" variable="salt" priority="2">
-常量【salt】命名应全部大写并以下划线分隔
+<violation beginline="169" endline="169" begincolumn="22" endcolumn="35" rule="UnusedLocalVariable" ruleset="Best Practices" package="com.whattoeattoday.recommendationservice.user.service.impl" class="UserServiceImpl" method="userAddCollection" variable="insertResponse" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_bestpractices.html#unusedlocalvariable" priority="3">
+Avoid unused local variables such as 'insertResponse'.
 </violation>
-<violation beginline="237" endline="237" begincolumn="16" endcolumn="28" rule="LowerCamelCaseVariableNamingRule" ruleset="AlibabaJavaNaming" package="com.whattoeattoday.recommendationservice.user.service.impl" class="UserServiceImpl" method="checkEmail" variable="EMAIL_PATTERN" priority="2">
-变量名【EMAIL_PATTERN】不符合lowerCamelCase命名风格
-</violation>
-</file>
-<file name="/Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/user/utils/MD5Util.java">
-<violation beginline="14" endline="59" begincolumn="8" endcolumn="1" rule="ClassNamingShouldBeCamelRule" ruleset="AlibabaJavaNaming" package="com.whattoeattoday.recommendationservice.user.utils" class="MD5Util" priority="3">
-【MD5Util】不符合UpperCamelCase命名风格
-</violation>
-<violation beginline="20" endline="20" begincolumn="33" endcolumn="36" rule="ConstantFieldShouldBeUpperCaseRule" ruleset="AlibabaJavaNaming" package="com.whattoeattoday.recommendationservice.user.utils" class="MD5Util" variable="salt" priority="2">
-常量【salt】命名应全部大写并以下划线分隔
-</violation>
-<violation beginline="43" endline="43" begincolumn="26" endcolumn="71" rule="LowerCamelCaseVariableNamingRule" ruleset="AlibabaJavaNaming" package="com.whattoeattoday.recommendationservice.user.utils" class="MD5Util" method="formPassToDBPass" priority="2">
-方法名【formPassToDBPass】不符合lowerCamelCase命名风格
-</violation>
-<violation beginline="48" endline="48" begincolumn="26" endcolumn="73" rule="LowerCamelCaseVariableNamingRule" ruleset="AlibabaJavaNaming" package="com.whattoeattoday.recommendationservice.user.utils" class="MD5Util" method="inputPassToDBPass" priority="2">
-方法名【inputPassToDBPass】不符合lowerCamelCase命名风格
+<violation beginline="205" endline="205" begincolumn="22" endcolumn="35" rule="UnusedLocalVariable" ruleset="Best Practices" package="com.whattoeattoday.recommendationservice.user.service.impl" class="UserServiceImpl" method="userDeleteCollection" variable="deleteResponse" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_bestpractices.html#unusedlocalvariable" priority="3">
+Avoid unused local variables such as 'deleteResponse'.
 </violation>
 </file>
 </pmd>

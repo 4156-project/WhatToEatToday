@@ -1,0 +1,11 @@
+{
+  "groups": [
+    {
+      "name": "dataproc",
+      "type": "com.whattoeattoday.recommendationservice.recommendation.service.impl.GetRecommendationServiceImpl",
+      "sourceType": "com.whattoeattoday.recommendationservice.recommendation.service.impl.GetRecommendationServiceImpl"
+    }
+  ],
+  "properties": [],
+  "hints": []
+}
