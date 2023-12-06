@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmd xmlns="http://pmd.sourceforge.net/report/2.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pmd.sourceforge.net/report/2.0.0 http://pmd.sourceforge.net/report_2_0_0.xsd"
+    version="6.8.0" timestamp="2023-12-06T15:35:51.217">
+<file name="/Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/intratable/service/impl/IntraTableServiceImpl.java">
+<violation beginline="61" endline="61" begincolumn="15" endcolumn="38" rule="EqualsAvoidNullRule" ruleset="AlibabaJavaOop" package="com.whattoeattoday.recommendationservice.intratable.service.impl" class="IntraTableServiceImpl" method="insert" priority="2">
+【tableNametableName】应该作为equals的参数，而不是调用方
+</violation>
+<violation beginline="61" endline="61" begincolumn="41" endcolumn="72" rule="EqualsAvoidNullRule" ruleset="AlibabaJavaOop" package="com.whattoeattoday.recommendationservice.intratable.service.impl" class="IntraTableServiceImpl" method="insert" priority="2">
+【tableNametableName】应该作为equals的参数，而不是调用方
+</violation>
+<violation beginline="61" endline="61" begincolumn="58" endcolumn="71" rule="UndefineMagicConstantRule" ruleset="AlibabaJavaConstants" package="com.whattoeattoday.recommendationservice.intratable.service.impl" class="IntraTableServiceImpl" method="insert" priority="3">
+魔法值【&quot;table_record&quot;】
+</violation>
+<violation beginline="61" endline="61" begincolumn="32" endcolumn="37" rule="UndefineMagicConstantRule" ruleset="AlibabaJavaConstants" package="com.whattoeattoday.recommendationservice.intratable.service.impl" class="IntraTableServiceImpl" method="insert" priority="3">
+魔法值【&quot;user&quot;】
+</violation>
+<violation beginline="118" endline="118" begincolumn="15" endcolumn="38" rule="EqualsAvoidNullRule" ruleset="AlibabaJavaOop" package="com.whattoeattoday.recommendationservice.intratable.service.impl" class="IntraTableServiceImpl" method="delete" priority="2">
+【tableNametableName】应该作为equals的参数，而不是调用方
+</violation>
+<violation beginline="118" endline="118" begincolumn="41" endcolumn="72" rule="EqualsAvoidNullRule" ruleset="AlibabaJavaOop" package="com.whattoeattoday.recommendationservice.intratable.service.impl" class="IntraTableServiceImpl" method="delete" priority="2">
+【tableNametableName】应该作为equals的参数，而不是调用方
+</violation>
+<violation beginline="118" endline="118" begincolumn="58" endcolumn="71" rule="UndefineMagicConstantRule" ruleset="AlibabaJavaConstants" package="com.whattoeattoday.recommendationservice.intratable.service.impl" class="IntraTableServiceImpl" method="delete" priority="3">
+魔法值【&quot;table_record&quot;】
+</violation>
+<violation beginline="118" endline="118" begincolumn="32" endcolumn="37" rule="UndefineMagicConstantRule" ruleset="AlibabaJavaConstants" package="com.whattoeattoday.recommendationservice.intratable.service.impl" class="IntraTableServiceImpl" method="delete" priority="3">
+魔法值【&quot;user&quot;】
+</violation>
+<violation beginline="157" endline="157" begincolumn="15" endcolumn="38" rule="EqualsAvoidNullRule" ruleset="AlibabaJavaOop" package="com.whattoeattoday.recommendationservice.intratable.service.impl" class="IntraTableServiceImpl" method="update" priority="2">
+【tableNametableName】应该作为equals的参数，而不是调用方
+</violation>
+<violation beginline="157" endline="157" begincolumn="41" endcolumn="72" rule="EqualsAvoidNullRule" ruleset="AlibabaJavaOop" package="com.whattoeattoday.recommendationservice.intratable.service.impl" class="IntraTableServiceImpl" method="update" priority="2">
+【tableNametableName】应该作为equals的参数，而不是调用方
+</violation>
+<violation beginline="157" endline="157" begincolumn="58" endcolumn="71" rule="UndefineMagicConstantRule" ruleset="AlibabaJavaConstants" package="com.whattoeattoday.recommendationservice.intratable.service.impl" class="IntraTableServiceImpl" method="update" priority="3">
+魔法值【&quot;table_record&quot;】
+</violation>
+<violation beginline="157" endline="157" begincolumn="32" endcolumn="37" rule="UndefineMagicConstantRule" ruleset="AlibabaJavaConstants" package="com.whattoeattoday.recommendationservice.intratable.service.impl" class="IntraTableServiceImpl" method="update" priority="3">
+魔法值【&quot;user&quot;】
+</violation>
+</file>
+<file name="/Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/recommendation/service/GetRecommendationService.java">
+<violation beginline="28" endline="28" begincolumn="32" endcolumn="94" rule="AbstractMethodOrInterfaceMethodMustUseJavadocRule" ruleset="AlibabaJavaComments" package="com.whattoeattoday.recommendationservice.recommendation.service" class="GetRecommendationService" method="getRecommendationOnItem" priority="3">
+方法【getRecommendationOnItem】的异常【ExecutionException】缺少javadoc注释
+</violation>
+<violation beginline="28" endline="28" begincolumn="32" endcolumn="94" rule="AbstractMethodOrInterfaceMethodMustUseJavadocRule" ruleset="AlibabaJavaComments" package="com.whattoeattoday.recommendationservice.recommendation.service" class="GetRecommendationService" method="getRecommendationOnItem" priority="3">
+方法【getRecommendationOnItem】的异常【IOException】缺少javadoc注释
+</violation>
+<violation beginline="28" endline="28" begincolumn="32" endcolumn="94" rule="AbstractMethodOrInterfaceMethodMustUseJavadocRule" ruleset="AlibabaJavaComments" package="com.whattoeattoday.recommendationservice.recommendation.service" class="GetRecommendationService" method="getRecommendationOnItem" priority="3">
+方法【getRecommendationOnItem】的异常【InterruptedException】缺少javadoc注释
+</violation>
+</file>
+<file name="/Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/recommendation/service/impl/GetRecommendationServiceImpl.java">
+<violation beginline="160" endline="160" begincolumn="21" endcolumn="101" rule="AvoidPatternCompileInMethodRule" ruleset="AlibabaJavaOthers" package="com.whattoeattoday.recommendationservice.recommendation.service.impl" class="GetRecommendationServiceImpl" method="callDataProc" priority="1">
+变量【matches】应定义为常量或者字段
+</violation>
+</file>
+<file name="/Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/user/service/impl/UserServiceImpl.java">
+<violation beginline="38" endline="38" begincolumn="33" endcolumn="36" rule="ConstantFieldShouldBeUpperCaseRule" ruleset="AlibabaJavaNaming" package="com.whattoeattoday.recommendationservice.user.service.impl" class="UserServiceImpl" variable="salt" priority="2">
+常量【salt】命名应全部大写并以下划线分隔
+</violation>
+<violation beginline="237" endline="237" begincolumn="16" endcolumn="28" rule="LowerCamelCaseVariableNamingRule" ruleset="AlibabaJavaNaming" package="com.whattoeattoday.recommendationservice.user.service.impl" class="UserServiceImpl" method="checkEmail" variable="EMAIL_PATTERN" priority="2">
+变量名【EMAIL_PATTERN】不符合lowerCamelCase命名风格
+</violation>
+</file>
+<file name="/Users/chrisone/IdeaProjects/WhatToEatToday/src/main/java/com/whattoeattoday/recommendationservice/user/utils/MD5Util.java">
+<violation beginline="14" endline="59" begincolumn="8" endcolumn="1" rule="ClassNamingShouldBeCamelRule" ruleset="AlibabaJavaNaming" package="com.whattoeattoday.recommendationservice.user.utils" class="MD5Util" priority="3">
+【MD5Util】不符合UpperCamelCase命名风格
+</violation>
+<violation beginline="20" endline="20" begincolumn="33" endcolumn="36" rule="ConstantFieldShouldBeUpperCaseRule" ruleset="AlibabaJavaNaming" package="com.whattoeattoday.recommendationservice.user.utils" class="MD5Util" variable="salt" priority="2">
+常量【salt】命名应全部大写并以下划线分隔
+</violation>
+<violation beginline="43" endline="43" begincolumn="26" endcolumn="71" rule="LowerCamelCaseVariableNamingRule" ruleset="AlibabaJavaNaming" package="com.whattoeattoday.recommendationservice.user.utils" class="MD5Util" method="formPassToDBPass" priority="2">
+方法名【formPassToDBPass】不符合lowerCamelCase命名风格
+</violation>
+<violation beginline="48" endline="48" begincolumn="26" endcolumn="73" rule="LowerCamelCaseVariableNamingRule" ruleset="AlibabaJavaNaming" package="com.whattoeattoday.recommendationservice.user.utils" class="MD5Util" method="inputPassToDBPass" priority="2">
+方法名【inputPassToDBPass】不符合lowerCamelCase命名风格
+</violation>
+</file>
+</pmd>

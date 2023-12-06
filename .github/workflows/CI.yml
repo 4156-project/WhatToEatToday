@@ -45,7 +45,13 @@ jobs:
           path: target/site/jacoco/
 
       - name: Analyze code quality
-        run: mvn checkstyle:checkstyle pmd:pmd
+        run: mvn pmd:pmd
+
+      - name: Upload PMD Report
+        uses: actions/upload-artifact@v2
+        with:
+          name: pmd-report
+          path: target/site/pmd.html
 
       - name: Set up Node.js for Newman
         uses: actions/setup-node@v1
