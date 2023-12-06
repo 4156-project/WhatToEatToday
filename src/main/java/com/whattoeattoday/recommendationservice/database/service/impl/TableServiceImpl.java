@@ -141,6 +141,9 @@ public class TableServiceImpl implements TableService {
         List<Map<String, Object>> maps = jdbcTemplate.queryForList("SHOW INDEX FROM " + request.getCategoryName());
         StringBuilder columnNames = new StringBuilder();
         for (Map<String, Object> map : maps) {
+            if ("id".equals(map.get("Column_name"))) {
+                continue;
+            }
             columnNames.append(map.get("Column_name"));
             columnNames.append(", ");
         }
