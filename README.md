@@ -70,4 +70,5 @@ Here is the test report from CI, including branch coverage report and Postman te
 https://github.com/4156-project/WhatToEatToday/actions \
 Click on the latest workflow and the reports are in Artifacts: \
 branch coverage:jacoco-report/index.html \
+Static code analysis: pmd-report \
 postman test: postman-test-report
