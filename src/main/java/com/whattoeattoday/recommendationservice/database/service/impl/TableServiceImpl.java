@@ -141,13 +141,16 @@ public class TableServiceImpl implements TableService {
         List<Map<String, Object>> maps = jdbcTemplate.queryForList("SHOW INDEX FROM " + request.getCategoryName());
         StringBuilder columnNames = new StringBuilder();
         for (Map<String, Object> map : maps) {
+            if ("id".equals(map.get("Column_name"))) {
+                continue;
+            }
             columnNames.append(map.get("Column_name"));
             columnNames.append(", ");
         }
         columnNames.delete(columnNames.length()-2, columnNames.length());
         String sql = String.format("SELECT * FROM %s WHERE MATCH ( %s ) AGAINST ( '%s' IN NATURAL LANGUAGE MODE )"
                 , request.getCategoryName(), columnNames, request.getKeyword());
-        sql = sql + String.format("LIMIT %s offset %s;", "10", "0");
+        sql = sql + String.format(" LIMIT %s offset %s;", "10", "0");
         List<Map<String, Object>> mapList = jdbcTemplate.queryForList(sql);
         PageInfo pageInfo = PageInfo.builder()
                 .pageNo(1)
