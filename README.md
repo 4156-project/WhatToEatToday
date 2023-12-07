@@ -61,6 +61,8 @@ Let's have a quick test on ListAllCategoryName API which responds with names of 
 
 http://localhost:8080/query/category/list/name (make sure you complete step 2)
 
+Some parts of our service rely on a third party database and computing clusters. To save the education free trial credit, these third party services are only in use during demo.
+
 ## Sample Client App
 Here is a sample client of this service. \
 https://github.com/rxxnnnnn/RecipeWebsite/ 
