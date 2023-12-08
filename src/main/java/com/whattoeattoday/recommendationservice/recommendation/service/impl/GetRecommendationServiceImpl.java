@@ -8,9 +8,15 @@ import com.google.cloud.storage.StorageOptions;
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
 import com.whattoeattoday.recommendationservice.common.PageInfo;
 import com.whattoeattoday.recommendationservice.common.Status;
+import com.whattoeattoday.recommendationservice.database.request.row.QueryRowRequest;
+import com.whattoeattoday.recommendationservice.database.service.TableService;
+import com.whattoeattoday.recommendationservice.recommendation.request.GetRecommendationOnSimilarUserRequest;
 import com.whattoeattoday.recommendationservice.recommendation.request.GetRecommendationOnUserRequest;
 import com.whattoeattoday.recommendationservice.recommendation.request.GetRecommendationOnItemRequest;
 import com.whattoeattoday.recommendationservice.recommendation.service.GetRecommendationService;
+import com.whattoeattoday.recommendationservice.user.model.User;
+import com.whattoeattoday.recommendationservice.user.request.UserVerifyRequest;
+import com.whattoeattoday.recommendationservice.user.service.api.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -20,9 +26,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -46,6 +50,12 @@ public class GetRecommendationServiceImpl implements GetRecommendationService {
 
     @Resource
     private JdbcTemplate jdbcTemplate;
+
+    @Resource
+    private UserService userService;
+
+    @Resource
+    private TableService tableService;
 
     @Override
     public BaseResponse<List<String>> getRecommendationOnUser(GetRecommendationOnUserRequest request) {
@@ -114,6 +124,61 @@ public class GetRecommendationServiceImpl implements GetRecommendationService {
 
         List<String> resultList = callDataProc(region, projectId, clusterName, argsArr, mainClass, jarFileUris);
         return BaseResponse.with(Status.SUCCESS, resultList);
+    }
+
+    @Override
+    public BaseResponse<List<String>> recommendOnSimilarUser(GetRecommendationOnSimilarUserRequest request) {
+        UserVerifyRequest userVerifyRequest = new UserVerifyRequest();
+        userVerifyRequest.setUsername(request.getUsername());
+        userVerifyRequest.setPassword(request.getPassword());
+        userVerifyRequest.setCategory(request.getCategory());
+        BaseResponse response = userService.userVerify(userVerifyRequest);
+        if (!response.getCode().equals(Status.SUCCESS)) {
+            return BaseResponse.with(Status.PARAM_ERROR, "Invalid Input!");
+        }
+        User user = userService.getUserByUsername(request.getUsername());
+        Set<Long> baseCollection = user.getCollection();
+        // get all user's collections
+        QueryRowRequest queryRowRequest = QueryRowRequest.builder().build();
+        queryRowRequest.setTableName("user");
+        queryRowRequest.setConditionField("category");
+        queryRowRequest.setConditionValue("food");
+        queryRowRequest.setFieldNames(new ArrayList<>(Arrays.asList("username")));
+        queryRowRequest.setPageInfo(PageInfo.builder().pageNo(1).pageSize(100).build());
+        PageInfo queryResponse = tableService.query(queryRowRequest);
+        List<String> resultList = new ArrayList<>();
+        for (Map<String, Object> oneUser : queryResponse.getPageData()) {
+            String username = String.valueOf(oneUser.get("username"));
+            User curUser = userService.getUserByUsername(username);
+            Set<Long> curCollection = curUser.getCollection();
+            double similarScore = getJaccardScore(baseCollection, curCollection);
+            if (similarScore > 0.7) {
+                Set<Long> difference = new HashSet<>(curCollection);
+                difference.removeAll(baseCollection);
+                for (Long item : difference) {
+                    if (resultList.size() >= request.getRankTopSize()) {
+                        break;
+                    }
+                    resultList.add(Long.toString(item));
+                }
+            }
+        }
+        return BaseResponse.with(Status.SUCCESS, resultList);
+    }
+
+    /**
+     * calculate Jaccard similarity = |set1 ∩ set2|/|set1 ∪ set2|
+     * @param set1
+     * @param set2
+     * @return
+     */
+    private double getJaccardScore(Set<Long> set1, Set<Long> set2) {
+        Set<Long> intersection = new HashSet<>(set1);
+        intersection.retainAll(set2);
+        Set<Long> union = new HashSet<>(set1);
+        union.addAll(set2);
+        double jaccardScore = (double) intersection.size() / union.size();
+        return jaccardScore;
     }
 
     public static List<String> callDataProc(String region, String projectId, String clusterName, String[] argsArr, String mainClass, String jarFileUris) {

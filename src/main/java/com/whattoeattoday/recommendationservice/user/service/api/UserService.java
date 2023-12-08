@@ -1,6 +1,7 @@
 package com.whattoeattoday.recommendationservice.user.service.api;
 
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
+import com.whattoeattoday.recommendationservice.user.model.User;
 import com.whattoeattoday.recommendationservice.user.request.UserCollectionRequest;
 import com.whattoeattoday.recommendationservice.user.request.UserLoginRequest;
 import com.whattoeattoday.recommendationservice.user.request.UserRegisterRequest;
@@ -45,4 +46,11 @@ public interface UserService {
      * @return
      */
     BaseResponse userDeleteCollection(UserCollectionRequest request);
+
+    /**
+     * get user by username
+     * @param username
+     * @return
+     */
+    User getUserByUsername(String username);
 }

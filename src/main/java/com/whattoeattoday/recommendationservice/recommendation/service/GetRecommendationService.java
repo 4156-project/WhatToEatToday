@@ -1,6 +1,7 @@
 package com.whattoeattoday.recommendationservice.recommendation.service;
 
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
+import com.whattoeattoday.recommendationservice.recommendation.request.GetRecommendationOnSimilarUserRequest;
 import com.whattoeattoday.recommendationservice.recommendation.request.GetRecommendationOnUserRequest;
 import com.whattoeattoday.recommendationservice.recommendation.request.GetRecommendationOnItemRequest;
 
@@ -26,4 +27,11 @@ public interface GetRecommendationService {
      * @return
      */
     BaseResponse<List<String>> getRecommendationOnItem(GetRecommendationOnItemRequest request) throws IOException, ExecutionException, InterruptedException;
+
+    /**
+     * Generate top-k Similar items to the given id, based on the given filed names
+     * @param request
+     * @return
+     */
+    BaseResponse<List<String>> recommendOnSimilarUser(GetRecommendationOnSimilarUserRequest request);
 }
