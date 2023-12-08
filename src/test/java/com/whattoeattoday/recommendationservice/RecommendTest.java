@@ -2,6 +2,7 @@ package com.whattoeattoday.recommendationservice;
 
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
 import com.whattoeattoday.recommendationservice.recommendation.request.GetRecommendationOnItemRequest;
+import com.whattoeattoday.recommendationservice.recommendation.request.GetRecommendationOnSimilarUserRequest;
 import com.whattoeattoday.recommendationservice.recommendation.request.GetRecommendationOnUserRequest;
 import com.whattoeattoday.recommendationservice.recommendation.service.impl.GetRecommendationServiceImpl;
 import lombok.extern.slf4j.Slf4j;

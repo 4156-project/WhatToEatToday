@@ -1,6 +1,7 @@
 package com.whattoeattoday.recommendationservice.recommendation.controller;
 
 import com.whattoeattoday.recommendationservice.common.BaseResponse;
+import com.whattoeattoday.recommendationservice.recommendation.request.GetRecommendationOnSimilarUserRequest;
 import com.whattoeattoday.recommendationservice.recommendation.service.GetRecommendationService;
 import com.whattoeattoday.recommendationservice.recommendation.request.GetRecommendationOnUserRequest;
 import com.whattoeattoday.recommendationservice.recommendation.request.GetRecommendationOnItemRequest;
@@ -39,5 +40,15 @@ public class RecommendationController {
     @PostMapping("/recommend/user")
     public BaseResponse<List<String>> recommendOnUser(@RequestBody GetRecommendationOnUserRequest request){
         return getRecommendationService.getRecommendationOnUser(request);
+    }
+
+    /**
+     * Generate top-k similar items to the given user, based on whose collection
+     * @param request
+     * @return
+     */
+    @PostMapping("/recommend/similar-user")
+    public BaseResponse<List<String>> recommendOnSimilarUser(@RequestBody GetRecommendationOnSimilarUserRequest request){
+        return getRecommendationService.recommendOnSimilarUser(request);
     }
 }

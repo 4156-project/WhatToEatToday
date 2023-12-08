@@ -240,7 +240,7 @@ public class UserServiceImpl implements UserService {
         return matcher.matches();
     }
 
-    private User getUserByUsername(String username) {
+    public User getUserByUsername(String username) {
         QueryRowRequest queryRowRequest = QueryRowRequest.builder().build();
         queryRowRequest.setTableName("user");
         List<String> fieldNames = new ArrayList<>();

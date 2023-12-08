@@ -4,6 +4,8 @@ import com.whattoeattoday.recommendationservice.common.BaseResponse;
 import com.whattoeattoday.recommendationservice.common.Status;
 import com.whattoeattoday.recommendationservice.database.request.row.DeleteRowRequest;
 import com.whattoeattoday.recommendationservice.database.service.impl.TableServiceImpl;
+import com.whattoeattoday.recommendationservice.recommendation.request.GetRecommendationOnSimilarUserRequest;
+import com.whattoeattoday.recommendationservice.recommendation.service.impl.GetRecommendationServiceImpl;
 import com.whattoeattoday.recommendationservice.user.request.UserCollectionRequest;
 import com.whattoeattoday.recommendationservice.user.request.UserLoginRequest;
 import com.whattoeattoday.recommendationservice.user.request.UserRegisterRequest;
@@ -17,6 +19,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Slf4j
 @RunWith(SpringRunner.class)
@@ -25,9 +28,10 @@ public class UserServiceImplTest {
 
     @Resource
     private UserServiceImpl userService;
-
     @Resource
     private TableServiceImpl tableService;
+    @Resource
+    private GetRecommendationServiceImpl getRecommendationService;
 
     @Test
     public void userRegisterTest() {
@@ -71,9 +75,9 @@ public class UserServiceImplTest {
         response = userService.userRegister(request);
         Assert.assertEquals(response.getCode(), Status.DUPLICATE_ERROR);
         // test register successfully
-        request.setUsername("Wendy");
-        request.setPassword("54321");
-        request.setEmail("wd4672@columbia.edu");
+        request.setUsername("elder4");
+        request.setPassword("12345");
+        request.setEmail("elder1@163.com");
         request.setCategory("food");
         response = userService.userRegister(request);
         Assert.assertEquals(response.getCode(), Status.SUCCESS);
@@ -81,7 +85,7 @@ public class UserServiceImplTest {
         DeleteRowRequest deleteRowRequest = new DeleteRowRequest();
         deleteRowRequest.setTableName("user");
         deleteRowRequest.setConditionField("username");
-        deleteRowRequest.setConditionValue("Wendy");
+        deleteRowRequest.setConditionValue("elder4");
         tableService.delete(deleteRowRequest);
     }
 
@@ -172,6 +176,24 @@ public class UserServiceImplTest {
         Assert.assertEquals(response.getCode(), Status.SUCCESS);
     }
 
+//    @Test
+//    public void userAddCollectionTest2() {
+//        UserCollectionRequest request = new UserCollectionRequest();
+//        // check Category Not Valid
+//        request.setUsername("elder3");
+//        request.setPassword("12345");
+//        request.setCategory("food");
+//        request.setItemId("1005");
+//        BaseResponse response = userService.userAddCollection(request);
+//        request.setItemId("337");
+//        response = userService.userAddCollection(request);
+//        request.setItemId("10658");
+//        response = userService.userAddCollection(request);
+//        request.setItemId("992");
+//        response = userService.userAddCollection(request);
+//        Assert.assertEquals(response.getCode(), Status.SUCCESS);
+//    }
+
     @Test
     public void userDeleteCollectionTest() {
         UserCollectionRequest request = new UserCollectionRequest();
@@ -196,5 +218,19 @@ public class UserServiceImplTest {
         request.setItemId("10");
         response = userService.userDeleteCollection(request);
         Assert.assertEquals(response.getCode(), Status.SUCCESS);
+    }
+
+    @Test
+    public void test03RecommendOnSimilarUsers() {
+        GetRecommendationOnSimilarUserRequest request = new GetRecommendationOnSimilarUserRequest();
+        request.setUsername("elder1");
+        request.setPassword("12345");
+        request.setRankTopSize(10);
+        BaseResponse<List<String>> results = getRecommendationService.recommendOnSimilarUser(request);
+        Assert.assertEquals(results.getCode(), Status.PARAM_ERROR);
+        request.setCategory("food");
+        results = getRecommendationService.recommendOnSimilarUser(request);
+        Assert.assertEquals(results.getCode(), Status.SUCCESS);
+        System.out.println(results.getData());
     }
 }
