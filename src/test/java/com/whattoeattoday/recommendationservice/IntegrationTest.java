@@ -99,6 +99,8 @@ public class IntegrationTest {
         FuzzySearchContentRequest request5 = new FuzzySearchContentRequest();
         request5.setCategoryName("food");
         request5.setKeyword("broccoli");
+        request5.setPageNo("1");
+        request5.setPageSize("10");
         BaseResponse<PageInfo> response2 = queryService.fuzzySearchContent(request5);
         log.info("TestFuzzyQuery RESPONSE: {}", response2);
         Assert.assertTrue(response2.isSuccess());
@@ -130,9 +132,6 @@ public class IntegrationTest {
         deleteRowRequest.setConditionField("username");
         deleteRowRequest.setConditionValue("elder4");
         tableService.delete(deleteRowRequest);
-
-
-
     }
 
 }

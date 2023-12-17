@@ -75,7 +75,7 @@ public class UserServiceImplTest {
         response = userService.userRegister(request);
         Assert.assertEquals(response.getCode(), Status.DUPLICATE_ERROR);
         // test register successfully
-        request.setUsername("elder4");
+        request.setUsername("elder5");
         request.setPassword("12345");
         request.setEmail("elder1@163.com");
         request.setCategory("food");
@@ -85,7 +85,7 @@ public class UserServiceImplTest {
         DeleteRowRequest deleteRowRequest = new DeleteRowRequest();
         deleteRowRequest.setTableName("user");
         deleteRowRequest.setConditionField("username");
-        deleteRowRequest.setConditionValue("elder4");
+        deleteRowRequest.setConditionValue("elder5");
         tableService.delete(deleteRowRequest);
     }
 
