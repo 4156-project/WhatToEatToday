@@ -153,8 +153,8 @@ public class TableServiceImpl implements TableService {
         sql = sql + String.format(" LIMIT %s offset %s;", "10", "0");
         List<Map<String, Object>> mapList = jdbcTemplate.queryForList(sql);
         PageInfo pageInfo = PageInfo.builder()
-                .pageNo(1)
-                .pageSize(10)
+                .pageNo(Integer.valueOf(request.getPageNo()))
+                .pageSize(Integer.valueOf(request.getPageSize()))
                 .pageData(mapList)
                 .build();
         return pageInfo;
