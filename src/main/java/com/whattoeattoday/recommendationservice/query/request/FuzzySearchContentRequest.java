@@ -10,4 +10,6 @@ import lombok.Data;
 public class FuzzySearchContentRequest {
     String categoryName;
     String keyword;
+    String pageNo;
+    String pageSize;
 }

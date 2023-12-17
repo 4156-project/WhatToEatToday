@@ -118,6 +118,8 @@ public class QueryServiceImplTest {
         FuzzySearchContentRequest request = new FuzzySearchContentRequest();
         request.setCategoryName("food");
         request.setKeyword("broccoli");
+        request.setPageSize("10");
+        request.setPageNo("1");
         BaseResponse<PageInfo> response = queryService.fuzzySearchContent(request);
         log.info("TestFuzzyQuery RESPONSE: {}", response);
         Assert.assertTrue(response.isSuccess());
